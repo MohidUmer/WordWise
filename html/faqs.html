@@ -1,0 +1,397 @@
+<!-- faqs.html -->
+<!DOCTYPE html>
+<html lang="en" class="light">
+<!-- Head Section  -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WordWise — FAQs</title>
+
+  <!-- Related Links -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/logo.jpeg">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+  <!--Script Links -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <!-- Enable Tailwind dark mode -->
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+
+  <!-- style section -->
+  <style>
+    .logo-animate {
+      transition: all 0.5s ease;
+    }
+
+    .logo-animate:hover {
+      transform: rotate(360deg) scale(1.1);
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+    }
+
+    .faq-item {
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      transform: scale(1.02);
+    }
+
+    /* Fixed at bottom-right */
+    #questionBox {
+      position: fixed;
+      bottom: 0;
+      right: 20px;
+      width: 280px;
+      background-color: white;
+      /* default light mode */
+      padding: 8px;
+      border-radius: 12px 12px 0 0;
+      box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      height: 40px;
+      transition: all 0.3s ease;
+      z-index: 50;
+    }
+
+    /* Dark mode background */
+    body.dark #questionBox {
+      background-color: #1f2937;
+      /* Tailwind gray-800 */
+      box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Expand smoothly */
+    #questionBox:hover {
+      height: 270px;
+      background-color: rgba(255, 255, 255, 0.95);
+    }
+
+    body.dark #questionBox:hover {
+      background-color: #374151;
+      /* slightly lighter gray for hover */
+    }
+
+    /* Inner content */
+    #questionBox h2,
+    #questionBox p,
+    #questionBox textarea,
+    #questionBox button,
+    #questionBox #submitMsg {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Reveal content on hover */
+    #questionBox:hover h2,
+    #questionBox:hover p,
+    #questionBox:hover textarea,
+    #questionBox:hover button,
+    #questionBox:hover #submitMsg {
+      opacity: 1;
+    }
+
+    /* Textarea styling */
+    #questionBox textarea {
+      background-color: white;
+      color: black;
+      border: 1px solid #d1d5db;
+      /* gray-300 */
+    }
+
+    body.dark #questionBox textarea {
+      background-color: #374151;
+      /* gray-700 */
+      color: white;
+      border: 1px solid #4b5563;
+      /* gray-600 */
+    }
+
+    /* Submit message text */
+    #submitMsg {
+      color: #16a34a;
+      /* green-600 */
+    }
+
+    body.dark #submitMsg {
+      color: #4ade80;
+      /* green-400 */
+    }
+  </style>
+</head>
+
+<!-- Body Section -->
+
+<body class="light min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav id="navbar" class="bg-white/70 dark:bg-gray-900 shadow-md sticky top-0 z-50 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap justify-between items-center py-3">
+
+        <!-- Brand -->
+        <a href="main.html" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
+          <img src="../images/logo.jpeg" alt="WordWise Logo"
+            class="w-[clamp(32px,6vw,48px)] h-[clamp(32px,6vw,48px)] rounded-full logo-animate object-cover border-2 border-gray-300 dark:border-white" />
+          <span class="text-[clamp(1.1rem,2vw,1.75rem)] font-extrabold tracking-tight">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-pink-500">Word</span>
+            <span class="text-gray-900 dark:text-white">Wise</span>
+          </span>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <div class="hidden md:flex flex-wrap justify-center flex-1 gap-4 text-[clamp(0.9rem,1.3vw,1.1rem)]">
+          <a href="main.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i>
+            Home</a>
+          <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+            Resources</a>
+          <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i>
+            Tools</a>
+          <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i>
+            Blog</a>
+          <a href="about.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i>
+            About Us</a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button id="themeToggle"
+            class="px-3 py-1 rounded-lg bg-pink-500 text-white hover:bg-pink-600 flex items-center gap-2">
+            <i class="ri-moon-clear-line"></i> <span class="hidden sm:inline">Toggle</span>
+          </button>
+          <a href="login.html" id="loginBtn"
+            class="px-3 py-1 rounded-lg bg-blue-500 text-white hover:bg-blue-600 flex items-center gap-2">
+            <i class="ri-login-box-line"></i> <span class="hidden sm:inline">Login</span>
+          </a>
+          <button id="menu-toggle" class="md:hidden text-3xl focus:outline-none">☰</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden flex-col gap-4 p-4 bg-white dark:bg-gray-900 shadow-md">
+      <a href="main.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i> Home</a>
+      <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+        Resources</a>
+      <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i> Tools</a>
+      <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i> Blog</a>
+      <a href="about.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i> About
+        Us</a>
+    </div>
+  </nav>
+
+  <script>
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+  </script>
+
+  <!-- FAQ Section -->
+  <main class="flex-1 p-6 flex flex-col items-center">
+    <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-6">Frequently Asked Questions ❓</h1>
+
+    <!-- Search -->
+    <div class="w-full max-w-3xl mb-8">
+      <input id="faqSearch" type="text" placeholder="Search questions..."
+        class="w-full p-3 rounded-xl border dark:border-gray-600 dark:bg-gray-800 dark:text-white">
+    </div>
+
+    <!-- FAQ List -->
+    <div class="w-full max-w-3xl space-y-4">
+      <div class="faq-item bg-white/90 dark:bg-gray-800 p-5 rounded-xl shadow cursor-pointer">
+        <h2 class="flex justify-between items-center text-lg font-semibold">
+          <span><i class="ri-account-circle-line"></i> How do I create an account?</span>
+          <i class="ri-arrow-down-s-line"></i>
+        </h2>
+        <p class="faq-answer hidden mt-3 text-gray-700 dark:text-gray-300">
+          Simply go to the login page and click "Register". Enter your Gmail, unique username, and password. Our system
+          ensures username availability and password strength.
+        </p>
+      </div>
+
+      <div class="faq-item bg-white/90 dark:bg-gray-800 p-5 rounded-xl shadow cursor-pointer">
+        <h2 class="flex justify-between items-center text-lg font-semibold">
+          <span><i class="ri-lock-password-line"></i> How secure is my data?</span>
+          <i class="ri-arrow-down-s-line"></i>
+        </h2>
+        <p class="faq-answer hidden mt-3 text-gray-700 dark:text-gray-300">
+          We use strong encryption and secure storage for all user credentials. Your privacy and data safety are our top
+          priorities.
+        </p>
+      </div>
+
+      <div class="faq-item bg-white/90 dark:bg-gray-800 p-5 rounded-xl shadow cursor-pointer">
+        <h2 class="flex justify-between items-center text-lg font-semibold">
+          <span><i class="ri-tools-line"></i> Can I use tools without logging in?</span>
+          <i class="ri-arrow-down-s-line"></i>
+        </h2>
+        <p class="faq-answer hidden mt-3 text-gray-700 dark:text-gray-300">
+          Yes! Guests can still access tools. However, only registered users have their progress and logs saved under
+          their account.
+        </p>
+      </div>
+
+      <div class="faq-item bg-white/90 dark:bg-gray-800 p-5 rounded-xl shadow cursor-pointer">
+        <h2 class="flex justify-between items-center text-lg font-semibold">
+          <span><i class="ri-question-answer-line"></i> How do I contact support?</span>
+          <i class="ri-arrow-down-s-line"></i>
+        </h2>
+        <p class="faq-answer hidden mt-3 text-gray-700 dark:text-gray-300">
+          You can reach us through the "Contact Us" page or email support@wordwise.com. We aim to reply within 24 hours.
+        </p>
+      </div>
+    </div>
+
+    <!-- Fixed Submit a new question (bottom-right) -->
+    <div id="questionBox">
+      <h2 class="text-lg font-semibold mb-2 text-gray-900 dark:text-white flex items-center gap-2">
+        <i class="ri-edit-box-line"></i> Submit Your Question
+      </h2>
+
+      <p class="mb-2 text-gray-700 dark:text-gray-300 text-sm">
+        Have a question we don’t have yet? Submit it here!
+      </p>
+
+      <textarea id="newQuestion" rows="3" placeholder="Type your question..."
+        class="w-full p-2 rounded-lg border dark:border-gray-600 dark:bg-gray-700 dark:text-white mb-2"></textarea>
+
+      <div class="flex justify-end">
+        <button id="submitQuestion"
+          class="px-3 py-1 bg-pink-500 text-white rounded-lg hover:bg-pink-600 flex items-center gap-2">
+          <i class="ri-send-plane-line"></i> Submit
+        </button>
+      </div>
+
+      <p id="submitMsg" class="mt-2 text-sm text-green-600 dark:text-green-400 hidden">
+        Your question has been submitted.
+      </p>
+    </div>
+
+  </main>
+
+  <script>
+    const themeToggle = document.getElementById("themeToggle");
+    const body = document.body;
+
+    // ------------------ Theme Toggle ------------------
+    if (localStorage.getItem("theme") === "dark") {
+      body.classList.add("dark");
+      body.classList.remove("light");
+    } else {
+      body.classList.add("light");
+      body.classList.remove("dark");
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      body.classList.toggle("light");
+      localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light");
+    });
+
+    // ------------------ FAQ Toggle ------------------
+    document.querySelectorAll(".faq-item").forEach(item => {
+      const answer = item.querySelector(".faq-answer");
+      item.addEventListener("click", () => {
+        const isOpen = !answer.classList.contains("hidden");
+        gsap.to(answer, {
+          height: isOpen ? 0 : "auto",
+          opacity: isOpen ? 0 : 1,
+          duration: 0.4,
+          onStart: () => { if (!isOpen) answer.classList.remove("hidden"); },
+          onComplete: () => { if (isOpen) answer.classList.add("hidden"); }
+        });
+        item.querySelector("i.ri-arrow-down-s-line").classList.toggle("rotate-180");
+      });
+    });
+
+    // ------------------ FAQ Search Filter ------------------
+    document.getElementById("faqSearch").addEventListener("input", e => {
+      const query = e.target.value.toLowerCase();
+      document.querySelectorAll(".faq-item").forEach(item => {
+        const text = item.innerText.toLowerCase();
+        item.style.display = text.includes(query) ? "block" : "none";
+      });
+    });
+
+    // ------------------ Submit FAQ Question ------------------
+    const submitBtn = document.getElementById("submitQuestion");
+    const newQuestionInput = document.getElementById("newQuestion");
+    const submitMsg = document.getElementById("submitMsg");
+    const PENDING_KEY = "pendingQuestions";
+
+    // Send question to backend
+    async function submitQuestionToServer(question) {
+      try {
+        const res = await fetch("http://localhost:5000/submit-question", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(question)
+        });
+        return await res.json();
+      } catch (err) {
+        console.log("Server unreachable:", err);
+        return { success: false };
+      }
+    }
+
+    // Save question offline
+    function savePending(question) {
+      const pending = JSON.parse(localStorage.getItem(PENDING_KEY) || "[]");
+      pending.push(question);
+      localStorage.setItem(PENDING_KEY, JSON.stringify(pending));
+    }
+
+    // Sync all pending questions
+    async function syncPending() {
+      const pending = JSON.parse(localStorage.getItem(PENDING_KEY) || "[]");
+      if (!pending.length) return;
+
+      const remaining = [];
+      for (const q of pending) {
+        const result = await submitQuestionToServer(q);
+        if (!result.success) remaining.push(q); // keep failed ones
+      }
+
+      if (remaining.length) {
+        localStorage.setItem(PENDING_KEY, JSON.stringify(remaining));
+      } else {
+        localStorage.removeItem(PENDING_KEY);
+      }
+    }
+
+    // Sync automatically when back online
+    window.addEventListener("online", syncPending);
+
+    // Handle new question submission
+    submitBtn.addEventListener("click", async () => {
+      const questionText = newQuestionInput.value.trim();
+      if (!questionText) return alert("Please enter a question.");
+
+      const question = { question: questionText, username: "Anonymous" };
+
+      if (navigator.onLine) {
+        const result = await submitQuestionToServer(question);
+        if (result.success) {
+          submitMsg.textContent = "Your question has been submitted!";
+          submitMsg.classList.remove("hidden");
+          newQuestionInput.value = "";
+        } else {
+          savePending(question);
+          submitMsg.textContent = "Failed to submit. Saved offline and will sync when online.";
+          submitMsg.classList.remove("hidden");
+        }
+      } else {
+        savePending(question);
+        submitMsg.textContent = "You are offline. Your question will be submitted when back online.";
+        submitMsg.classList.remove("hidden");
+        newQuestionInput.value = "";
+      }
+    });
+
+    // Initial sync in case user opens page online with pending questions
+    if (navigator.onLine) syncPending();
+  </script>
+</body>
+
+</html>

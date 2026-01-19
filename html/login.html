@@ -1,0 +1,465 @@
+<!-- login.html -->
+<!DOCTYPE html>
+<html lang="en" class="light">
+<!-- Head Section  -->
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Portal</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Style Section -->
+  <style>
+    body {
+      background: linear-gradient(135deg,
+          #e0f7f4,
+          /* very pale teal */
+          #a7d3c6,
+          /* jade */
+          #6eb7a6,
+          /* medium teal */
+          #3b8c80,
+          /* stronger teal */
+          #134e4a,
+          /* muted green-teal */
+          #1e3a3a,
+          /* gray-teal */
+          #0d2b36
+          /* deep teal-blue */
+        );
+      background-size: 400% 400%;
+      animation: gradientMove 15s ease infinite;
+      color: #111;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Login box */
+    .login-box {
+      width: 400px;
+      padding: 30px;
+      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      text-align: center;
+      z-index: 5;
+    }
+
+    .login-box input,
+    .login-box button {
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    /* High-contrast inputs (black text on white) */
+    .login-box input {
+      background: #fff;
+      color: #111;
+      border: 1px solid #e5e7eb;
+      outline: none;
+    }
+
+    .login-box input::placeholder {
+      color: #6b7280;
+    }
+
+    .login-box input:focus {
+      border-color: #ff3c78;
+      box-shadow: 0 0 0 3px rgba(255, 60, 120, 0.2);
+    }
+
+    .login-box button {
+      background: #ff3c78;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background: #e0356b;
+    }
+
+    /* Proper checkbox alignment */
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      margin: 10px 0;
+      font-size: 0.9rem;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin: 0;
+    }
+
+    /* Keep label text WHITE (readable on dark box) */
+    .checkbox-label span {
+      color: #fff;
+    }
+
+    .checkbox-label a {
+      color: #ffa3c1;
+      text-decoration: underline;
+    }
+
+    /* Floating image */
+    .floating-pic {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 200px;
+      height: 200px;
+      border-radius: 25px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      z-index: 10;
+      transform: translate(0, 0) rotate(-15deg) scale(1);
+    }
+
+    .floating-pic img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Animations */
+    @keyframes toTopRight {
+      0% {
+        transform: translate(0, 0) rotate(-15deg) scale(1);
+      }
+
+      30% {
+        transform: translate(35vw, -20vh) rotate(15deg) scale(1.15);
+      }
+
+      70% {
+        transform: translate(65vw, -65vh) rotate(-8deg) scale(1.25);
+      }
+
+      100% {
+        transform: translate(calc(100vw - 260px), -calc(100vh - 260px)) rotate(0deg) scale(1.1);
+      }
+    }
+
+    @keyframes toBottomLeft {
+      0% {
+        transform: translate(calc(100vw - 260px), -calc(100vh - 260px)) rotate(0deg) scale(1.1);
+      }
+
+      30% {
+        transform: translate(65vw, -65vh) rotate(-8deg) scale(1.25);
+      }
+
+      70% {
+        transform: translate(35vw, -20vh) rotate(15deg) scale(1.15);
+      }
+
+      100% {
+        transform: translate(0, 0) rotate(-15deg) scale(1);
+      }
+    }
+
+    .fly-top {
+      animation: toTopRight 4.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    }
+
+    .fly-bottom {
+      animation: toBottomLeft 4.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(6px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 50;
+    }
+
+    .modal.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .modal-content {
+      background: #fff;
+      color: #000;
+      width: 500px;
+      max-height: 70vh;
+      padding: 20px;
+      border-radius: 12px;
+      overflow-y: auto;
+      text-align: left;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 10px;
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      background: #ff3c78;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      background: #e0356b;
+    }
+  </style>
+</head>
+
+<!-- Body Section -->
+
+<body>
+  <div class="login-box">
+    <h2 id="formTitle">Login</h2>
+
+    <!-- Login Form -->
+    <form id="loginForm">
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+
+      <!-- Remember me -->
+      <label class="checkbox-label">
+        <input type="checkbox" /> <span>Remember me</span>
+      </label>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <!-- Register Form -->
+    <form id="registerForm" style="display:none;">
+      <input type="email" placeholder="Gmail" required />
+      <input type="text" placeholder="Username" required />
+      <input type="password" placeholder="Password" required />
+
+      <!-- Terms Checkbox -->
+      <label class="checkbox-label">
+        <input type="checkbox" id="agree" required />
+        <span>I agree to the <a href="#" id="termsLink">Terms & Conditions</a></span>
+      </label>
+
+      <button type="submit">Register</button>
+    </form>
+
+    <p>
+      <span id="switchText">Don't have an account?</span>
+      <button type="button" id="switchBtn">Register</button>
+    </p>
+  </div>
+
+  <!-- Floating Picture -->
+  <div class="floating-pic" id="floatingPic">
+    <img src="../images/logo.jpeg" alt="Floating" />
+  </div>
+
+  <!-- Terms Modal -->
+  <div class="modal" id="termsModal">
+    <div class="modal-content">
+      <h2>Terms & Conditions</h2>
+      <p>
+        These are the terms and conditions for using this website.
+        By registering, you agree to follow all the rules, respect other users,
+        and use this platform responsibly.
+      </p>
+      <p>
+        You also agree that your data may be stored securely, and you are
+        responsible for keeping your login information safe.
+      </p>
+      <button class="close-btn" id="closeModal">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Toggle Login/Register
+    const switchBtn = document.getElementById("switchBtn");
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+    const formTitle = document.getElementById("formTitle");
+    const switchText = document.getElementById("switchText");
+
+    switchBtn.addEventListener("click", () => {
+      const loginVisible = loginForm.style.display !== "none";
+      loginForm.style.display = loginVisible ? "none" : "block";
+      registerForm.style.display = loginVisible ? "block" : "none";
+      formTitle.textContent = loginVisible ? "Register" : "Login";
+      switchText.textContent = loginVisible ? "Already have an account?" : "Don't have an account?";
+      switchBtn.textContent = loginVisible ? "Login" : "Register";
+    });
+
+    // Floating image animation
+    const floatingPic = document.getElementById("floatingPic");
+    let atTop = false;
+    floatingPic.addEventListener("click", () => {
+      if (!atTop) {
+        floatingPic.classList.add("fly-top");
+        floatingPic.addEventListener(
+          "animationend",
+          () => { floatingPic.classList.remove("fly-top"); atTop = true; },
+          { once: true }
+        );
+      } else {
+        floatingPic.classList.add("fly-bottom");
+        floatingPic.addEventListener(
+          "animationend",
+          () => { floatingPic.classList.remove("fly-bottom"); atTop = false; },
+          { once: true }
+        );
+      }
+    });
+
+    // Terms Modal
+    const termsLink = document.getElementById("termsLink");
+    const termsModal = document.getElementById("termsModal");
+    const closeModal = document.getElementById("closeModal");
+
+    termsLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      termsModal.classList.add("active");
+    });
+    closeModal.addEventListener("click", () => termsModal.classList.remove("active"));
+    termsModal.addEventListener("click", (e) => { if (e.target === termsModal) termsModal.classList.remove("active"); });
+
+    // --- Defensive guard for tone code (only runs if those elements exist on a different page) ---
+    const toneBtn = document.getElementById("toneBtn");
+    const grammarInput = document.getElementById("grammarInput");
+    const toneResult = document.getElementById("toneResult");
+
+    if (toneBtn && grammarInput && toneResult) {
+      toneBtn.addEventListener("click", function () {
+        const text = (grammarInput.value || "").toLowerCase();
+        let tone = "Neutral";
+        if (text.includes("!")) tone = "Excited";
+        if (text.includes("please") || text.includes("could you")) tone = "Polite";
+        if (text.includes("hate") || text.includes("angry")) tone = "Angry";
+        if (text.includes("love") || text.includes("happy")) tone = "Joyful";
+        if (text.includes("sad") || text.includes("upset")) tone = "Sad";
+        toneResult.innerHTML = `Detected Tone: <span class="inline-block px-2 py-1 rounded font-semibold bg-yellow-200 text-gray-900">${tone}</span>`;
+      });
+    }
+
+    // Handle Register
+    registerForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = registerForm.querySelector("input[type='email']").value;
+      const username = registerForm.querySelector("input[type='text']").value;
+      const password = registerForm.querySelector("input[type='password']").value;
+
+      const response = await fetch("http://127.0.0.1:5000/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, username, password })
+      });
+
+      const result = await response.json();
+      alert(result.message);
+    });
+
+    // --- Handle Register ---
+    registerForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = registerForm.querySelector("input[type='email']").value;
+      const username = registerForm.querySelector("input[type='text']").value;
+      const password = registerForm.querySelector("input[type='password']").value;
+
+      try {
+        const response = await fetch("http://127.0.0.1:5000/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, username, password })
+        });
+
+        const result = await response.json();
+        alert(result.message);
+
+        if (result.success) {
+          // Switch to login form automatically
+          loginForm.style.display = "block";
+          registerForm.style.display = "none";
+          formTitle.textContent = "Login";
+          switchText.textContent = "Don't have an account?";
+          switchBtn.textContent = "Register";
+          registerForm.reset();
+        }
+
+      } catch (err) {
+        alert("Server not responding. Please try again later.");
+        console.error(err);
+      }
+    });
+
+    // --- Handle Login ---
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = loginForm.querySelector("input[type='email']").value;
+      const password = loginForm.querySelector("input[type='password']").value;
+
+      try {
+        const response = await fetch("http://127.0.0.1:5000/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+
+        const result = await response.json();
+        alert(result.message);
+
+        if (result.success) {
+          // Redirect to index.html on successful login
+          window.location.href = "main.html";
+        }
+
+      } catch (err) {
+        alert("Server not responding. Please try again later.");
+        console.error(err);
+      }
+    });
+    if (result.success) {
+      localStorage.setItem("loggedInUser", result.username || "User");
+      localStorage.setItem("profileImg", result.profileImg || "profile.jpeg");
+      window.location.href = "main.html";
+    }
+
+
+  </script>
+</body>
+
+</html>

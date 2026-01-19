@@ -1,0 +1,452 @@
+<!-- resource.html -->
+<!DOCTYPE html>
+<html lang="en" class="light">
+<!-- Head Section -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WordWise — Resources</title>
+
+  <!-- Related Links -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/logo.jpeg">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Enable Tailwind dark mode -->
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+
+  <!-- Script Section -->
+  <style>
+    /* Resource Cards */
+    .resource-card {
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+      position: relative;
+      z-index: 10;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 0 20px var(--glow-color);
+    }
+
+    body.light .resource-card:hover {
+      --glow-color: rgba(0, 0, 0, 0.4);
+    }
+
+    body.dark .resource-card:hover {
+      --glow-color: rgba(255, 255, 255, 0.7);
+    }
+
+    .resource-card.focused {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90vw;
+      /* Use viewport width */
+      max-width: 95%;
+      /* Never exceed screen */
+      height: auto;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 1rem;
+      /* responsive padding */
+      box-sizing: border-box;
+      z-index: 51;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Page Blur Overlay */
+    .page-blur {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    .page-blur.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Gradient border */
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    .border-mask {
+      position: absolute;
+      inset: 0;
+      border-radius: 0.5rem;
+      padding: 2px;
+      pointer-events: none;
+      background: linear-gradient(270deg, #ff00cc, #3333ff, #ff9900, #00ffcc, #ff00cc);
+      background-size: 400% 400%;
+      animation: gradientMove 6s linear infinite;
+
+      /* Corrected mask syntax */
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: destination-out;
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      mask-composite: exclude;
+    }
+
+    /* Search Bar */
+    body.dark #searchResources {
+      background-color: #111;
+      color: #fff;
+    }
+
+    #clearSearch {
+      font-size: 1.2rem;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      display: none;
+    }
+  </style>
+</head>
+
+<!-- Body Section -->
+
+<body class="light min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav id="navbar" class="bg-white/70 dark:bg-gray-900 shadow-md sticky top-0 z-50 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap justify-between items-center py-3">
+
+        <!-- Brand -->
+        <a href="main.html" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
+          <img src="../images/logo.jpeg" alt="WordWise Logo"
+            class="w-[clamp(32px,6vw,48px)] h-[clamp(32px,6vw,48px)] rounded-full logo-animate object-cover border-2 border-gray-300 dark:border-white" />
+          <span class="text-[clamp(1.1rem,2vw,1.75rem)] font-extrabold tracking-tight">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-pink-500">Word</span>
+            <span class="text-gray-900 dark:text-white">Wise</span>
+          </span>
+        </a>
+
+        <!-- Desktop Nav Links (wraps on medium screens) -->
+        <div class="hidden md:flex flex-wrap justify-center flex-1 gap-4 text-[clamp(0.9rem,1.3vw,1.1rem)]">
+          <a href="main.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i>
+            Home</a><a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i
+              class="ri-tools-line"></i> Tools</a>
+          <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i>
+            Blog</a>
+          <a href="about.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i>
+            About Us</a>
+          <a href="https://en.wikipedia.org/wiki/English_grammar" target="_blank"
+            class="flex items-center gap-1 hover:text-pink-600">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"
+              class="w-[clamp(18px,2vw,22px)] h-[clamp(18px,2vw,22px)] fill-current"><text x="7" y="35" font-size="28"
+                font-weight="bold">W</text></svg> Wikipedia
+          </a>
+          <a href="https://www.dictionary.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+              class="ri-book-2-line"></i> Dictionary</a>
+          <a href="https://www.grammarly.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+              class="ri-check-double-line"></i> Grammarly</a>
+        </div>
+
+        <!-- Right Side: Buttons + Hamburger -->
+        <div class="flex items-center gap-3">
+          <!-- Theme Toggle -->
+          <button id="themeToggle"
+            class="px-3 py-1 rounded-lg bg-pink-500 text-white hover:bg-pink-600 flex items-center gap-2">
+            <i class="ri-moon-clear-line"></i> <span class="hidden sm:inline">Toggle</span>
+          </button>
+
+          <!-- Login -->
+          <a href="login.html" id="loginBtn"
+            class="px-3 py-1 rounded-lg bg-blue-500 text-white hover:bg-blue-600 flex items-center gap-2">
+            <i class="ri-login-box-line"></i> <span class="hidden sm:inline">Login</span>
+          </a>
+
+          <!-- Hamburger (mobile only) -->
+          <button id="menu-toggle" class="md:hidden text-3xl focus:outline-none">☰</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden flex-col gap-4 p-4 bg-white dark:bg-gray-900 shadow-md">
+      <a href="main.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i> Home</a><a
+        href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i> Tools</a>
+      <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i> Blog</a>
+      <a href="about.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i> About
+        Us</a>
+      <a href="https://en.wikipedia.org/wiki/English_grammar" target="_blank"
+        class="flex items-center gap-1 hover:text-pink-600">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" class="w-5 h-5 fill-current"><text x="7" y="35"
+            font-size="28" font-weight="bold">W</text></svg> Wikipedia
+      </a>
+      <a href="https://www.dictionary.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+          class="ri-book-2-line"></i> Dictionary</a>
+      <a href="https://www.grammarly.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+          class="ri-check-double-line"></i> Grammarly</a>
+    </div>
+  </nav>
+
+  <script>
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+  </script>
+
+  <!-- Hero Section -->
+  <section class="w-full flex flex-col items-center justify-center text-center py-12">
+    <h1 class="text-4xl md:text-5xl font-extrabold mb-6"><span
+        class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-pink-500">WordWise</span>
+      Resources </h1>
+  </section>
+
+  <!-- Overlay -->
+  <div id="overlay" class="page-blur"></div>
+
+  <!-- Resource Content -->
+  <main class="flex-1 flex flex-col items-center justify-center p-6 gap-8">
+
+    <!-- Search Bar -->
+    <div class="relative w-full max-w-md mb-2">
+      <input id="searchResources" type="text" placeholder="Search resources..."
+        class="w-full p-3 rounded-lg border-2 border-transparent focus:outline-none focus:ring-0 bg-white text-gray-900 dark:bg-gray-900 dark:text-white" />
+      <button id="clearSearch"
+        class="absolute right-3 top-3 text-gray-400 dark:text-gray-300 hover:text-pink-500">&times;</button>
+      <span class="border-mask rounded-lg"></span>
+    </div>
+
+    <!-- Search Hints -->
+    <div id="hints" class="flex gap-2 mb-6 flex-wrap justify-center">
+      <button class="hint px-3 py-1 bg-pink-500 text-white rounded-full text-sm">Grammar</button>
+      <button class="hint px-3 py-1 bg-pink-500 text-white rounded-full text-sm">Writing Style</button>
+      <button class="hint px-3 py-1 bg-pink-500 text-white rounded-full text-sm">Vocabulary</button>
+      <button class="hint px-3 py-1 bg-pink-500 text-white rounded-full text-sm">Idioms</button>
+      <button class="hint px-3 py-1 bg-pink-500 text-white rounded-full text-sm">Exercises</button>
+      <button class="hint px-3 py-1 bg-pink-500 text-white rounded-full text-sm">Blogs</button>
+    </div>
+
+    <!-- Resource Cards Grid -->
+    <div id="resourceGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
+
+      <!-- Original six resources -->
+      <div class="resource-card bg-white/90 dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors"
+        data-category="Grammar">
+        <h3 class="text-xl font-semibold mb-2">Grammar Guides</h3>
+        <p class="text-gray-700 dark:text-gray-300">Comprehensive grammar rules and tips for students and writers.</p>
+        <a href="https://www.grammarly.com/blog/" target="_blank"
+          class="text-pink-500 hover:underline mt-2 inline-block">Explore</a>
+      </div>
+
+      <div class="resource-card bg-white/90 dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors"
+        data-category="Writing Style">
+        <h3 class="text-xl font-semibold mb-2">Writing Style Guides</h3>
+        <p class="text-gray-700 dark:text-gray-300">APA, MLA, Chicago style guides to improve your academic writing.</p>
+        <a href="https://owl.purdue.edu/owl/purdue_owl.html" target="_blank"
+          class="text-pink-500 hover:underline mt-2 inline-block">Explore</a>
+      </div>
+
+      <div class="resource-card bg-white/90 dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors"
+        data-category="Vocabulary">
+        <h3 class="text-xl font-semibold mb-2">Online Thesaurus</h3>
+        <p class="text-gray-700 dark:text-gray-300">Find synonyms and antonyms to enhance your vocabulary.</p>
+        <a href="https://www.thesaurus.com/" target="_blank"
+          class="text-pink-500 hover:underline mt-2 inline-block">Explore</a>
+      </div>
+
+      <div class="resource-card bg-white/90 dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors"
+        data-category="Idioms">
+        <h3 class="text-xl font-semibold mb-2">Idioms & Phrases</h3>
+        <p class="text-gray-700 dark:text-gray-300">Improve your writing with common idioms and expressions.</p>
+        <a href="https://www.theidioms.com/" target="_blank"
+          class="text-pink-500 hover:underline mt-2 inline-block">Explore</a>
+      </div>
+
+      <div class="resource-card bg-white/90 dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors"
+        data-category="Exercises">
+        <h3 class="text-xl font-semibold mb-2">Writing Exercises</h3>
+        <p class="text-gray-700 dark:text-gray-300">Practice makes perfect: interactive writing exercises and prompts.
+        </p>
+        <a href="https://www.writingexercises.co.uk/" target="_blank"
+          class="text-pink-500 hover:underline mt-2 inline-block">Explore</a>
+      </div>
+
+      <div class="resource-card bg-white/90 dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors"
+        data-category="Blogs">
+        <h3 class="text-xl font-semibold mb-2">Language Blogs</h3>
+        <p class="text-gray-700 dark:text-gray-300">Articles on grammar, writing tips, and language trends.</p>
+        <a href="https://medium.com/topic/grammar" target="_blank"
+          class="text-pink-500 hover:underline mt-2 inline-block">Explore</a>
+      </div>
+
+      <!-- Added six more resources -->
+      <div class="resource-card bg-white/90 dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors"
+        data-category="Grammar">
+        <h3 class="text-xl font-semibold mb-2">Grammar Videos</h3>
+        <p class="text-gray-700 dark:text-gray-300">Video tutorials to learn grammar rules visually.</p>
+        <a href="https://www.youtube.com/playlist?list=PLqXm7lxk9bZTyHUQn-8Yhr7pT0E52Z0iM" target="_blank"
+          class="text-pink-500 hover:underline mt-2 inline-block">Explore</a>
+      </div>
+
+      <div class="resource-card bg-white/90 dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors"
+        data-category="Vocabulary">
+        <h3 class="text-xl font-semibold mb-2">Word of the Day</h3>
+        <p class="text-gray-700 dark:text-gray-300">Daily vocabulary enhancement from popular sources.</p>
+        <a href="https://www.merriam-webster.com/word-of-the-day" target="_blank"
+          class="text-pink-500 hover:underline mt-2 inline-block">Explore</a>
+      </div>
+
+      <div class="resource-card bg-white/90 dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors"
+        data-category="Idioms">
+        <h3 class="text-xl font-semibold mb-2">Phrase Finder</h3>
+        <p class="text-gray-700 dark:text-gray-300">Explore idiomatic expressions and their meanings.</p>
+        <a href="https://www.phrases.org.uk/" target="_blank"
+          class="text-pink-500 hover:underline mt-2 inline-block">Explore</a>
+      </div>
+
+      <div class="resource-card bg-white/90 dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors"
+        data-category="Writing Style">
+        <h3 class="text-xl font-semibold mb-2">Academic Writing Tips</h3>
+        <p class="text-gray-700 dark:text-gray-300">Step-by-step guides to improve your essays and papers.</p>
+        <a href="https://writingcenter.unc.edu/tips-and-tools/" target="_blank"
+          class="text-pink-500 hover:underline mt-2 inline-block">Explore</a>
+      </div>
+
+      <div class="resource-card bg-white/90 dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors"
+        data-category="Exercises">
+        <h3 class="text-xl font-semibold mb-2">Punctuation Exercises</h3>
+        <p class="text-gray-700 dark:text-gray-300">Interactive exercises to master punctuation rules.</p>
+        <a href="https://www.grammar-monster.com/lessons/punctuation_exercises.htm" target="_blank"
+          class="text-pink-500 hover:underline mt-2 inline-block">Explore</a>
+      </div>
+
+      <div class="resource-card bg-white/90 dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors"
+        data-category="Blogs">
+        <h3 class="text-xl font-semibold mb-2">Language Learning Blogs</h3>
+        <p class="text-gray-700 dark:text-gray-300">Tips, tricks, and advice for learning English effectively.</p>
+        <a href="https://www.fluentu.com/blog/english/" target="_blank"
+          class="text-pink-500 hover:underline mt-2 inline-block">Explore</a>
+      </div>
+
+    </div>
+    </div>
+  </main>
+
+  <!-- Scroll to Top Button -->
+  <button id="scrollTopBtn" title="Go to top">
+    <i class="ri-arrow-up-line"></i>
+  </button>
+
+  <script>
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    scrollBtn.addEventListener("click", (e) => {
+      e.preventDefault(); // Prevent any default jump behavior
+
+      // Smooth scroll using requestAnimationFrame
+      const startPosition = window.scrollY;
+      const duration = 600; // in ms
+      let startTime = null;
+
+      function scrollAnimation(currentTime) {
+        if (!startTime) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const run = ease(timeElapsed, startPosition, -startPosition, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) requestAnimationFrame(scrollAnimation);
+      }
+
+      // Ease function for smoothness
+      function ease(t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t + b;
+        t--;
+        return -c / 2 * (t * (t - 2) - 1) + b;
+      }
+
+      requestAnimationFrame(scrollAnimation);
+    });
+  </script>
+
+  <script>
+    // Theme toggle
+    const themeToggle = document.getElementById("themeToggle");
+    const body = document.body;
+    if (localStorage.getItem("theme") === "dark") { body.classList.add("dark"); body.classList.remove("light"); }
+    else { body.classList.add("light"); body.classList.remove("dark"); }
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark"); body.classList.toggle("light");
+      localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light");
+    });
+
+    // Card overlay
+    const cards = document.querySelectorAll(".resource-card");
+    const overlay = document.getElementById("overlay");
+    cards.forEach(card => {
+      card.addEventListener("click", e => {
+        if (e.target.tagName === "A") return;
+        cards.forEach(c => c.classList.remove("focused"));
+        card.classList.add("focused");
+        overlay.classList.add("show");
+      });
+    });
+    overlay.addEventListener("click", () => {
+      cards.forEach(c => c.classList.remove("focused"));
+      overlay.classList.remove("show");
+    });
+
+    // Search input filter
+    const searchInput = document.getElementById('searchResources');
+    const clearBtn = document.getElementById('clearSearch');
+    searchInput.addEventListener('input', () => {
+      clearBtn.style.display = searchInput.value ? 'block' : 'none';
+      const query = searchInput.value.toLowerCase();
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(query) ? "block" : "none";
+      });
+    });
+    clearBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      searchInput.dispatchEvent(new Event('input'));
+      searchInput.focus();
+    });
+
+    // Hints click → fill search
+    document.querySelectorAll('.hint').forEach(btn => {
+      btn.addEventListener('click', () => {
+        searchInput.value = btn.innerText;
+        searchInput.dispatchEvent(new Event('input'));
+      });
+    });
+
+    // Show/hide scroll-to-top button
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollBtn.style.display = "block";
+      } else {
+        scrollBtn.style.display = "none";
+      }
+    });
+  </script>
+</body>
+
+</html>

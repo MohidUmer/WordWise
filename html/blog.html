@@ -1,0 +1,535 @@
+<!-- blog.html -->
+<!DOCTYPE html>
+<html lang="en" class="light">
+<!-- Head Section -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WordWise — Blog</title>
+
+  <!--Related Links -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/logo.jpeg">
+
+  <!--Related Script -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+  <!-- Enable Tailwind dark mode -->
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+
+  <!-- Style Section -->
+  <style>
+    /* Blog card animations */
+    .blog-card {
+      transition: transform 0.5s, box-shadow 0.5s;
+      cursor: pointer;
+      position: relative;
+      z-index: 10;
+      overflow: hidden;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 0 20px var(--glow-color);
+    }
+
+    body.light .blog-card:hover {
+      --glow-color: rgba(0, 0, 0, 0.4);
+    }
+
+    body.dark .blog-card:hover {
+      --glow-color: rgba(255, 255, 255, 0.7);
+    }
+
+    .blog-card.focused {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90vw;
+      /* Use viewport width */
+      max-width: 95%;
+      /* Never exceed screen */
+      height: auto;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 1rem;
+      /* responsive padding */
+      box-sizing: border-box;
+      z-index: 51;
+      box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Overlay blur when focused */
+    .page-blur {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      pointer-events: none;
+      z-index: 50;
+    }
+
+    .page-blur.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .extra-content {
+      display: none;
+      margin-top: 1rem;
+    }
+
+    /* Gradient border animation */
+    @keyframes gradientMove {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* Search input wrapper */
+    .search-wrapper {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      max-width: 500px;
+      border-radius: 0.75rem;
+      padding: 2px;
+      /* border thickness */
+      background: linear-gradient(270deg, #ff00cc, #3333ff, #ff9900, #00ffcc, #ff00cc);
+      background-size: 400% 400%;
+      animation: gradientMove 6s linear infinite;
+    }
+
+    .search-wrapper input {
+      width: 100%;
+      padding: 0.6rem 1rem 0.6rem 2.5rem;
+      border: none;
+      outline: none;
+      border-radius: 0.75rem;
+      background: #fff;
+      color: #111;
+    }
+
+    body.dark .search-wrapper input {
+      background: #111;
+      color: #fff;
+    }
+
+    .search-wrapper svg {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    /* Mini Quiz Hover */
+    .blog-card:hover .quiz-overlay {
+      display: block;
+    }
+
+    .quiz-btn.correct {
+      background-color: #22c55e;
+    }
+
+    /* Green for correct */
+    .quiz-btn.wrong {
+      background-color: #ef4444;
+    }
+
+    /* Red for wrong */
+
+    /* Hover/expanded extra content styling */
+    .blog-card .extra-content {
+      display: none;
+      /* Hidden by default */
+      max-width: 100%;
+      /* Responsive width */
+      width: 100%;
+      padding: 1rem;
+      /* Adjustable padding */
+      box-sizing: border-box;
+    }
+
+    .blog-card.focused .extra-content {
+      display: block;
+    }
+
+    /* Quiz buttons inside overlay */
+    .blog-card .quiz-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .blog-card .quiz-btn {
+      flex: 1;
+      min-width: 120px;
+      /* Ensures equal width but allows shrinking */
+      max-width: 100%;
+      padding: 0.5rem 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<!-- Body Section -->
+
+<body class="light min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav id="navbar" class="bg-white/70 dark:bg-gray-900 shadow-md sticky top-0 z-50 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap justify-between items-center py-3">
+
+        <!-- Brand -->
+        <a href="main.html" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
+          <img src="../images/logo.jpeg" alt="WordWise Logo"
+            class="w-[clamp(32px,6vw,48px)] h-[clamp(32px,6vw,48px)] rounded-full logo-animate object-cover border-2 border-gray-300 dark:border-white" />
+          <span class="text-[clamp(1.1rem,2vw,1.75rem)] font-extrabold tracking-tight">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-pink-500">Word</span>
+            <span class="text-gray-900 dark:text-white">Wise</span>
+          </span>
+        </a>
+
+        <!-- Desktop Nav Links (wraps on medium screens) -->
+        <div class="hidden md:flex flex-wrap justify-center flex-1 gap-4 text-[clamp(0.9rem,1.3vw,1.1rem)]">
+          <a href="main.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i>
+            Home</a>
+          <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+            Resources</a>
+          <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i>
+            Tools</a>
+          <a href="about.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i>
+            About Us</a>
+          <a href="https://en.wikipedia.org/wiki/English_grammar" target="_blank"
+            class="flex items-center gap-1 hover:text-pink-600">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"
+              class="w-[clamp(18px,2vw,22px)] h-[clamp(18px,2vw,22px)] fill-current"><text x="7" y="35" font-size="28"
+                font-weight="bold">W</text></svg> Wikipedia
+          </a>
+          <a href="https://www.dictionary.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+              class="ri-book-2-line"></i> Dictionary</a>
+          <a href="https://www.grammarly.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+              class="ri-check-double-line"></i> Grammarly</a>
+        </div>
+
+        <!-- Right Side: Buttons + Hamburger -->
+        <div class="flex items-center gap-3">
+          <!-- Theme Toggle -->
+          <button id="themeToggle"
+            class="px-3 py-1 rounded-lg bg-pink-500 text-white hover:bg-pink-600 flex items-center gap-2">
+            <i class="ri-moon-clear-line"></i> <span class="hidden sm:inline">Toggle</span>
+          </button>
+
+          <!-- Login -->
+          <a href="login.html" id="loginBtn"
+            class="px-3 py-1 rounded-lg bg-blue-500 text-white hover:bg-blue-600 flex items-center gap-2">
+            <i class="ri-login-box-line"></i> <span class="hidden sm:inline">Login</span>
+          </a>
+
+          <!-- Hamburger (mobile only) -->
+          <button id="menu-toggle" class="md:hidden text-3xl focus:outline-none">☰</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden flex-col gap-4 p-4 bg-white dark:bg-gray-900 shadow-md">
+      <a href="main.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i> Home</a>
+      <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+        Resources</a>
+      <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i> Tools</a>
+      <a href="about.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i> About
+        Us</a>
+      <a href="https://en.wikipedia.org/wiki/English_grammar" target="_blank"
+        class="flex items-center gap-1 hover:text-pink-600">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" class="w-5 h-5 fill-current"><text x="7" y="35"
+            font-size="28" font-weight="bold">W</text></svg> Wikipedia
+      </a>
+      <a href="https://www.dictionary.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+          class="ri-book-2-line"></i> Dictionary</a>
+      <a href="https://www.grammarly.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+          class="ri-check-double-line"></i> Grammarly</a>
+    </div>
+  </nav>
+
+  <script>
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+  </script>
+
+  <!-- Overlay -->
+  <div id="overlay" class="page-blur"></div>
+
+  <!-- Hero Section -->
+  <section class="w-full flex flex-col items-center justify-center text-center py-12">
+    <h1 class="text-4xl md:text-5xl font-extrabold mb-6"><span
+        class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-pink-500">WordWise</span>
+      Blogs
+    </h1>
+  </section>
+
+  <!-- Blog Content -->
+  <main class="flex-1 flex flex-col items-center justify-center p-6 gap-10">
+    <!-- Search and Tags -->
+    <div class="flex flex-col md:flex-row gap-4 w-full max-w-6xl justify-between items-center">
+
+      <!-- Search Wrapper -->
+      <div class="search-wrapper w-full md:w-1/2">
+        <input id="searchInput" type="text" placeholder="Search blogs..." />
+        <svg class="text-gray-400 dark:text-gray-500 w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 1010.5 18a7.5 7.5 0 006.15-3.35z" />
+        </svg>
+      </div>
+
+      <!-- Tags -->
+      <div class="flex gap-2 flex-wrap">
+        <button class="tag-btn bg-pink-500 text-white px-3 py-1 rounded-lg hover:bg-pink-600"
+          data-tag="All">All</button>
+        <button class="tag-btn bg-pink-500 text-white px-3 py-1 rounded-lg hover:bg-pink-600"
+          data-tag="Grammar">Grammar</button>
+        <button class="tag-btn bg-pink-500 text-white px-3 py-1 rounded-lg hover:bg-pink-600"
+          data-tag="Writing">Writing</button>
+        <button class="tag-btn bg-pink-500 text-white px-3 py-1 rounded-lg hover:bg-pink-600"
+          data-tag="Vocabulary">Vocabulary</button>
+        <button class="tag-btn bg-pink-500 text-white px-3 py-1 rounded-lg hover:bg-pink-600"
+          data-tag="Tips">Tips</button>
+      </div>
+    </div>
+
+    <!-- Blog Grid -->
+    <div id="blogGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl mt-4">
+
+      <!-- Blog Card 1 -->
+      <div class="blog-card bg-white/90 dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors"
+        data-tags="Grammar,Writing">
+        <h3 class="text-xl font-semibold mb-2">10 Common Grammar Mistakes</h3>
+        <p class="text-gray-700 dark:text-gray-300 mb-2">Discover the most frequent errors writers make and how to fix
+          them…</p>
+
+        <!-- Extra content -->
+        <div class="extra-content text-left text-gray-700 dark:text-gray-300">
+          <h4 class="font-semibold mb-1">1. Subject-Verb Agreement</h4>
+          <p>Ensure singular subjects have singular verbs and plural subjects have plural verbs.</p>
+
+          <h4 class="font-semibold mb-1 mt-2">2. Misplaced Modifiers</h4>
+          <p>Modifiers should be placed next to the words they describe to avoid confusion.</p>
+
+          <h4 class="font-semibold mb-1 mt-2">3. Comma Splices</h4>
+          <p>Do not join two independent clauses with only a comma. Use a semicolon or conjunction.</p>
+
+          <!-- Quiz inside extra content -->
+          <div class="quiz-container mt-4 p-2 bg-white/90 dark:bg-gray-800 rounded-xl shadow text-center">
+            <p class="font-semibold mb-2 text-sm">Quick Quiz: Which mistake involves verb mismatch?</p>
+            <div class="flex justify-center gap-2 flex-wrap">
+              <button class="quiz-btn w-36 py-1 bg-pink-500 text-white rounded-full transition-none"
+                data-answer="correct">Subject-Verb</button>
+              <button class="quiz-btn w-36 py-1 bg-pink-500 text-white rounded-full transition-none"
+                data-answer="wrong">Comma Splice</button>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-gray-500 dark:text-gray-400 text-sm mt-2">Aug 23, 2025 • Mohid</p>
+        <button class="bg-pink-500 text-white px-4 py-1 mt-2 rounded-lg hover:bg-pink-600">Read More</button>
+      </div>
+
+      <!-- Blog Card 2 -->
+      <div class="blog-card bg-white/90 dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors"
+        data-tags="Vocabulary,Tips">
+        <h3 class="text-xl font-semibold mb-2">Improve Your Vocabulary Fast</h3>
+        <p class="text-gray-700 dark:text-gray-300 mb-2">Learn effective techniques to enhance your word power…</p>
+
+        <div class="extra-content text-left text-gray-700 dark:text-gray-300" style="display: none;">
+          <h4 class="font-semibold mb-1">Read Widely</h4>
+          <p>Read books, articles, and essays from varied fields to discover new words.</p>
+
+          <h4 class="font-semibold mb-1 mt-2">Keep a Word Journal</h4>
+          <p>Write down unfamiliar words with definitions and example sentences.</p>
+
+          <h4 class="font-semibold mb-1 mt-2">Use Flashcards</h4>
+          <p>Practice recall with digital or physical flashcards for difficult words.</p>
+
+          <!-- Quiz -->
+          <div class="quiz-container mt-3 p-2 bg-white/90 dark:bg-gray-800 rounded-xl shadow text-center">
+            <p class="font-semibold mb-2 text-sm">Quick Quiz: Which technique helps with active recall?</p>
+            <div class="flex justify-center gap-2 flex-wrap">
+              <button class="quiz-btn w-36 py-1 bg-pink-500 text-white rounded-full transition-none"
+                data-answer="correct">Flashcards</button>
+              <button class="quiz-btn w-36 py-1 bg-pink-500 text-white rounded-full transition-none"
+                data-answer="wrong">Reading Widely</button>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-gray-500 dark:text-gray-400 text-sm mt-2">Aug 20, 2025 • Mohid</p>
+        <button class="bg-pink-500 text-white px-4 py-1 mt-2 rounded-lg hover:bg-pink-600">Read More</button>
+      </div>
+
+      <!-- Blog Card 3 -->
+      <div class="blog-card bg-white/90 dark:bg-gray-800 p-6 rounded-2xl shadow-lg text-center transition-colors"
+        data-tags="Writing,Tips">
+        <h3 class="text-xl font-semibold mb-2">Top Writing Tips for Students</h3>
+        <p class="text-gray-700 dark:text-gray-300 mb-2">Boost your writing skills with these practical tips…</p>
+
+        <div class="extra-content text-left text-gray-700 dark:text-gray-300" style="display: none;">
+          <h4 class="font-semibold mb-1">Plan Your Writing</h4>
+          <p>Create an outline before starting to organize your ideas clearly.</p>
+
+          <h4 class="font-semibold mb-1 mt-2">Proofread Carefully</h4>
+          <p>Check for spelling, grammar, and punctuation errors before submission.</p>
+
+          <h4 class="font-semibold mb-1 mt-2">Seek Feedback</h4>
+          <p>Share drafts with peers or mentors to get constructive suggestions.</p>
+
+          <!-- Quiz -->
+          <div class="quiz-container mt-3 p-2 bg-white/90 dark:bg-gray-800 rounded-xl shadow text-center">
+            <p class="font-semibold mb-2 text-sm">Quick Quiz: What is a key step before writing?</p>
+            <div class="flex justify-center gap-2 flex-wrap">
+              <button class="quiz-btn w-36 py-1 bg-pink-500 text-white rounded-full transition-none"
+                data-answer="correct">Planning</button>
+              <button class="quiz-btn w-36 py-1 bg-pink-500 text-white rounded-full transition-none"
+                data-answer="wrong">Proof Reading</button>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-gray-500 dark:text-gray-400 text-sm mt-2">Aug 18, 2025 • Mohid</p>
+        <button class="bg-pink-500 text-white px-4 py-1 mt-2 rounded-lg hover:bg-pink-600">Read More</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Main Script -->
+  <script>
+    /* ---------------- Theme Toggle ---------------- */
+    const themeToggle = document.getElementById("themeToggle");
+    const body = document.body;
+    if (localStorage.getItem("theme") === "dark") {
+      body.classList.add("dark");
+      body.classList.remove("light");
+    } else {
+      body.classList.add("light");
+      body.classList.remove("dark");
+    }
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      body.classList.toggle("light");
+      localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light");
+    });
+
+    /* ---------------- Card Expand / Overlay ---------------- */
+    const cards = document.querySelectorAll(".blog-card");
+    const overlay = document.getElementById("overlay");
+
+    cards.forEach(card => {
+      const readBtn = card.querySelector("button:not(.quiz-btn)");
+      const extraContent = card.querySelector(".extra-content");
+
+      readBtn.addEventListener("click", e => {
+        e.stopPropagation();
+
+        // Close other cards
+        cards.forEach(c => {
+          c.classList.remove("focused");
+          const btn = c.querySelector("button:not(.quiz-btn)");
+          const content = c.querySelector(".extra-content");
+          if (content) content.style.display = "none";
+          if (btn) btn.style.display = "inline-block";
+        });
+
+        // Open clicked card
+        card.classList.add("focused");
+        overlay.classList.add("show");
+        if (extraContent) extraContent.style.display = "block";
+        readBtn.style.display = "none";
+      });
+    });
+
+    overlay.addEventListener("click", () => {
+      cards.forEach(c => {
+        c.classList.remove("focused");
+        const btn = c.querySelector("button:not(.quiz-btn)");
+        const content = c.querySelector(".extra-content");
+        if (content) content.style.display = "none";
+        if (btn) btn.style.display = "inline-block";
+      });
+      overlay.classList.remove("show");
+    });
+
+    /* ---------------- Tag Filter ---------------- */
+    document.querySelectorAll(".tag-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const tag = btn.dataset.tag;
+        cards.forEach(card => {
+          card.style.display = tag === "All" || card.dataset.tags.includes(tag) ? "block" : "none";
+        });
+      });
+    });
+
+    /* ---------------- Search Filter ---------------- */
+    document.getElementById("searchInput").addEventListener("input", e => {
+      const query = e.target.value.toLowerCase();
+      cards.forEach(card => {
+        const title = card.querySelector("h3").textContent.toLowerCase();
+        card.style.display = title.includes(query) ? "block" : "none";
+      });
+    });
+
+    // Quiz button feedback
+    document.querySelectorAll(".quiz-container").forEach(container => {
+      const buttons = container.querySelectorAll(".quiz-btn");
+
+      buttons.forEach(btn => {
+        // Store original text in a data attribute
+        btn.dataset.originalText = btn.textContent;
+
+        btn.addEventListener("click", e => {
+          e.stopPropagation();
+
+          // Disable all buttons temporarily
+          buttons.forEach(b => b.disabled = true);
+
+          // Update all buttons in the quiz
+          buttons.forEach(b => {
+            const isCorrect = b.dataset.answer === "correct";
+            b.textContent = isCorrect ? "✔" : "✖";
+            b.classList.remove("bg-pink-500");
+            b.classList.add(isCorrect ? "bg-green-500" : "bg-red-500");
+          });
+
+          // Reset after 1 second
+          setTimeout(() => {
+            buttons.forEach(b => {
+              b.textContent = b.dataset.originalText; // restore original text
+              b.classList.remove("bg-green-500", "bg-red-500");
+              b.classList.add("bg-pink-500");
+              b.disabled = false;
+            });
+          }, 1000);
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>

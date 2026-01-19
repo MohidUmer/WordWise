@@ -1,0 +1,524 @@
+<!-- reviews.html -->
+<!DOCTYPE html>
+<html lang="en" class="light">
+<!-- Head Section -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WordWise — Reviews</title>
+
+  <!-- Related Links -->
+  <link rel="icon" type="image/png" href="../images/logo.jpeg">
+  <link rel="stylesheet" href="../css/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+  <!--Script Links -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Enable Tailwind dark mode -->
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+
+  <!-- style section -->
+  <style>
+    .logo-animate {
+      transition: all 0.5s ease;
+    }
+
+    .logo-animate:hover {
+      transform: rotate(360deg) scale(1.1);
+      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+    }
+
+    .star {
+      font-size: 1.5rem;
+      color: gray;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .star.selected,
+    .star.hovered {
+      color: #ec4899;
+    }
+
+    #reviewPanel {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 350px;
+      max-height: 70vh;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 1rem;
+      overflow-y: auto;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      transition: transform 0.4s ease, opacity 0.4s ease;
+      transform: translateY(120%);
+      opacity: 0;
+      z-index: 50;
+    }
+
+    body.dark #reviewPanel {
+      background: rgba(31, 41, 55, 0.95);
+    }
+
+    #reviewPanel.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    #toggleReviewPanel {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #ec4899;
+      color: white;
+      font-weight: bold;
+      border-radius: 9999px;
+      padding: 12px 20px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      z-index: 51;
+      transition: background 0.3s;
+    }
+
+    #toggleReviewPanel:hover {
+      background: #db2777;
+    }
+
+    /* Make overlay not block other buttons */
+    #offlineScreen {
+      pointer-events: none;
+      /* allow clicks through */
+    }
+
+    #dinoGame,
+    #offlineScreen h1,
+    #offlineScreen p {
+      pointer-events: auto;
+      /* only interactable elements */
+    }
+  </style>
+</head>
+
+<!-- Body Section -->
+
+<body class="light min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav id="navbar" class="bg-white/70 dark:bg-gray-900 shadow-md sticky top-0 z-50 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap justify-between items-center py-3">
+
+        <!-- Brand -->
+        <a href="main.html" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
+          <img src="../images/logo.jpeg" alt="WordWise Logo"
+            class="w-[clamp(32px,6vw,48px)] h-[clamp(32px,6vw,48px)] rounded-full logo-animate object-cover border-2 border-gray-300 dark:border-white" />
+          <span class="text-[clamp(1.1rem,2vw,1.75rem)] font-extrabold tracking-tight">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-pink-500">Word</span>
+            <span class="text-gray-900 dark:text-white">Wise</span>
+          </span>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <div class="hidden md:flex flex-wrap justify-center flex-1 gap-4 text-[clamp(0.9rem,1.3vw,1.1rem)]">
+          <a href="main.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i>
+            Home</a>
+          <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+            Resources</a>
+          <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i>
+            Tools</a>
+          <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i>
+            Blog</a>
+          <a href="about.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i>
+            About Us</a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button id="themeToggle"
+            class="px-3 py-1 rounded-lg bg-pink-500 text-white hover:bg-pink-600 flex items-center gap-2">
+            <i class="ri-moon-clear-line"></i> <span class="hidden sm:inline">Toggle</span>
+          </button>
+          <a href="login.html" id="loginBtn"
+            class="px-3 py-1 rounded-lg bg-blue-500 text-white hover:bg-blue-600 flex items-center gap-2">
+            <i class="ri-login-box-line"></i> <span class="hidden sm:inline">Login</span>
+          </a>
+          <button id="menu-toggle" class="md:hidden text-3xl focus:outline-none">☰</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden flex-col gap-4 p-4 bg-white dark:bg-gray-900 shadow-md">
+      <a href="main.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i> Home</a>
+      <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+        Resources</a>
+      <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i> Tools</a>
+      <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i> Blog</a>
+      <a href="about.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i> About
+        Us</a>
+    </div>
+  </nav>
+
+  <script>
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+  </script>
+
+  <!-- Hero Section -->
+  <section class="w-full flex flex-col items-center justify-center text-center py-12">
+    <h1 class="text-4xl md:text-5xl font-extrabold mb-6"><span
+        class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-pink-500">WordWise</span>
+      Reviews
+    </h1>
+  </section>
+
+  <!-- Offline Middle Content -->
+  <div id="offlineContainer" class="relative w-full max-w-3xl mx-auto my-6 p-6">
+    <div id="offlineScreen"
+      class="flex flex-col items-center justify-center p-6 bg-gray-100 dark:bg-gray-900 rounded-xl shadow-md hidden">
+      <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-4 text-center">⚠️ Server Offline
+      </h1>
+      <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Waiting for connection... Try the mini game!</p>
+      <canvas id="dinoGame" width="600" height="150" class="border rounded-lg bg-white dark:bg-gray-700"></canvas>
+      <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">Use SPACE or UP to jump</p>
+    </div>
+  </div>
+
+  <script>
+    function resizeDinoCanvas() {
+      const container = document.getElementById("offlineContainer");
+      const canvas = document.getElementById("dinoGame");
+
+      // Make canvas width match container width with some padding
+      const width = Math.min(container.offsetWidth, 600);
+      const height = 150; // keep original height ratio or scale if you want
+      canvas.width = width;
+      canvas.height = height;
+
+      // Optional: scale cactus and dino position proportionally
+      cactusX = width; // start cactus at right edge
+      if (dinoY > height - 30) dinoY = height - 30;
+    }
+
+    // Call on load
+    window.addEventListener("load", resizeDinoCanvas);
+
+    // Call on window resize
+    window.addEventListener("resize", () => {
+      resizeDinoCanvas();
+      drawGame(); // redraw after resizing
+    });
+  </script>
+
+  <!-- Main Section -->
+  <main class="flex-1 flex flex-col items-center justify-center p-6 gap-10">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl mt-4" id="reviewGridMain"></div>
+  </main>
+
+  <!-- Floating Review Panel -->
+  <div id="reviewPanel">
+    <div class="p-4">
+      <h2 class="text-xl font-bold mb-4 text-gray-900 dark:text-white text-center">Quick Reviews</h2>
+      <div id="latestReviews" class="space-y-2 text-sm mb-4"></div>
+
+      <div class="mt-6 bg-white/90 dark:bg-gray-700 p-4 rounded-xl shadow">
+        <h3 class="text-lg font-semibold mb-2 text-center">Submit Your Review</h3>
+        <textarea id="reviewText" rows="3" placeholder="Write your review..."
+          class="w-full p-2 mb-1 rounded-lg border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100"></textarea>
+        <p id="textError" class="text-red-500 text-xs hidden mb-1">Review text is required.</p>
+
+        <div class="mb-2 text-center">
+          <span class="star-submit star" data-value="1" aria-label="Rate 1 star">&#9733;</span>
+          <span class="star-submit star" data-value="2" aria-label="Rate 2 stars">&#9733;</span>
+          <span class="star-submit star" data-value="3" aria-label="Rate 3 stars">&#9733;</span>
+          <span class="star-submit star" data-value="4" aria-label="Rate 4 stars">&#9733;</span>
+          <span class="star-submit star" data-value="5" aria-label="Rate 5 stars">&#9733;</span>
+        </div>
+        <p id="ratingError" class="text-red-500 text-xs hidden mb-1">Please select a rating.</p>
+
+        <button id="submitReview"
+          class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 w-full">Submit</button>
+        <p id="submitMsg" class="text-green-500 text-sm hidden mt-2 text-center"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Button -->
+  <button id="toggleReviewPanel">💬 Reviews</button>
+
+  <!-- Main Script -->
+  <script>
+    // ===============================
+    // THEME TOGGLE
+    // ===============================
+    const themeToggle = document.getElementById("themeToggle");
+    const body = document.body;
+
+    if (localStorage.getItem("theme") === "dark") {
+      body.classList.add("dark");
+      body.classList.remove("light");
+    } else {
+      body.classList.add("light");
+      body.classList.remove("dark");
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      body.classList.toggle("light");
+      localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light");
+    });
+
+    // ===============================
+    // OFFLINE SCREEN & DINO GAME
+    // ===============================
+    const offlineScreen = document.getElementById("offlineScreen");
+    const dinoCanvas = document.getElementById("dinoGame");
+    const ctx = dinoCanvas.getContext("2d");
+
+    let dinoY = 120, dinoVY = 0, gravity = 0.6, jumpPower = -12;
+    let isJumping = false, gameStarted = false;
+    let cactusX = 600, cactusSpeed = 6;
+    let score = 0, gameInterval = null, gameOver = false;
+
+    function drawGame() {
+      ctx.clearRect(0, 0, dinoCanvas.width, dinoCanvas.height);
+      ctx.fillStyle = "#ec4899";
+      ctx.fillRect(50, dinoY, 30, 30);
+      ctx.fillStyle = "#16a34a";
+      ctx.fillRect(cactusX, 130, 20, 20);
+      ctx.fillStyle = "#000";
+      ctx.font = "18px Arial";
+      ctx.fillText("Score: " + score, dinoCanvas.width - 100, 30);
+      if (gameOver) {
+        ctx.fillStyle = "red";
+        ctx.font = "20px Arial";
+        ctx.fillText("Game Over! Press SPACE", 100, 80);
+      }
+    }
+
+    function updateGame() {
+      if (!gameStarted) return;
+      dinoVY += gravity;
+      dinoY += dinoVY;
+      if (dinoY > 120) { dinoY = 120; dinoVY = 0; isJumping = false; }
+
+      cactusX -= cactusSpeed;
+      if (cactusX < -20) { cactusX = 600; score++; }
+
+      if (cactusX < 80 && cactusX + 20 > 50 && dinoY + 30 > 130) {
+        gameStarted = false;
+        gameOver = true;
+      }
+
+      drawGame();
+    }
+
+    function resetGame() {
+      cactusX = 600;
+      dinoY = 120;
+      dinoVY = 0;
+      score = 0;
+      gameOver = false;
+      drawGame();
+    }
+
+    function startDinoGame() {
+      if (!gameInterval) {
+        resetGame();
+        gameInterval = setInterval(updateGame, 20);
+      }
+    }
+
+    window.addEventListener("keydown", e => {
+      if ((e.code === "Space" || e.code === "ArrowUp") && !e.target.matches("textarea, input")) {
+        if (!gameStarted && gameOver) { resetGame(); gameStarted = true; }
+        else if (!gameStarted) { gameStarted = true; }
+
+        if (!isJumping) { dinoVY = jumpPower; isJumping = true; }
+        e.preventDefault();
+      }
+    });
+
+    // ===============================
+    // REVIEW DATA HANDLING
+    // ===============================
+    const API_URL = "http://localhost:5000/reviews";
+    const PENDING_KEY = "pendingReviews";
+    let selectedRating = 0;
+    let lastFetchedReviews = [];
+
+    function loadPendingReviews() {
+      return JSON.parse(localStorage.getItem(PENDING_KEY) || "[]");
+    }
+
+    function savePendingReview(review) {
+      const pending = loadPendingReviews();
+      pending.push(review);
+      localStorage.setItem(PENDING_KEY, JSON.stringify(pending));
+      renderLatestReviews();
+    }
+
+    function renderReviews(reviews) {
+      const reviewGrid = document.getElementById("reviewGridMain");
+      reviewGrid.innerHTML = "";
+      reviews.forEach(r => {
+        const div = document.createElement("div");
+        div.className = "p-6 bg-white dark:bg-gray-800 rounded-xl shadow hover:shadow-lg transition flex flex-col gap-3";
+        div.innerHTML = `
+          <p class="font-semibold text-gray-900 dark:text-gray-100">${r.username || "Anonymous"}</p>
+          <p class="text-gray-800 dark:text-gray-100">${r.text || ""}</p>
+          <div class="flex gap-1 text-lg text-yellow-400">${"★".repeat(r.stars || 0)}</div>
+        `;
+        reviewGrid.appendChild(div);
+      });
+    }
+
+    function renderLatestReviews() {
+      const latestDiv = document.getElementById("latestReviews");
+      latestDiv.innerHTML = "";
+      const pending = loadPendingReviews();
+      const allReviews = [...lastFetchedReviews, ...pending];
+      const latest = allReviews.slice(-5).reverse();
+
+      latest.forEach(r => {
+        const div = document.createElement("div");
+        div.className = "p-2 bg-gray-100 dark:bg-gray-800 rounded-md shadow-sm flex flex-col";
+        div.innerHTML = `
+          <div class="flex justify-between">
+            <span class="font-semibold text-gray-900 dark:text-gray-100">${r.username || "Anonymous"}</span>
+            <span class="text-yellow-400">${"★".repeat(r.stars || 0)}</span>
+          </div>
+          <p class="text-gray-700 dark:text-gray-300 text-sm mt-1">${r.text || ""}</p>
+          ${r.status === "pending" ? `<span class="text-xs text-red-500 mt-1">Pending</span>` : ""}
+        `;
+        latestDiv.appendChild(div);
+      });
+    }
+
+    async function fetchReviews() {
+      try {
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error("Fetch failed");
+        const data = await res.json();
+        lastFetchedReviews = data;
+
+        if (gameInterval) { clearInterval(gameInterval); gameInterval = null; }
+        gameStarted = false; gameOver = false;
+        offlineScreen.style.display = "none";
+
+        renderReviews(lastFetchedReviews); // only show server reviews on main grid
+        renderLatestReviews();             // panel shows both fetched + pending
+      } catch {
+        offlineScreen.style.display = "flex";
+        startDinoGame();
+        renderLatestReviews();
+        setTimeout(fetchReviews, 3000);
+      }
+    }
+
+    async function syncPendingReviews() {
+      const pending = loadPendingReviews();
+      if (!pending.length) return;
+
+      const successful = [];
+      for (let review of pending) {
+        try {
+          const res = await fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(review)
+          });
+          if (res.ok) successful.push(review);
+        } catch { }
+      }
+
+      if (successful.length) {
+        const remaining = pending.filter(r => !successful.includes(r));
+        localStorage.setItem(PENDING_KEY, JSON.stringify(remaining));
+        renderLatestReviews();
+        fetchReviews();
+      }
+    }
+
+    // ===============================
+    // STAR SELECTION & REVIEW SUBMIT
+    // ===============================
+    document.querySelectorAll(".star-submit").forEach(star => {
+      star.addEventListener("click", () => {
+        selectedRating = parseInt(star.dataset.value);
+        document.querySelectorAll(".star-submit").forEach(s => {
+          s.classList.toggle("selected", parseInt(s.dataset.value) <= selectedRating);
+        });
+      });
+    });
+
+    document.getElementById("submitReview").addEventListener("click", () => {
+      const text = document.getElementById("reviewText").value.trim();
+      const textError = document.getElementById("textError");
+      const ratingError = document.getElementById("ratingError");
+      const submitMsg = document.getElementById("submitMsg");
+
+      textError.classList.add("hidden");
+      ratingError.classList.add("hidden");
+      submitMsg.classList.add("hidden");
+
+      if (!text) { textError.classList.remove("hidden"); return; }
+      if (!selectedRating) { ratingError.classList.remove("hidden"); return; }
+
+      const review = { username: "Anonymous", text, stars: selectedRating, createdAt: new Date().toLocaleDateString(), status: "pending" };
+
+      if (navigator.onLine) {
+        fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(review)
+        }).then(res => {
+          if (res.ok) {
+            submitMsg.textContent = "Review submitted successfully!";
+            submitMsg.classList.remove("hidden");
+            document.getElementById("reviewText").value = "";
+            selectedRating = 0;
+            document.querySelectorAll(".star-submit").forEach(s => s.classList.remove("selected"));
+            fetchReviews();
+          } else savePendingReviewOffline();
+        }).catch(savePendingReviewOffline);
+      } else savePendingReviewOffline();
+
+      function savePendingReviewOffline() {
+        savePendingReview(review);
+        submitMsg.textContent = "Saved offline. Will sync when online.";
+        submitMsg.classList.remove("hidden");
+      }
+    });
+
+    // ===============================
+    // ONLINE EVENT
+    // ===============================
+    window.addEventListener("online", () => {
+      syncPendingReviews();
+      if (gameInterval) { clearInterval(gameInterval); gameInterval = null; }
+      resetGame();
+      gameStarted = false;
+      gameOver = false;
+      offlineScreen.style.display = "none";
+      fetchReviews();
+    });
+
+    // ===============================
+    // REVIEW PANEL TOGGLE
+    // ===============================
+    const reviewPanel = document.getElementById("reviewPanel");
+    document.getElementById("toggleReviewPanel").addEventListener("click", () => {
+      reviewPanel.classList.toggle("show");
+    });
+
+    // ===============================
+    // INITIAL LOAD
+    // ===============================
+    fetchReviews();
+    syncPendingReviews();
+  </script>
+</body>
+
+</html>

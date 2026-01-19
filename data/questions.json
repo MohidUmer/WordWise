@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "question": "How to get more grades in grammar??",
+    "username": "Anonymous",
+    "status": "pending",
+    "createdAt": "Sep 01, 2025"
+  },
+  {
+    "id": 2,
+    "question": "hi",
+    "username": "Anonymous",
+    "status": "pending",
+    "createdAt": "Sep 01, 2025"
+  },
+  {
+    "id": 3,
+    "question": "you",
+    "username": "Anonymous",
+    "status": "pending",
+    "createdAt": "Sep 01, 2025"
+  },
+  {
+    "id": 4,
+    "question": "you",
+    "username": "Anonymous",
+    "status": "pending",
+    "createdAt": "Sep 01, 2025"
+  }
+]

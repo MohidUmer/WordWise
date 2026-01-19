@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "username": "Anonymous",
+    "text": "It is a really helpful website for me.",
+    "stars": 5,
+    "createdAt": "Sep 01, 2025",
+    "status": "approved"
+  },
+  {
+    "id": 2,
+    "username": "Anonymous",
+    "text": "I love this page for its games and drawing pad which I didn't expected.",
+    "stars": 4,
+    "createdAt": "Sep 01, 2025",
+    "status": "approved"
+  },
+  {
+    "id": 3,
+    "username": "Anonymous",
+    "text": "I love this page.",
+    "stars": 5,
+    "createdAt": "Sep 01, 2025",
+    "status": "approved"
+  }
+]

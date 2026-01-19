@@ -1,0 +1,1002 @@
+<!-- main.html -->
+<!DOCTYPE html>
+<html lang="en" class="light">
+<!-- Head Section -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WordWise — Smart Grammar Helper</title>
+
+  <!--Related Links -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/logo.jpeg">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+  <!-- Related Script -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Enable Tailwind dark mode -->
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+</head>
+
+<!-- Body Section -->
+
+<body class="light min-h-screen flex flex-col">
+
+  <!-- Pre-Loader -->
+  <div id="preloader">
+    <div class="wave"></div>
+    <div class="loader">
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+      <div class="square"></div>
+    </div>
+  </div>
+
+  <!-- Navbar -->
+  <nav id="navbar" class="bg-white/70 dark:bg-gray-900 shadow-md sticky top-0 z-50 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap justify-between items-center py-3">
+
+        <!-- Brand -->
+        <a href="main.html" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
+          <img src="../images/logo.jpeg" alt="WordWise Logo"
+            class="w-[clamp(32px,6vw,48px)] h-[clamp(32px,6vw,48px)] rounded-full logo-animate object-cover border-2 border-gray-300 dark:border-white" />
+          <span class="text-[clamp(1.1rem,2vw,1.75rem)] font-extrabold tracking-tight">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-pink-500">Word</span>
+            <span class="text-gray-900 dark:text-white">Wise</span>
+          </span>
+        </a>
+
+        <!-- Desktop Nav Links (wraps on medium screens) -->
+        <div class="hidden md:flex flex-wrap justify-center flex-1 gap-4 text-[clamp(0.9rem,1.3vw,1.1rem)]">
+          <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+            Resources</a>
+          <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i>
+            Tools</a>
+          <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i>
+            Blog</a>
+          <a href="about.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i>
+            About Us</a>
+          <a href="https://en.wikipedia.org/wiki/English_grammar" target="_blank"
+            class="flex items-center gap-1 hover:text-pink-600">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"
+              class="w-[clamp(18px,2vw,22px)] h-[clamp(18px,2vw,22px)] fill-current"><text x="7" y="35" font-size="28"
+                font-weight="bold">W</text></svg> Wikipedia
+          </a>
+          <a href="https://www.dictionary.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+              class="ri-book-2-line"></i> Dictionary</a>
+          <a href="https://www.grammarly.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+              class="ri-check-double-line"></i> Grammarly</a>
+        </div>
+
+        <!-- Right Side: Buttons + Hamburger -->
+        <div class="flex items-center gap-3">
+          <!-- Theme Toggle -->
+          <button id="themeToggle"
+            class="px-3 py-1 rounded-lg bg-pink-500 text-white hover:bg-pink-600 flex items-center gap-2">
+            <i class="ri-moon-clear-line"></i> <span class="hidden sm:inline">Toggle</span>
+          </button>
+
+          <!-- Login -->
+          <a href="login.html" id="loginBtn"
+            class="px-3 py-1 rounded-lg bg-blue-500 text-white hover:bg-blue-600 flex items-center gap-2">
+            <i class="ri-login-box-line"></i> <span class="hidden sm:inline">Login</span>
+          </a>
+
+          <!-- Hamburger (mobile only) -->
+          <button id="menu-toggle" class="md:hidden text-3xl focus:outline-none">☰</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden flex-col gap-4 p-4 bg-white dark:bg-gray-900 shadow-md">
+      <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+        Resources</a>
+      <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i> Tools</a>
+      <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i> Blog</a>
+      <a href="about.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i> About
+        Us</a>
+      <a href="https://en.wikipedia.org/wiki/English_grammar" target="_blank"
+        class="flex items-center gap-1 hover:text-pink-600">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" class="w-5 h-5 fill-current"><text x="7" y="35"
+            font-size="28" font-weight="bold">W</text></svg> Wikipedia
+      </a>
+      <a href="https://www.dictionary.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+          class="ri-book-2-line"></i> Dictionary</a>
+      <a href="https://www.grammarly.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+          class="ri-check-double-line"></i> Grammarly</a>
+    </div>
+  </nav>
+
+  <script>
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+  </script>
+
+  <!-- Hero Section -->
+  <section class="w-full flex flex-col items-center justify-center text-center py-12">
+    <h1 class="text-4xl md:text-5xl font-extrabold mb-6">
+      Welcome to <span
+        class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-pink-500">WordWise</span>
+    </h1>
+  </section>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex items-center justify-center p-6">
+    <div class="flex flex-col gap-6 w-3/4">
+
+      <div class="grid grid-cols-2 gap-6">
+        <!-- Input Box -->
+        <div class="flex flex-col gap-2">
+          <textarea id="inputBox"
+            class="w-full h-96 p-4 text-lg rounded-2xl shadow-xl border border-gray-300 focus:outline-none focus:ring-4 focus:ring-pink-400 bg-white/80 backdrop-blur-md dark:bg-gray-800 dark:text-white"
+            placeholder="Start typing..."></textarea>
+
+          <!-- Live Feedback -->
+          <div id="liveFeedback" class="flex justify-between text-sm text-gray-600 dark:text-gray-300">
+            <span id="wordCount">Words: 0</span>
+            <span id="charCount">Characters: 0</span>
+            <span id="errorCount">Errors: 0</span>
+            <span id="readingGrade">Reading Grade: N/A</span>
+          </div>
+        </div>
+
+        <!-- Output Box -->
+        <div class="relative">
+          <div id="outputBox"
+            class="w-full h-96 p-4 text-lg rounded-2xl shadow-xl border border-gray-300 bg-white/90 backdrop-blur-md overflow-y-auto whitespace-pre-wrap dark:bg-gray-700 transition-all">
+          </div>
+          <button id="copyBtn" title="Copy text"
+            class="absolute top-2 right-2 w-8 h-8 flex items-center justify-center bg-gray-300/70 rounded-full hover:bg-gray-400/80 transition-all dark:bg-white/20 dark:hover:bg-white/30">
+            <i class="ri-file-copy-line text-gray-800 dark:text-white"></i>
+          </button>
+          <button id="analyticsBtn" title="Show Analytics"
+            class="absolute bottom-10 right-2 w-8 h-8 flex items-center justify-center 
+                bg-gray-300/50 rounded-full hover:bg-gray-400/80 transition-all dark:bg-white/20 dark:hover:bg-white/30">
+            <i class="ri-bar-chart-line text-gray-800 dark:text-white"></i>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Suggestions Box -->
+      <div id="suggestionsBox"
+        class="p-4 mt-2 rounded-xl shadow-lg border border-gray-300 bg-white/90 dark:bg-gray-800 min-h-[60px] text-sm overflow-auto">
+        <p class="text-gray-500 dark:text-gray-400">Suggestions will appear here...</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Drawing Pad Section -->
+  <div class="mt-6 relative w-full max-w-[1100px] mx-auto border border-gray-300 rounded-xl shadow-md overflow-hidden"
+    style="min-height: 250px; height: clamp(250px, 60vh, 600px);">
+
+    <!-- Main Drawing Canvas -->
+    <canvas id="freedomBoard" class="bg-white w-full h-full cursor-crosshair"></canvas>
+
+    <!-- Grid Canvas -->
+    <canvas id="gridCanvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
+
+    <!-- Default Background -->
+    <img id="defaultBg" src="../images/canvas.png" alt="Board Background"
+      class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none">
+
+    <!-- Background Selector Button -->
+    <button id="bgBtn" class="absolute top-16 right-3 p-2 bg-gray-200/70 rounded-full shadow 
+            hover:bg-gray-300 dark:bg-gray-700/70 dark:hover:bg-gray-600 z-20 flex items-center justify-center">
+      <!-- Mountain / Photo SVG -->
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-black dark:text-white" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M3 20h18M21 16l-5-5-4 4-6-6-3 3v8h18z" />
+      </svg>
+
+      <input type="file" id="bgUpload" accept="image/*"
+        class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer">
+    </button>
+
+    <!-- Download Button -->
+    <button id="downloadCanvas" class="absolute top-3 right-3 p-1 bg-green-500/70 dark:bg-green-600/70 rounded-full shadow 
+            hover:bg-green-600/90 dark:hover:bg-green-700/90 transition z-20">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 12v8m0 0l-4-4m4 4l4-4M12 4v8" />
+      </svg>
+    </button>
+
+    <!-- Tool Buttons (Left Side Vertical Bar) -->
+    <div class="absolute top-3 left-3 flex flex-col gap-2 z-20">
+
+      <!-- Circular Color Picker Button -->
+      <input type="color" id="colorPicker" value="#111111" class="w-8 h-8 p-0 rounded-full border border-gray-300 cursor-pointer
+                    appearance-none overflow-hidden" style="border-radius: 10%; padding: 0; width: 32px; height: 32px;"
+        title="Pick a color" />
+
+      <!-- Shapes -->
+      <div class="relative">
+        <button id="shapesBtn" class="p-1 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
+                hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-black dark:text-white" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4 20h6v-6H4v6zm14-2l-3-6-3 6h6zm-10-10a3 3 0 116 0 3 3 0 01-6 0z" />
+          </svg>
+        </button>
+
+        <!-- Shape Menu -->
+        <div id="shapeMenu" class="hidden absolute left-12 top-0 flex flex-wrap gap-2 bg-gray-100 dark:bg-gray-800 
+                    p-2 rounded shadow w-40">
+          <!-- Square Filled -->
+          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
+            data-shape="rectangle-filled" title="Filled Square">▮</button>
+          <!-- Square Hollow -->
+          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
+            data-shape="rectangle-hollow" title="Hollow Square">▯</button>
+          <!-- Circle Filled -->
+          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
+            data-shape="circle-filled" title="Filled Circle">●</button>
+          <!-- Circle Hollow -->
+          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
+            data-shape="circle-hollow" title="Hollow Circle">○</button>
+          <!-- Triangle Filled  -->
+          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
+            data-shape="triangle-filled">▲</button>
+          <!-- Triangle Hollow -->
+          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
+            data-shape="triangle-hollow">△</button>
+          <!-- Straight line -->
+          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
+            data-shape="line-straight">│</button>
+          <!-- Left tilt line -->
+          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
+            data-shape="line-tilt-left">╲</button>
+          <!-- Right tilt line -->
+          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
+            data-shape="line-tilt-right">╱</button>
+        </div>
+      </div>
+
+      <!-- Grid Toggle -->
+      <button id="gridToggle" class="p-2 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
+              hover:bg-gray-300 dark:hover:bg-gray-600 transition w-8 h-8 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black dark:text-white" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z" />
+        </svg>
+      </button>
+
+      <!-- Clear All -->
+      <button id="clearBoard" class="p-2 bg-red-500/70 dark:bg-red-600/70 rounded-full shadow 
+              hover:bg-red-600/90 dark:hover:bg-red-700/90 transition w-8 h-8 flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 6h18M9 6v12m6-12v12M4 6l1 14a2 2 0 002 2h10a2 2 0 002-2l1-14" />
+        </svg>
+      </button>
+
+      <!-- Delete Confirmation Modal -->
+      <div id="deleteModal" class="fixed inset-0 flex items-center justify-center bg-black/40 hidden z-50">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center">
+          <p class="mb-4 text-gray-800 dark:text-gray-200">
+            Are you sure you want to clear the canvas?
+          </p>
+          <div class="flex justify-center gap-4">
+            <button id="confirmDelete" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Delete</button>
+            <button id="cancelDelete" class="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 
+                    dark:bg-gray-700 dark:text-white dark:hover:bg-gray-600">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <button class="toolBtn p-1 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
+                    hover:bg-gray-300 dark:hover:bg-gray-600 transition" data-tool="eraser">🩹</button>
+      <button class="toolBtn p-1 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
+                    hover:bg-gray-300 dark:hover:bg-gray-600 transition" data-tool="pencil">✏️</button>
+      <button class="toolBtn p-1 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
+                    hover:bg-gray-300 dark:hover:bg-gray-600 transition" data-tool="marker">🖊️</button>
+      <button class="toolBtn p-1 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
+                    hover:bg-gray-300 dark:hover:bg-gray-600 transition" data-tool="paint">🖌️</button>
+    </div>
+  </div>
+
+  <!-- Drawing Pad Script -->
+  <script>
+    const canvas = document.getElementById("freedomBoard");
+    const ctx = canvas.getContext("2d");
+    const gridCanvas = document.getElementById("gridCanvas");
+    const gridCtx = gridCanvas.getContext("2d");
+    const deleteModal = document.getElementById("deleteModal");
+    const clearBoardBtn = document.getElementById("clearBoard");
+    const confirmDelete = document.getElementById("confirmDelete");
+    const cancelDelete = document.getElementById("cancelDelete");
+    const shapesBtn = document.getElementById("shapesBtn");
+    const shapeMenu = document.getElementById("shapeMenu");
+    const shapeOptionsBtns = document.querySelectorAll(".shapeOption");
+
+    // Core variables
+    let drawing = false;
+    let currentTool = "pencil";
+    let strokeColor = "#111";
+    let strokeWidth = 2;
+    let currentShape = "rectangle-filled";
+    let showGrid = false;
+    const gridSize = 25;
+    let bgImage = null;
+
+    // Undo / Redo
+    let history = [];
+    let historyStep = -1;
+
+    // ---------------- Modal Events ----------------
+    clearBoardBtn.addEventListener("click", () => deleteModal.classList.remove("hidden"));
+    cancelDelete.addEventListener("click", () => deleteModal.classList.add("hidden"));
+    confirmDelete.addEventListener("click", () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      saveState();
+      deleteModal.classList.add("hidden");
+    });
+
+    // ---------------- Save / Restore ----------------
+    function saveState(saveLocal = true) {
+      history = history.slice(0, historyStep + 1);
+      history.push(canvas.toDataURL());
+      historyStep++;
+      if (saveLocal) localStorage.setItem("freedomBoard", canvas.toDataURL());
+    }
+
+    function restoreState(step) {
+      if (step < 0) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawGridLayer();
+        historyStep = -1;
+        return;
+      }
+      const img = new Image();
+      img.src = history[step];
+      img.onload = () => redrawCanvas(img);
+    }
+
+    function redrawCanvas(img = null) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (bgImage) ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+      if (img) ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      drawGridLayer();
+    }
+
+    // ---------------- Grid ----------------
+    function drawGridLayer() {
+      gridCtx.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
+      if (!showGrid) return;
+      gridCtx.save();
+      gridCtx.strokeStyle = "rgba(0,0,0,0.1)";
+      gridCtx.lineWidth = 1;
+      for (let x = 0; x <= gridCanvas.width; x += gridSize) {
+        gridCtx.beginPath();
+        gridCtx.moveTo(x, 0);
+        gridCtx.lineTo(x, gridCanvas.height);
+        gridCtx.stroke();
+      }
+      for (let y = 0; y <= gridCanvas.height; y += gridSize) {
+        gridCtx.beginPath();
+        gridCtx.moveTo(0, y);
+        gridCtx.lineTo(gridCanvas.width, y);
+        gridCtx.stroke();
+      }
+      gridCtx.restore();
+    }
+
+    // ---------------- Mouse / Touch ----------------
+    function getPosition(e) {
+      const rect = canvas.getBoundingClientRect();
+      if (e.touches) {
+        return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+      } else return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    }
+
+    function startDrawing(e) {
+      const pos = getPosition(e);
+      if (currentTool === "shape") {
+        drawShape(pos.x, pos.y);
+        saveState();
+      } else {
+        drawing = true;
+        ctx.beginPath();
+        ctx.moveTo(pos.x, pos.y);
+      }
+      e.preventDefault();
+    }
+
+    function draw(e) {
+      if (!drawing) return;
+      const pos = getPosition(e);
+      ctx.globalCompositeOperation = currentTool === "eraser" ? "destination-out" : "source-over";
+      ctx.strokeStyle = currentTool === "eraser" ? "rgba(0,0,0,1)" : strokeColor;
+      ctx.lineWidth = currentTool === "pencil" ? 2 :
+        currentTool === "marker" ? 6 :
+          currentTool === "paint" ? 12 :
+            currentTool === "eraser" ? 12 : strokeWidth;
+      ctx.lineTo(pos.x, pos.y);
+      ctx.lineCap = "round";
+      ctx.stroke();
+      e.preventDefault();
+    }
+
+    function stopDrawing() {
+      if (!drawing) return;
+      drawing = false;
+      ctx.closePath();
+      if (currentTool !== "shape") saveState();
+    }
+
+    // ---------------- Draw Shapes ----------------
+    function drawShape(x, y) {
+      const size = currentShape.includes("hollow") ? 180 : 60;
+      ctx.globalCompositeOperation = "source-over";
+      ctx.fillStyle = strokeColor;
+      ctx.strokeStyle = strokeColor;
+      ctx.lineWidth = 2;
+      const filled = currentShape.includes("filled");
+
+      switch (true) {
+        case currentShape.startsWith("rectangle"):
+          filled ? ctx.fillRect(x - size / 2, y - size / 2, size, size) : ctx.strokeRect(x - size / 2, y - size / 2, size, size);
+          break;
+        case currentShape.startsWith("circle"):
+          ctx.beginPath();
+          ctx.arc(x, y, size / 2, 0, Math.PI * 2);
+          filled ? ctx.fill() : ctx.stroke();
+          break;
+        case currentShape.startsWith("triangle"):
+          ctx.beginPath();
+          ctx.moveTo(x, y - size / 2);
+          ctx.lineTo(x - size / 2, y + size / 2);
+          ctx.lineTo(x + size / 2, y + size / 2);
+          ctx.closePath();
+          filled ? ctx.fill() : ctx.stroke();
+          break;
+        case currentShape.startsWith("line"):
+          ctx.beginPath();
+          switch (currentShape) {
+            case "line-tilt-right":
+              ctx.moveTo(x - size, y + size);
+              ctx.lineTo(x + size, y - size);
+              break;
+            case "line-tilt-left":
+              ctx.moveTo(x - size, y - size);
+              ctx.lineTo(x + size, y + size);
+              break;
+            case "line-straight":
+              ctx.moveTo(x, y - size);
+              ctx.lineTo(x, y + size);
+              break;
+          }
+          ctx.stroke();
+          break;
+      }
+    }
+
+    // ---------------- Canvas Events ----------------
+    canvas.addEventListener("mousedown", startDrawing);
+    canvas.addEventListener("mousemove", draw);
+    canvas.addEventListener("mouseup", stopDrawing);
+    canvas.addEventListener("mouseleave", stopDrawing);
+    canvas.addEventListener("touchstart", startDrawing, { passive: false });
+    canvas.addEventListener("touchmove", draw, { passive: false });
+    canvas.addEventListener("touchend", stopDrawing);
+
+    // ---------------- Tool Buttons ----------------
+    document.querySelectorAll(".toolBtn").forEach(btn =>
+      btn.addEventListener("click", () => currentTool = btn.dataset.tool)
+    );
+
+    // ---------------- Color Picker ----------------
+    document.getElementById("colorPicker")?.addEventListener("input", e => strokeColor = e.target.value);
+
+    // ---------------- Undo / Redo ----------------
+    document.addEventListener("keydown", e => {
+      if (e.ctrlKey && e.key === "z") restoreState(--historyStep);
+      if (e.ctrlKey && e.key === "y" && historyStep < history.length - 1) restoreState(++historyStep);
+    });
+
+    // ---------------- Grid Toggle ----------------
+    document.getElementById("gridToggle").addEventListener("click", () => {
+      showGrid = !showGrid;
+      drawGridLayer();
+    });
+
+    // ---------------- Background Upload ----------------
+    document.getElementById("bgUpload").addEventListener("change", e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const img = new Image();
+        img.src = event.target.result;
+        img.onload = () => {
+          bgImage = img;
+          redrawCanvas();
+          saveState();
+        }
+      }
+      reader.readAsDataURL(file);
+    });
+
+    // ---------------- Download Canvas ----------------
+    document.getElementById("downloadCanvas").addEventListener("click", () => {
+      const tempCanvas = document.createElement("canvas");
+      tempCanvas.width = canvas.width;
+      tempCanvas.height = canvas.height;
+      const tempCtx = tempCanvas.getContext("2d");
+
+      if (bgImage) tempCtx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+      else { tempCtx.fillStyle = "#fff"; tempCtx.fillRect(0, 0, canvas.width, canvas.height); }
+
+      tempCtx.drawImage(canvas, 0, 0);
+      const link = document.createElement("a");
+      link.download = "drawing.png";
+      link.href = tempCanvas.toDataURL();
+      link.click();
+    });
+
+    // ---------------- Shapes Menu ----------------
+    shapesBtn.addEventListener("click", () => shapeMenu.classList.toggle("hidden"));
+    shapeOptionsBtns.forEach(btn => {
+      btn.addEventListener("click", () => {
+        currentShape = btn.dataset.shape;
+        currentTool = "shape";
+        shapeMenu.classList.add("hidden");
+        shapesBtn.title = "Shape: " + currentShape;
+      });
+    });
+
+    // ---------------- Responsive Canvas ----------------
+    function resizeCanvas() {
+      const temp = new Image();
+      temp.src = canvas.toDataURL();
+
+      canvas.width = canvas.parentElement.clientWidth;
+      canvas.height = canvas.parentElement.clientHeight;
+      gridCanvas.width = canvas.width;
+      gridCanvas.height = canvas.height;
+
+      temp.onload = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(temp, 0, 0, canvas.width, canvas.height);
+        drawGridLayer();
+      }
+    }
+
+    window.addEventListener("resize", resizeCanvas);
+
+    // ---------------- Load Saved Canvas ----------------
+    const saved = localStorage.getItem("freedomBoard");
+    if (saved) {
+      const img = new Image();
+      img.src = saved;
+      img.onload = () => {
+        canvas.width = canvas.parentElement.clientWidth;
+        canvas.height = canvas.parentElement.clientHeight;
+        gridCanvas.width = canvas.width;
+        gridCanvas.height = canvas.height;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        saveState(false);
+        drawGridLayer();
+      }
+    } else resizeCanvas();
+
+  </script>
+
+  <!-- Features Section -->
+  <section class="max-w-7xl mx-auto px-6 py-12 flex flex-col gap-12">
+
+    <!-- Feature 1: Image Left, Text Right -->
+    <div
+      class="flex flex-col md:flex-row items-center gap-8 feature-card cursor-pointer transition-transform duration-300">
+      <img src="../images/feature1.jpg" alt="Feature 1"
+        class="w-full md:w-1/2 h-64 object-cover rounded-xl shadow-lg feature-img">
+      <div class="md:w-1/2">
+        <h3 class="text-2xl font-bold mb-4">Smart Grammar Detection</h3>
+        <p class="text-gray-700 dark:text-gray-300">Instantly detect grammar and spelling mistakes as you type, giving
+          you real-time feedback to improve your writing efficiently.</p>
+      </div>
+    </div>
+
+    <!-- Feature 2: Text Left, Image Right -->
+    <div
+      class="flex flex-col md:flex-row-reverse items-center gap-8 feature-card cursor-pointer transition-transform duration-300">
+      <img src="../images/feature2.jpg" alt="Feature 2"
+        class="w-full md:w-1/2 h-64 object-cover rounded-xl shadow-lg feature-img">
+      <div class="md:w-1/2">
+        <h3 class="text-2xl font-bold mb-4">Helpful Suggestions</h3>
+        <p class="text-gray-700 dark:text-gray-300">Receive actionable suggestions for better word choices, sentence
+          structure, and readability, making your text professional and polished.</p>
+      </div>
+    </div>
+
+    <!-- Feature 3: Image Left, Text Right -->
+    <div
+      class="flex flex-col md:flex-row items-center gap-8 feature-card cursor-pointer transition-transform duration-300">
+      <img src="../images/feature3.jpg" alt="Feature 3"
+        class="w-full md:w-1/2 h-64 object-cover rounded-xl shadow-lg feature-img">
+      <div class="md:w-1/2">
+        <h3 class="text-2xl font-bold mb-4">Multi-Platform Access</h3>
+        <p class="text-gray-700 dark:text-gray-300">Use WordWise anywhere, whether on desktop or mobile, and continue
+          your work seamlessly without losing progress.</p>
+      </div>
+    </div>
+
+    <!-- Feature 4: Text Left, Image Right -->
+    <div
+      class="flex flex-col md:flex-row-reverse items-center gap-8 feature-card cursor-pointer transition-transform duration-300">
+      <img src="../images/feature4.jpg" alt="Feature 4"
+        class="w-full md:w-1/2 h-64 object-cover rounded-xl shadow-lg feature-img">
+      <div class="md:w-1/2">
+        <h3 class="text-2xl font-bold mb-4">Fast & Secure</h3>
+        <p class="text-gray-700 dark:text-gray-300">Experience lightning-fast text analysis while ensuring your data
+          stays private and secure at all times.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-300 mt-12 transition-colors">
+    <div class="max-w-7xl mx-auto px-6 py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+
+      <!-- Contact -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
+        <p>Hack & Chat</p>
+        <p>WhatsApp: +92 336 0941069</p>
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mohidumer112@gmail.com&su=Hello&body=Hi%20there"
+          target="_blank">
+          mohidumer112@gmail.com
+        </a>
+
+      </div>
+
+      <!-- Information -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Information</h3>
+        <ul class="space-y-2">
+          <li><a href="faqs.html" class="hover:text-pink-500 transition-colors">FAQs</a></li>
+          <li><a href="reviews.html" class="hover:text-pink-500 transition-colors">Testimonials</a></li>
+        </ul>
+      </div>
+
+      <!-- Customer Service -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">User Care</h3>
+        <ul class="space-y-2">
+          <li><a href="reviews.html" class="hover:text-pink-500 transition-colors">Reviews</a></li>
+          <li><a href="main.html" class="hover:text-pink-500 transition-colors">Site</a></li>
+        </ul>
+      </div>
+
+      <!-- Extras -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Extras</h3>
+        <ul class="space-y-2">
+          <li><a href="blog.html" class="hover:text-pink-500 transition-colors">Blogs</a></li>
+          <li><a href="resource.html" class="hover:text-pink-500 transition-colors">Resources</a></li>
+          <li><a href="tools.html" class="hover:text-pink-500 transition-colors">Tools</a></li>
+          <li><a href="about.html" class="hover:text-pink-500 transition-colors">About Us</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div
+      class="border-t border-gray-300 dark:border-gray-700 py-6 px-6 flex flex-col md:flex-row justify-between items-center transition-colors">
+      <p class="text-sm">© 2025 WordWise. All rights reserved.</p>
+
+      <!-- Social Links -->
+      <div class="flex gap-4 mt-4 md:mt-0">
+        <a href="https://www.whatsapp.com/" target="_blank" rel="noopener noreferrer"
+          class="w-8 h-8 flex items-center justify-center bg-green-500 rounded-full hover:scale-110 transition"><i
+            class="ri-whatsapp-line text-white"></i></a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
+          class="w-8 h-8 flex items-center justify-center bg-pink-500 rounded-full hover:scale-110 transition"><i
+            class="ri-instagram-line text-white"></i></a>
+        <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer"
+          class="w-8 h-8 flex items-center justify-center bg-red-500 rounded-full hover:scale-110 transition"><i
+            class="ri-youtube-line text-white"></i></a>
+        <a href="https://www.snapchat.com/" target="_blank" rel="noopener noreferrer"
+          class="w-8 h-8 flex items-center justify-center bg-yellow-400 rounded-full hover:scale-110 transition"><i
+            class="ri-snapchat-line text-white"></i></a>
+        <a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer"
+          class="w-8 h-8 flex items-center justify-center bg-black rounded-full hover:scale-110 transition"><i
+            class="ri-tiktok-line text-white"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Analytics Modal (replace your existing one) -->
+  <div id="analyticsModal" class="fixed inset-0 z-[100] hidden">
+    <!-- Dimmed backdrop -->
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+
+    <!-- Centered modal -->
+    <div class="absolute inset-0 flex items-center justify-center p-4">
+      <div
+        class="w-full max-w-3xl rounded-2xl bg-white dark:bg-gray-900 shadow-2xl border border-gray-200 dark:border-gray-700">
+        <!-- Header -->
+        <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+          <h3 class="text-lg font-semibold">Grammar Analytics</h3>
+          <button id="closeAnalytics" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
+            <i class="ri-close-line"></i>
+          </button>
+        </div>
+
+        <!-- Controls + Chart area -->
+        <div class="p-4 flex flex-col gap-4">
+          <div class="flex gap-2">
+            <button id="barGraph" class="px-3 py-1 rounded-md bg-pink-500 text-white hover:bg-pink-600">Bar</button>
+            <button id="lineGraph" class="px-3 py-1 rounded-md bg-blue-500 text-white hover:bg-blue-600">Line</button>
+            <button id="pieGraph"
+              class="px-3 py-1 rounded-md bg-emerald-500 text-white hover:bg-emerald-600">Pie</button>
+          </div>
+
+          <!-- Smaller chart card (no overflow) -->
+          <div id="graphContainer"
+            class="relative w-full h-80 p-3 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-inner">
+            <canvas id="graphCanvas" class="w-full h-full"></canvas>
+            <div id="noDataMsg"
+              class="absolute inset-0 hidden items-center justify-center text-gray-500 dark:text-gray-400">
+              No error data yet. Type/paste text to analyze.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll to Top Button -->
+  <button id="scrollTopBtn" title="Go to top">
+    <i class="ri-arrow-up-line"></i>
+  </button>
+
+  <script>
+    const scrollBtn = document.getElementById("scrollTopBtn");
+
+    scrollBtn.addEventListener("click", (e) => {
+      e.preventDefault(); // Prevent any default jump behavior
+
+      // Smooth scroll using requestAnimationFrame
+      const startPosition = window.scrollY;
+      const duration = 600; // in ms
+      let startTime = null;
+
+      function scrollAnimation(currentTime) {
+        if (!startTime) startTime = currentTime;
+        const timeElapsed = currentTime - startTime;
+        const run = ease(timeElapsed, startPosition, -startPosition, duration);
+        window.scrollTo(0, run);
+        if (timeElapsed < duration) requestAnimationFrame(scrollAnimation);
+      }
+
+      // Ease function for smoothness
+      function ease(t, b, c, d) {
+        t /= d / 2;
+        if (t < 1) return c / 2 * t * t + b;
+        t--;
+        return -c / 2 * (t * (t - 2) - 1) + b;
+      }
+
+      requestAnimationFrame(scrollAnimation);
+    });
+  </script>
+
+  <!-- Main Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // ---------- ELEMENTS ----------
+      const els = {
+        body: document.body,
+        loginBtn: document.getElementById("loginBtn"),
+        input: document.getElementById("inputBox"),
+        output: document.getElementById("outputBox"),
+        suggestions: document.getElementById("suggestionsBox"),
+        themeToggle: document.getElementById("themeToggle"),
+        copyBtn: document.getElementById("copyBtn"),
+        wordCount: document.getElementById("wordCount"),
+        charCount: document.getElementById("charCount"),
+        errorCount: document.getElementById("errorCount"),
+        readingGrade: document.getElementById("readingGrade"),
+        scrollTopBtn: document.getElementById("scrollTopBtn"),
+        analyticsBtn: document.getElementById("analyticsBtn"),
+        analyticsModal: document.getElementById("analyticsModal"),
+        closeAnalytics: document.getElementById("closeAnalytics"),
+        typedText: document.getElementById("typedText"),
+        preloader: document.getElementById("preloader"),
+        graphCanvas: document.getElementById("graphCanvas")
+      };
+
+      let chart, debounceTimer, currentChartType = "bar";
+      const ignored = new Set();
+
+      // ---------- THEME ----------
+      if (localStorage.theme === "dark") els.body.classList.add("dark");
+      if (els.themeToggle) {
+        els.themeToggle.onclick = () => {
+          els.body.classList.toggle("dark");
+          localStorage.theme = els.body.classList.contains("dark") ? "dark" : "light";
+        };
+      }
+
+      // ---------- LOGIN ----------
+      if (els.loginBtn) els.loginBtn.onclick = e => {
+        e.preventDefault();
+        location.href = "login.html";
+      };
+
+      // ---------- PRELOADER ----------
+      window.addEventListener("load", () => els.preloader?.classList.add("hidden"));
+
+      // ---------- PAUSE BG ANIM ----------
+      document.addEventListener("visibilitychange", () =>
+        els.body.style.animationPlayState = document.hidden ? "paused" : "running"
+      );
+
+      // ---------- GRAMMAR CHECK ----------
+      async function checkGrammar(text) {
+        if (!text.trim()) {
+          updateUI("", [], 0, "N/A");
+          return;
+        }
+        try {
+          const res = await fetch("https://api.languagetool.org/v2/check", {
+            method: "POST",
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({ language: "en-US", text })
+          });
+          const data = await res.json();
+
+          let highlighted = text, suggestions = [];
+          data.matches.forEach(m => {
+            const mistake = text.substr(m.offset, m.length);
+            if (ignored.has(mistake.toLowerCase())) return;
+            highlighted = highlighted.replace(mistake, `<span class='error'>${mistake}</span>`);
+            if (m.replacements?.length) {
+              suggestions.push({ mistake, options: m.replacements.slice(0, 3).map(r => r.value) });
+            }
+          });
+
+          // reading grade
+          const words = text.trim().split(/\s+/).length || 1;
+          const sentences = (text.match(/[.!?]+/g) || []).length || 1;
+          const syllables = text.split(/\s+/).reduce((t, w) => t + countSyllables(w), 0);
+          const grade = (0.39 * (words / sentences) + 11.8 * (syllables / words) - 15.59).toFixed(1);
+
+          updateUI(highlighted, suggestions, suggestions.length, grade);
+        } catch {
+          updateUI(text, [], 0, "N/A", "⚠️ Error fetching suggestions");
+        }
+      }
+
+      function updateUI(highlighted, suggestions, errors, grade, fallbackMsg) {
+        if (els.output) els.output.innerHTML = highlighted;
+        if (els.errorCount) els.errorCount.textContent = `Errors: ${errors}`;
+        if (els.readingGrade) els.readingGrade.textContent = `Reading Grade: ${grade}`;
+        if (els.suggestions) {
+          if (fallbackMsg) return els.suggestions.innerHTML = `<p>${fallbackMsg}</p>`;
+          els.suggestions.innerHTML = suggestions.length
+            ? suggestions.map(s => `
+            <div class="suggestion-item flex justify-between items-center mb-1 p-2 rounded bg-gray-100 dark:bg-gray-700">
+              <div>
+                <strong class="text-red-600">${s.mistake}</strong> →
+                ${s.options.map(opt => `
+                  <span class="suggestion-option bg-green-100 dark:bg-green-800 px-2 py-1 rounded cursor-pointer"
+                        data-mistake="${s.mistake}" data-replacement="${opt}">${opt}</span>`).join(" ")}
+              </div>
+              <button class="clear-option bg-red-500 text-white px-2 py-1 text-xs rounded"
+                      data-mistake="${s.mistake}">Clear</button>
+            </div>`).join("")
+            : `<p class='text-gray-500 dark:text-gray-400'>${errors ? "No more suggestions." : "No issues detected ✅"}</p>`;
+
+          // attach events
+          els.suggestions.querySelectorAll(".suggestion-option").forEach(el =>
+            el.onclick = () => {
+              els.input.value = els.input.value.replace(el.dataset.mistake, el.dataset.replacement);
+              mirrorText(); checkGrammar(els.input.value);
+            }
+          );
+          els.suggestions.querySelectorAll(".clear-option").forEach(btn =>
+            btn.onclick = () => {
+              ignored.add(btn.dataset.mistake.toLowerCase());
+              checkGrammar(els.input.value);
+            }
+          );
+        }
+      }
+
+      // ---------- INPUT ----------
+      function mirrorText() { if (els.output) els.output.textContent = els.input.value; }
+      if (els.input) {
+        els.input.oninput = () => {
+          const text = els.input.value;
+          mirrorText();
+          els.wordCount.textContent = `Words: ${text.trim() ? text.trim().split(/\s+/).length : 0}`;
+          els.charCount.textContent = `Characters: ${text.length}`;
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(() => checkGrammar(text), 400);
+          if (chart) renderChart(currentChartType);
+        };
+      }
+
+      function countSyllables(word) {
+        word = word.toLowerCase();
+        if (word.length <= 3) return 1;
+        word = word.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/, "").replace(/^y/, "");
+        return (word.match(/[aeiouy]{1,2}/g) || []).length || 1;
+      }
+
+      // ---------- COPY ----------
+      els.copyBtn?.addEventListener("click", () => {
+        const originalHTML = els.copyBtn.innerHTML; // store original content (icon or text)
+        navigator.clipboard.writeText(els.output.innerText).then(() => {
+          els.copyBtn.innerHTML = "✓"; // show checkmark
+          setTimeout(() => {
+            els.copyBtn.innerHTML = originalHTML; // restore original
+          }, 900);
+        });
+      });
+
+      // ---------- SCROLL TO TOP ----------
+      if (els.scrollTopBtn) {
+        window.addEventListener("scroll", () => els.scrollTopBtn.style.display = window.scrollY > 200 ? "flex" : "none");
+        els.scrollTopBtn.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // ---------- CHART ----------
+      function getStats() {
+        const t = els.input.value.trim();
+        return {
+          words: t ? t.split(/\s+/).length : 0,
+          chars: t.length,
+          errors: els.output.querySelectorAll(".error").length
+        };
+      }
+      function renderChart(type) {
+        currentChartType = type;
+        const { errors, words, chars } = getStats();
+        if (chart) chart.destroy();
+        chart = new Chart(els.graphCanvas.getContext("2d"), {
+          type,
+          data: {
+            labels: ["Errors", "Words", "Chars"], datasets: [{
+              data: [errors, words, chars],
+              backgroundColor: ["#ef4444", "#3b82f6", "#10b981"]
+            }]
+          },
+          options: { responsive: true, maintainAspectRatio: false, scales: type === "pie" ? {} : { y: { beginAtZero: true } } }
+        });
+      }
+      ["barGraph", "pieGraph", "lineGraph"].forEach(id => {
+        document.getElementById(id)?.addEventListener("click", () => renderChart(id.replace("Graph", "").toLowerCase()));
+      });
+
+      // ---------- ANALYTICS MODAL ----------
+      els.analyticsBtn?.addEventListener("click", () => { els.analyticsModal.classList.remove("hidden"); renderChart(currentChartType); });
+      els.closeAnalytics?.addEventListener("click", () => els.analyticsModal.classList.add("hidden"));
+    });
+  </script>
+
+</body>
+
+</html>

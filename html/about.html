@@ -1,0 +1,510 @@
+<!-- about.html -->
+<!DOCTYPE html>
+<html lang="en" class="light">
+<!-- Head Section -->
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WordWise — About Us</title>
+
+  <!--Related Links -->
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="../images/logo.jpeg">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
+
+  <!-- Related Script -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Enable Tailwind dark mode -->
+  <script>
+    tailwind.config = { darkMode: 'class' }
+  </script>
+
+  <!-- style section -->
+  <style>
+    /* From Uiverse.io by Smit-Prajapati */
+    .card {
+      width: 300px;
+      height: 200px;
+      background: #243137;
+      position: relative;
+      display: grid;
+      place-content: center;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: all 0.5s ease-in-out;
+    }
+
+    .logo {
+      display: flex;
+      align-items: baseline;
+      /* Keep MO and HID aligned */
+      gap: 10px;
+      /* space between MO and HID UMER */
+      justify-content: flex-start;
+      /* align left initially */
+      margin-left: 5px;
+      /* push whole logo a bit to the right */
+      transition: all 0.5s ease-in-out;
+    }
+
+    .logo1 svg,
+    .logo2 svg {
+      height: 50px;
+      /* same height */
+    }
+
+    #logo-main text,
+    #logo-second text {
+      fill: #bd9f67;
+      /* golden color */
+      font-size: 40px;
+      /* uniform font size */
+      font-weight: bold;
+    }
+
+    #logo-main,
+    #logo-second {
+      height: 100%;
+    }
+
+    #logo-main {
+      fill: #bd9f67;
+    }
+
+    #logo-second {
+      padding-bottom: 10px;
+      fill: none;
+      stroke: #bd9f67;
+      stroke-width: 1px;
+    }
+
+    .border {
+      position: absolute;
+      inset: 0px;
+      border: 2px solid #bd9f67;
+      opacity: 0;
+      transform: rotate(10deg);
+      transition: all 0.5s ease-in-out;
+    }
+
+    .bottom-text {
+      position: absolute;
+      left: 50%;
+      bottom: 13px;
+      transform: translateX(-50%);
+      font-size: 6px;
+      text-transform: uppercase;
+      padding: 0px 5px 0px 8px;
+      color: #bd9f67;
+      background: #243137;
+      opacity: 0;
+      letter-spacing: 7px;
+      transition: all 0.5s ease-in-out;
+    }
+
+    .content {
+      transition: all 0.5s ease-in-out;
+    }
+
+    .content .logo {
+      height: 35px;
+      position: relative;
+      width: 33px;
+      overflow: hidden;
+      transition: all 1s ease-in-out;
+    }
+
+    .content .logo .logo1 {
+      height: 33px;
+      position: absolute;
+      left: 0;
+    }
+
+    .content .logo .logo2 {
+      height: 33px;
+      position: absolute;
+      left: 33px;
+    }
+
+    .content .logo .trail {
+      position: absolute;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      opacity: 0;
+    }
+
+    .content .logo-bottom-text {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      margin-top: 30px;
+      color: #bd9f67;
+      padding-left: 8px;
+      font-size: 11px;
+      opacity: 0;
+      letter-spacing: none;
+      transition: all 0.5s ease-in-out 0.5s;
+    }
+
+    .card:hover {
+      border-radius: 0;
+      transform: scale(1.1);
+    }
+
+    .card:hover .logo {
+      width: 134px;
+      animation: opacity 1s ease-in-out;
+    }
+
+    .card:hover .border {
+      inset: 15px;
+      opacity: 1;
+      transform: rotate(0);
+    }
+
+    .card:hover .bottom-text {
+      letter-spacing: 3px;
+      opacity: 1;
+      transform: translateX(-50%);
+    }
+
+    .card:hover .content .logo-bottom-text {
+      opacity: 1;
+      letter-spacing: 9.5px;
+    }
+
+    .card:hover .trail {
+      animation: trail 1s ease-in-out;
+    }
+
+    @keyframes opacity {
+      0% {
+        border-right: 1px solid transparent;
+      }
+
+      10% {
+        border-right: 1px solid #bd9f67;
+      }
+
+      80% {
+        border-right: 1px solid #bd9f67;
+      }
+
+      100% {
+        border-right: 1px solid transparent;
+      }
+    }
+
+    @keyframes trail {
+      0% {
+        background: linear-gradient(90deg, rgba(189, 159, 103, 0) 90%, rgb(189, 159, 103) 100%);
+        opacity: 0;
+      }
+
+      30% {
+        background: linear-gradient(90deg, rgba(189, 159, 103, 0) 70%, rgb(189, 159, 103) 100%);
+        opacity: 1;
+      }
+
+      70% {
+        background: linear-gradient(90deg, rgba(189, 159, 103, 0) 70%, rgb(189, 159, 103) 100%);
+        opacity: 1;
+      }
+
+      95% {
+        background: linear-gradient(90deg, rgba(189, 159, 103, 0) 90%, rgb(189, 159, 103) 100%);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<!-- Body Section -->
+
+<body class="light min-h-screen flex flex-col">
+
+  <!-- Navbar -->
+  <nav id="navbar" class="bg-white/70 dark:bg-gray-900 shadow-md sticky top-0 z-50 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap justify-between items-center py-3">
+
+        <!-- Brand -->
+        <a href="main.html" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
+          <img src="../images/logo.jpeg" alt="WordWise Logo"
+            class="w-[clamp(32px,6vw,48px)] h-[clamp(32px,6vw,48px)] rounded-full logo-animate object-cover border-2 border-gray-300 dark:border-white" />
+          <span class="text-[clamp(1.1rem,2vw,1.75rem)] font-extrabold tracking-tight">
+            <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-pink-500">Word</span>
+            <span class="text-gray-900 dark:text-white">Wise</span>
+          </span>
+        </a>
+
+        <!-- Desktop Nav Links (wraps on medium screens) -->
+        <div class="hidden md:flex flex-wrap justify-center flex-1 gap-4 text-[clamp(0.9rem,1.3vw,1.1rem)]">
+          <a href="main.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i>
+            Home</a>
+          <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+            Resources</a>
+          <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i>
+            Tools</a>
+          <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i>
+            Blog</a>
+          <a href="https://en.wikipedia.org/wiki/English_grammar" target="_blank"
+            class="flex items-center gap-1 hover:text-pink-600">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"
+              class="w-[clamp(18px,2vw,22px)] h-[clamp(18px,2vw,22px)] fill-current"><text x="7" y="35" font-size="28"
+                font-weight="bold">W</text></svg> Wikipedia
+          </a>
+          <a href="https://www.dictionary.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+              class="ri-book-2-line"></i> Dictionary</a>
+          <a href="https://www.grammarly.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+              class="ri-check-double-line"></i> Grammarly</a>
+        </div>
+
+        <!-- Right Side: Buttons + Hamburger -->
+        <div class="flex items-center gap-3">
+          <!-- Theme Toggle -->
+          <button id="themeToggle"
+            class="px-3 py-1 rounded-lg bg-pink-500 text-white hover:bg-pink-600 flex items-center gap-2">
+            <i class="ri-moon-clear-line"></i> <span class="hidden sm:inline">Toggle</span>
+          </button>
+
+          <!-- Login -->
+          <a href="login.html" id="loginBtn"
+            class="px-3 py-1 rounded-lg bg-blue-500 text-white hover:bg-blue-600 flex items-center gap-2">
+            <i class="ri-login-box-line"></i> <span class="hidden sm:inline">Login</span>
+          </a>
+
+          <!-- Hamburger (mobile only) -->
+          <button id="menu-toggle" class="md:hidden text-3xl focus:outline-none">☰</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden flex-col gap-4 p-4 bg-white dark:bg-gray-900 shadow-md">
+      <a href="main.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i> Home</a>
+      <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+        Resources</a>
+      <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i> Tools</a>
+      <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i> Blog</a>
+      <a href="https://en.wikipedia.org/wiki/English_grammar" target="_blank"
+        class="flex items-center gap-1 hover:text-pink-600">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" class="w-5 h-5 fill-current"><text x="7" y="35"
+            font-size="28" font-weight="bold">W</text></svg> Wikipedia
+      </a>
+      <a href="https://www.dictionary.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+          class="ri-book-2-line"></i> Dictionary</a>
+      <a href="https://www.grammarly.com/" target="_blank" class="flex items-center gap-1 hover:text-pink-600"><i
+          class="ri-check-double-line"></i> Grammarly</a>
+    </div>
+  </nav>
+
+  <script>
+    document.getElementById("menu-toggle").addEventListener("click", () => {
+      document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+  </script>
+
+  <!-- About Us Section -->
+  <main class="flex-1 flex items-center justify-center p-6">
+    <div
+      class="flex flex-col md:flex-row items-center gap-10 max-w-5xl bg-white/90 dark:bg-gray-800 backdrop-blur-md p-8 rounded-3xl shadow-xl transition-colors">
+
+      <!-- Owner Image -->
+      <div class="flex-shrink-0 relative">
+        <img src="../images/owner.jpg" alt="Creative Illustration" id="ownerImg"
+          class="w-64 h-64 object-cover rounded-2xl border-4 border-gray-300 dark:border-white shadow-lg owner-img" />
+      </div>
+
+      <!-- Fun Fact Cloud -->
+      <div id="funFact"
+        class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-pink-500 text-white px-4 py-2 rounded-2xl shadow-lg opacity-0 pointer-events-none">
+        Fun Fact!
+      </div>
+
+      <!-- About Text -->
+      <div class="flex flex-col gap-4 max-w-xl">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+          About Mohid
+          <!-- Clickable icon -->
+          <button id="showCard" class="text-green-500 hover:text-green-700">
+            <!-- You can use an info icon or any SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z" />
+            </svg>
+          </button>
+        </h2>
+        <p class="text-lg text-gray-700 dark:text-gray-300">
+          Hi! I'm Mohid, a passionate web enthusiast and lifelong learner. Currently pursuing my Bachelor's degree at
+          FAST University, I enjoy exploring creative web projects and bringing innovative ideas to life.
+        </p>
+        <p class="text-lg text-gray-700 dark:text-gray-300">
+          I am the creator of <strong>WordWise</strong> — your smart grammar helper. I built this platform to empower
+          writers, students, and language lovers to communicate effectively with flawless grammar.
+        </p>
+        <p class="text-lg text-gray-700 dark:text-gray-300">
+          WordWise combines real-time grammar checks, helpful suggestions, and a clean interface to make writing easier
+          and more productive. I'm committed to continually improving it to support your writing journey.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Business Card Overlay -->
+  <div id="cardOverlay" class="fixed inset-0 hidden bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center">
+    <div class="card">
+      <div class="border"></div>
+      <div class="content">
+        <div class="logo">
+          <div class="logo">
+            <!-- MO part -->
+            <div class="logo1">
+              <svg viewBox="0 0 120 50" xmlns="http://www.w3.org/2000/svg">
+                <text x="0" y="30" font-family="Verdana, Geneva, sans-serif" font-size="30" fill="#bd9f67"
+                  font-weight="bold">
+                  MO
+                </text>
+              </svg>
+            </div>
+
+            <!-- HID UMER part -->
+            <div class="logo2">
+              <svg viewBox="0 0 300 50" xmlns="http://www.w3.org/2000/svg">
+                <text x="20" y="30" font-family="Verdana, Geneva, sans-serif" font-size="30" fill="#bd9f67"
+                  font-weight="bold">
+                  HID
+                </text>
+              </svg>
+            </div>
+          </div>
+          <span class="trail"></span>
+        </div>
+        <span class="logo-bottom-text">UMER</span>
+      </div>
+      <span class="bottom-text">Fast University</span>
+    </div>
+  </div>
+
+  <!-- Main Script -->
+  <script>
+    // ===== Elements =====
+    const ownerImg = document.getElementById("ownerImg");
+    const themeToggle = document.getElementById("themeToggle");
+    const body = document.body;
+    const funFact = document.getElementById("funFact");
+    const showCardBtn = document.getElementById("showCard");
+    const cardOverlay = document.getElementById("cardOverlay");
+    const card = document.querySelector(".card"); // the actual card
+
+    // ===== Theme Handling =====
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      body.classList.add("dark");
+      body.classList.remove("light");
+    } else {
+      body.classList.add("light");
+      body.classList.remove("dark");
+    }
+
+    themeToggle.addEventListener("click", () => {
+      body.classList.toggle("dark");
+      body.classList.toggle("light");
+      localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light");
+    });
+
+    // ===== Fun Fact Data =====
+    const facts = [
+      "I love experimenting with web animations!",
+      "My favorite language is JavaScript",
+      "I have a cat named Pixel",
+      "I enjoy exploring cyber security challenges",
+      "Meet my Co Developer : Mr Coffee!"
+    ];
+    let factIndex = 0;
+
+    // ===== GSAP Click Animation for Owner Image =====
+    ownerImg.addEventListener("click", () => {
+      gsap.to(ownerImg, {
+        duration: 1,
+        x: 100,
+        y: -50,
+        rotation: 20,
+        scale: 1.2,
+        ease: "power2.inOut",
+        onComplete: () => {
+          gsap.to(ownerImg, {
+            duration: 1.5,
+            x: -150,
+            y: 80,
+            rotation: -25,
+            scale: 1.15,
+            ease: "power2.inOut",
+            onComplete: () => {
+              gsap.to(ownerImg, {
+                duration: 1.2,
+                x: 0,
+                y: 0,
+                rotation: 0,
+                scale: 1,
+                ease: "elastic.out(1, 0.5)",
+                onComplete: () => {
+                  // ===== Show Fun Fact AFTER animation completes =====
+                  funFact.textContent = facts[factIndex];
+                  factIndex = (factIndex + 1) % facts.length;
+
+                  gsap.fromTo(
+                    funFact,
+                    { opacity: 0, y: -10 },
+                    {
+                      opacity: 1,
+                      y: -30,
+                      duration: 0.5,
+                      ease: "power1.out",
+                      onComplete: () => {
+                        setTimeout(() => {
+                          gsap.to(funFact, { opacity: 0, y: -50, duration: 0.5, ease: "power1.in" });
+                        }, 3000); // show each fact for 3 seconds
+                      }
+                    }
+                  );
+                }
+              });
+            }
+          });
+        }
+      });
+    });
+
+    // ===== Business Card Overlay =====
+    document.addEventListener("DOMContentLoaded", () => {
+      if (!showCardBtn || !cardOverlay || !card) {
+        console.error("Overlay elements not found!");
+        return;
+      }
+
+      // Show overlay
+      showCardBtn.addEventListener("click", (e) => {
+        cardOverlay.classList.remove("hidden");
+        cardOverlay.classList.add("active"); // for scale animation if you have
+        e.stopPropagation();
+      });
+
+      // Prevent clicks inside the card from closing overlay
+      card.addEventListener("click", (e) => e.stopPropagation());
+
+      // Hide overlay when clicking outside the card
+      cardOverlay.addEventListener("click", () => {
+        cardOverlay.classList.add("hidden");
+        cardOverlay.classList.remove("active");
+      });
+    });
+  </script>
+</body>
+
+</html>
