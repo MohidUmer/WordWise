@@ -88,7 +88,7 @@ WordWise/
 ### 5.2 Installation
 
 ```bash
-git clone https://github.com/MohidUmer/wordwise.git
+git clone https://github.com/MohidUmer/WordWise.git
 cd wordwise
 pip install -r requirements.txt
 ````
