@@ -9,8 +9,8 @@
   <title>WordWise — Reviews</title>
 
   <!-- Related Links -->
-  <link rel="icon" type="image/png" href="../images/logo.jpeg">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="icon" type="image/png" href="/static/images/logo.jpg">
+  <link rel="stylesheet" href="/static/css/style.css">
   <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
   <!--Script Links -->
@@ -111,8 +111,8 @@
       <div class="flex flex-wrap justify-between items-center py-3">
 
         <!-- Brand -->
-        <a href="main.html" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
-          <img src="../images/logo.jpeg" alt="WordWise Logo"
+        <a href="/home" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
+          <img src="/static/images/logo.jpg" alt="WordWise Logo"
             class="w-[clamp(32px,6vw,48px)] h-[clamp(32px,6vw,48px)] rounded-full logo-animate object-cover border-2 border-gray-300 dark:border-white" />
           <span class="text-[clamp(1.1rem,2vw,1.75rem)] font-extrabold tracking-tight">
             <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-pink-500">Word</span>
@@ -122,15 +122,15 @@
 
         <!-- Desktop Nav Links -->
         <div class="hidden md:flex flex-wrap justify-center flex-1 gap-4 text-[clamp(0.9rem,1.3vw,1.1rem)]">
-          <a href="main.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i>
+          <a href="/home" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i>
             Home</a>
-          <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+          <a href="/resource" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
             Resources</a>
-          <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i>
+          <a href="/tools" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i>
             Tools</a>
-          <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i>
+          <a href="/blog" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i>
             Blog</a>
-          <a href="about.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i>
+          <a href="/about" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i>
             About Us</a>
         </div>
 
@@ -139,22 +139,19 @@
             class="px-3 py-1 rounded-lg bg-pink-500 text-white hover:bg-pink-600 flex items-center gap-2">
             <i class="ri-moon-clear-line"></i> <span class="hidden sm:inline">Toggle</span>
           </button>
-          <a href="login.html" id="loginBtn"
-            class="px-3 py-1 rounded-lg bg-blue-500 text-white hover:bg-blue-600 flex items-center gap-2">
-            <i class="ri-login-box-line"></i> <span class="hidden sm:inline">Login</span>
-          </a>
+
           <button id="menu-toggle" class="md:hidden text-3xl focus:outline-none">☰</button>
         </div>
       </div>
     </div>
 
     <div id="mobile-menu" class="hidden md:hidden flex-col gap-4 p-4 bg-white dark:bg-gray-900 shadow-md">
-      <a href="main.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i> Home</a>
-      <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+      <a href="/home" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i> Home</a>
+      <a href="/resource" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
         Resources</a>
-      <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i> Tools</a>
-      <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i> Blog</a>
-      <a href="about.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i> About
+      <a href="/tools" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i> Tools</a>
+      <a href="/blog" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i> Blog</a>
+      <a href="/about" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i> About
         Us</a>
     </div>
   </nav>
@@ -174,42 +171,28 @@
   </section>
 
   <!-- Offline Middle Content -->
-  <div id="offlineContainer" class="relative w-full max-w-3xl mx-auto my-6 p-6">
+  <div id="offlineContainer" class="w-full max-w-3xl mx-auto my-4 px-4 sm:px-6">
     <div id="offlineScreen"
-      class="flex flex-col items-center justify-center p-6 bg-gray-100 dark:bg-gray-900 rounded-xl shadow-md hidden">
-      <h1 class="text-2xl md:text-3xl font-bold text-gray-800 dark:text-gray-200 mb-4 text-center">⚠️ Server Offline
-      </h1>
-      <p class="text-gray-600 dark:text-gray-400 mb-4 text-center">Waiting for connection... Try the mini game!</p>
-      <canvas id="dinoGame" width="600" height="150" class="border rounded-lg bg-white dark:bg-gray-700"></canvas>
-      <p class="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">Use SPACE or UP to jump</p>
+      class="flex flex-col items-center justify-center p-4 sm:p-6 bg-gray-100 dark:bg-gray-900 rounded-xl shadow-md hidden overflow-hidden">
+      <h2 class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2 sm:mb-4 text-center">⚠️ Server
+        Offline
+      </h2>
+      <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 text-center">Connection lost... Play the Word
+        Catcher!</p>
+
+      <div class="relative w-full flex justify-center">
+        <canvas id="dinoGame"
+          class="max-w-full border rounded-lg bg-gradient-to-b from-blue-100 to-white dark:from-gray-800 dark:to-gray-900 shadow-inner block"></canvas>
+      </div>
+
+      <p class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 mt-3 text-center">
+        <span class="hidden sm:inline">Use LEFT / RIGHT Arrows to catch letters!</span>
+        <span class="sm:hidden">Tap Left or Right side of the game area to move!</span>
+      </p>
     </div>
   </div>
 
-  <script>
-    function resizeDinoCanvas() {
-      const container = document.getElementById("offlineContainer");
-      const canvas = document.getElementById("dinoGame");
 
-      // Make canvas width match container width with some padding
-      const width = Math.min(container.offsetWidth, 600);
-      const height = 150; // keep original height ratio or scale if you want
-      canvas.width = width;
-      canvas.height = height;
-
-      // Optional: scale cactus and dino position proportionally
-      cactusX = width; // start cactus at right edge
-      if (dinoY > height - 30) dinoY = height - 30;
-    }
-
-    // Call on load
-    window.addEventListener("load", resizeDinoCanvas);
-
-    // Call on window resize
-    window.addEventListener("resize", () => {
-      resizeDinoCanvas();
-      drawGame(); // redraw after resizing
-    });
-  </script>
 
   <!-- Main Section -->
   <main class="flex-1 flex flex-col items-center justify-center p-6 gap-10">
@@ -272,78 +255,356 @@
     // ===============================
     // OFFLINE SCREEN & DINO GAME
     // ===============================
+    // ===============================
+    // OFFLINE SCREEN & WORD CATCHER GAME
+    // ===============================
     const offlineScreen = document.getElementById("offlineScreen");
     const dinoCanvas = document.getElementById("dinoGame");
     const ctx = dinoCanvas.getContext("2d");
 
-    let dinoY = 120, dinoVY = 0, gravity = 0.6, jumpPower = -12;
-    let isJumping = false, gameStarted = false;
-    let cactusX = 600, cactusSpeed = 6;
-    let score = 0, gameInterval = null, gameOver = false;
+    // Game State
+    let gameLoopId;
+    let gameActive = false;
+    let score = 0;
+    let lives = 3;
+
+    // Player (Owl)
+    let playerX = 300;
+    const playerWidth = 50;
+    const playerHeight = 50;
+    const playerSpeed = 8;
+    let moveLeft = false;
+    let moveRight = false;
+
+    // Falling Letters
+    let letters = [];
+    const letterSpeedBase = 2;
+    let spawnRate = 60; // frames
+    let frameCount = 0;
+
+    // Particles
+    let particles = [];
+
+    // Assets
+    const owlImage = new Image();
+    // Simple Owl SVG Data URI
+    owlImage.src = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj4KICA8Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSI0NSIgZmlsbD0iI2VjNDg5OSIgLz4KICA8Y2lyY2xlIGN4PSIzNSIgY3k9IjQwIiByPSIxMiIgZmlsbD0id2hpdGUiIC8+CiAgPGNpcmNsZSBjeD0iNjUiIGN5PSI0MCIgcj0iMTIiIGZpbGw9IndoaXRlIiAvPgogIDxjaXJjbGUgY3g9IjM1IiBjeT0iNDAiIHI9IjUiIGZpbGw9ImJsYWNrIiAvPgogIDxjaXJjbGUgY3g9IjY1IiBjeT0iNDAiIHI9IjUiIGZpbGw9ImJsYWNrIiAvPgogIDxwYXRoIGQ9Ik0gNTAgNjAgUSA2MCA3MCA1MCA4MCBRIDQwIDcwIDUwIDYwIiBmaWxsPSIjZmZjMTA3IiAvPgogIDxwYXRoIGQ9Ik0gMjAgNTAgUSAxMCAyMCAzMCAzMCIgZmlsbD0iIzRiNTU2MyIgLz4KICA8cGF0aCBkPSJNIDgwIDUwIFEgOTAgMjAgNzAgMzAiIGZpbGw9IiM0YjU1NjMiIC8+Cjwvc3ZnPg==";
+
+    // Audio Context for Sound Effects
+    let audioCtx = null;
+    function initAudio() {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+
+    function playSound(type) {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      if (type === 'catch') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1000, audioCtx.currentTime + 0.1);
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.1);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.1);
+      } else if (type === 'miss') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(150, audioCtx.currentTime);
+        osc.frequency.linearRampToValueAtTime(50, audioCtx.currentTime + 0.3);
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.3);
+      } else if (type === 'gameover') {
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(100, audioCtx.currentTime);
+        osc.frequency.linearRampToValueAtTime(20, audioCtx.currentTime + 0.8);
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.01, audioCtx.currentTime + 0.8);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.8);
+      }
+    }
+
+    function resetGame() {
+      score = 0;
+      lives = 3;
+      letters = [];
+      particles = [];
+      playerX = dinoCanvas.width / 2;
+      gameActive = true;
+      moveLeft = false;
+      moveRight = false;
+      spawnRate = 60;
+      frameCount = 0;
+      if (gameLoopId) cancelAnimationFrame(gameLoopId);
+      gameLoop();
+    }
+
+    function createExplosion(x, y, color) {
+      for (let i = 0; i < 8; i++) {
+        particles.push({
+          x: x,
+          y: y,
+          vx: (Math.random() - 0.5) * 6,
+          vy: (Math.random() - 0.5) * 6,
+          life: 1.0,
+          color: color
+        });
+      }
+    }
 
     function drawGame() {
+      // Clear Canvas
       ctx.clearRect(0, 0, dinoCanvas.width, dinoCanvas.height);
-      ctx.fillStyle = "#ec4899";
-      ctx.fillRect(50, dinoY, 30, 30);
-      ctx.fillStyle = "#16a34a";
-      ctx.fillRect(cactusX, 130, 20, 20);
-      ctx.fillStyle = "#000";
-      ctx.font = "18px Arial";
-      ctx.fillText("Score: " + score, dinoCanvas.width - 100, 30);
-      if (gameOver) {
-        ctx.fillStyle = "red";
-        ctx.font = "20px Arial";
-        ctx.fillText("Game Over! Press SPACE", 100, 80);
+
+      // Draw Player (Owl)
+      // Draw centered at playerX
+      ctx.drawImage(owlImage, playerX - playerWidth / 2, dinoCanvas.height - playerHeight - 10, playerWidth, playerHeight);
+
+      // Draw Letters
+      ctx.font = "bold 24px Arial";
+      ctx.textAlign = "center";
+      letters.forEach(l => {
+        ctx.fillStyle = l.color;
+        // Draw bubble background
+        ctx.beginPath();
+        ctx.arc(l.x, l.y - 8, 20, 0, Math.PI * 2);
+        ctx.fillStyle = "white";
+        ctx.fill();
+        ctx.strokeStyle = l.color;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Draw Letter
+        ctx.fillStyle = l.color;
+        ctx.fillText(l.char, l.x, l.y);
+      });
+
+      // Draw Particles
+      particles.forEach(p => {
+        ctx.globalAlpha = p.life;
+        ctx.fillStyle = p.color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1.0;
+
+      // Draw Lives Bars (Top Left)
+      const barWidth = 30;
+      const barHeight = 8;
+      const barPadding = 5;
+      for (let i = 0; i < 3; i++) {
+        ctx.fillStyle = i < lives ? "#ec4899" : "rgba(128, 128, 128, 0.3)";
+        ctx.beginPath();
+        ctx.roundRect(20 + i * (barWidth + barPadding), 20, barWidth, barHeight, 4);
+        ctx.fill();
+      }
+
+      // Draw Score and "Paused" text if not active
+      ctx.fillStyle = document.body.classList.contains('dark') ? "#fff" : "#333";
+      ctx.font = "bold 20px Arial";
+      ctx.textAlign = "right";
+      ctx.fillText("Score: " + score, dinoCanvas.width - 20, 30);
+
+      if (!gameActive) {
+        ctx.fillStyle = "rgba(0,0,0,0.6)";
+        ctx.fillRect(0, 0, dinoCanvas.width, dinoCanvas.height);
+        ctx.fillStyle = "white";
+        ctx.textAlign = "center";
+
+        if (lives <= 0) {
+          ctx.font = "bold 32px Arial";
+          ctx.fillText("GAME OVER!", dinoCanvas.width / 2, dinoCanvas.height / 2 - 20);
+          ctx.font = "20px Arial";
+          ctx.fillText("Final Score: " + score, dinoCanvas.width / 2, dinoCanvas.height / 2 + 20);
+          ctx.font = "16px Arial";
+          ctx.fillText("Press Arrow Keys to Try Again", dinoCanvas.width / 2, dinoCanvas.height / 2 + 55);
+        } else {
+          ctx.font = "24px Arial";
+          ctx.fillText("Press Arrow Keys to Start", dinoCanvas.width / 2, dinoCanvas.height / 2);
+        }
       }
     }
 
     function updateGame() {
-      if (!gameStarted) return;
-      dinoVY += gravity;
-      dinoY += dinoVY;
-      if (dinoY > 120) { dinoY = 120; dinoVY = 0; isJumping = false; }
+      if (!gameActive) return;
 
-      cactusX -= cactusSpeed;
-      if (cactusX < -20) { cactusX = 600; score++; }
+      // Move Player
+      if (moveLeft && playerX > playerWidth / 2) playerX -= playerSpeed;
+      if (moveRight && playerX < dinoCanvas.width - playerWidth / 2) playerX += playerSpeed;
 
-      if (cactusX < 80 && cactusX + 20 > 50 && dinoY + 30 > 130) {
-        gameStarted = false;
-        gameOver = true;
+      // Spawn Letters
+      frameCount++;
+      if (frameCount % spawnRate === 0) {
+        const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const char = chars[Math.floor(Math.random() * chars.length)];
+        const colors = ["#ec4899", "#3b82f6", "#10b981", "#f59e0b", "#8b5cf6"];
+        letters.push({
+          x: Math.random() * (dinoCanvas.width - 40) + 20,
+          y: -20,
+          char: char,
+          speed: letterSpeedBase + Math.random() * 2,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
+
+        // Make it harder over time
+        if (score > 10 && score % 5 === 0) spawnRate = Math.max(20, 60 - score);
       }
 
-      drawGame();
-    }
+      // Update Letters
+      for (let i = letters.length - 1; i >= 0; i--) {
+        let l = letters[i];
+        l.y += l.speed;
 
-    function resetGame() {
-      cactusX = 600;
-      dinoY = 120;
-      dinoVY = 0;
-      score = 0;
-      gameOver = false;
-      drawGame();
-    }
+        // Collision Check (Simple distance)
+        // Player hitbox is at (playerX, height-35) approx center
+        const dx = playerX - l.x;
+        const dy = (dinoCanvas.height - 35) - l.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
 
-    function startDinoGame() {
-      if (!gameInterval) {
-        resetGame();
-        gameInterval = setInterval(updateGame, 20);
+        if (dist < 40) { // Caught!
+          score++;
+          playSound('catch');
+          createExplosion(l.x, l.y, l.color);
+          letters.splice(i, 1);
+        } else if (l.y > dinoCanvas.height + 20) {
+          // Missed
+          letters.splice(i, 1);
+          lives--;
+          if (lives <= 0) {
+            playSound('gameover');
+            gameActive = false;
+            // Clear items for game over state
+            letters = [];
+          } else {
+            playSound('miss');
+          }
+        }
+      }
+
+      // Update Particles
+      for (let i = particles.length - 1; i >= 0; i--) {
+        let p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life -= 0.05;
+        if (p.life <= 0) particles.splice(i, 1);
       }
     }
 
+    function gameLoop() {
+      if (!gameActive && letters.length === 0) {
+        drawGame(); // Draw initial state
+        return;
+      }
+
+      updateGame();
+      drawGame();
+      if (gameActive) gameLoopId = requestAnimationFrame(gameLoop);
+    }
+
+    // Input Handling
     window.addEventListener("keydown", e => {
-      if ((e.code === "Space" || e.code === "ArrowUp") && !e.target.matches("textarea, input")) {
-        if (!gameStarted && gameOver) { resetGame(); gameStarted = true; }
-        else if (!gameStarted) { gameStarted = true; }
+      if (e.target.matches("textarea, input")) return;
+      initAudio(); // Initialize on first interaction
 
-        if (!isJumping) { dinoVY = jumpPower; isJumping = true; }
-        e.preventDefault();
+      if (e.key === "ArrowLeft") {
+        moveLeft = true;
+        if (!gameActive) resetGame();
+      }
+      if (e.key === "ArrowRight") {
+        moveRight = true;
+        if (!gameActive) resetGame();
+      }
+      if (e.key === " " || e.key === "Spacebar") {
+        e.preventDefault(); // Prevent page scroll
+        if (!gameActive) resetGame();
       }
     });
+
+    window.addEventListener("keyup", e => {
+      if (e.key === "ArrowLeft") moveLeft = false;
+      if (e.key === "ArrowRight") moveRight = false;
+    });
+
+    function startDinoGame() {
+      // Just draw the initial state, don't auto-reset
+      if (!gameActive) {
+        drawGame();
+      }
+    }
+
+    // Resize Logic
+    function resizeGameCanvas() {
+      const container = document.getElementById("offlineContainer");
+      if (!container) return;
+
+      // Calculate available width
+      const availableWidth = container.offsetWidth - (window.innerWidth < 640 ? 32 : 48);
+      const width = Math.min(availableWidth, 600);
+
+      // Maintain aspect ratio 2:1 for game logic, but allow scaling
+      const height = width * 0.5;
+
+      dinoCanvas.width = width;
+      dinoCanvas.height = height;
+
+      // Maintain player position ratio
+      if (typeof playerX !== 'undefined') {
+        const ratio = playerX / (dinoCanvas.width || width);
+        playerX = width * ratio;
+        if (playerX > width - playerWidth / 2) playerX = width - playerWidth / 2;
+        if (playerX < playerWidth / 2) playerX = playerWidth / 2;
+      }
+    }
+
+    // Touch Handling for Mobile
+    dinoCanvas.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      initAudio();
+      if (!gameActive) {
+        resetGame();
+        return;
+      }
+      const touch = e.touches[0];
+      const rect = dinoCanvas.getBoundingClientRect();
+      const x = touch.clientX - rect.left;
+
+      if (x < rect.width / 2) {
+        moveLeft = true;
+        moveRight = false;
+      } else {
+        moveRight = true;
+        moveLeft = false;
+      }
+    }, { passive: false });
+
+    dinoCanvas.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      moveLeft = false;
+      moveRight = false;
+    }, { passive: false });
+
+    window.addEventListener("resize", () => {
+      resizeGameCanvas();
+      if (typeof drawGame === 'function') drawGame();
+    });
+    // Initial resize
+    setTimeout(() => {
+      resizeGameCanvas();
+      if (typeof drawGame === 'function') drawGame();
+    }, 100);
 
     // ===============================
     // REVIEW DATA HANDLING
     // ===============================
-    const API_URL = "http://localhost:5000/reviews";
+    const API_URL = "/reviews";
     const PENDING_KEY = "pendingReviews";
     let selectedRating = 0;
     let lastFetchedReviews = [];
@@ -411,9 +672,9 @@
         renderLatestReviews();             // panel shows both fetched + pending
       } catch {
         offlineScreen.style.display = "flex";
-        startDinoGame();
+        startDinoGame(); // Shows the "Press to Start" screen
         renderLatestReviews();
-        setTimeout(fetchReviews, 3000);
+        setTimeout(fetchReviews, 5000); // Increased interval to be less aggressive
       }
     }
 

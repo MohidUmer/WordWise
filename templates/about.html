@@ -9,8 +9,8 @@
   <title>WordWise — About Us</title>
 
   <!--Related Links -->
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="icon" type="image/png" href="../images/logo.jpeg">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="icon" type="image/png" href="/static/images/logo.jpg">
   <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
   <!-- Related Script -->
@@ -233,8 +233,8 @@
       <div class="flex flex-wrap justify-between items-center py-3">
 
         <!-- Brand -->
-        <a href="main.html" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
-          <img src="../images/logo.jpeg" alt="WordWise Logo"
+        <a href="/home" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
+          <img src="/static/images/logo.jpg" alt="WordWise Logo"
             class="w-[clamp(32px,6vw,48px)] h-[clamp(32px,6vw,48px)] rounded-full logo-animate object-cover border-2 border-gray-300 dark:border-white" />
           <span class="text-[clamp(1.1rem,2vw,1.75rem)] font-extrabold tracking-tight">
             <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-pink-500">Word</span>
@@ -244,13 +244,13 @@
 
         <!-- Desktop Nav Links (wraps on medium screens) -->
         <div class="hidden md:flex flex-wrap justify-center flex-1 gap-4 text-[clamp(0.9rem,1.3vw,1.1rem)]">
-          <a href="main.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i>
+          <a href="/home" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i>
             Home</a>
-          <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+          <a href="/resource" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
             Resources</a>
-          <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i>
+          <a href="/tools" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i>
             Tools</a>
-          <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i>
+          <a href="/blog" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i>
             Blog</a>
           <a href="https://en.wikipedia.org/wiki/English_grammar" target="_blank"
             class="flex items-center gap-1 hover:text-pink-600">
@@ -272,11 +272,7 @@
             <i class="ri-moon-clear-line"></i> <span class="hidden sm:inline">Toggle</span>
           </button>
 
-          <!-- Login -->
-          <a href="login.html" id="loginBtn"
-            class="px-3 py-1 rounded-lg bg-blue-500 text-white hover:bg-blue-600 flex items-center gap-2">
-            <i class="ri-login-box-line"></i> <span class="hidden sm:inline">Login</span>
-          </a>
+
 
           <!-- Hamburger (mobile only) -->
           <button id="menu-toggle" class="md:hidden text-3xl focus:outline-none">☰</button>
@@ -286,11 +282,11 @@
 
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden flex-col gap-4 p-4 bg-white dark:bg-gray-900 shadow-md">
-      <a href="main.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i> Home</a>
-      <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+      <a href="/home" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-home-2-line"></i> Home</a>
+      <a href="/resource" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
         Resources</a>
-      <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i> Tools</a>
-      <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i> Blog</a>
+      <a href="/tools" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i> Tools</a>
+      <a href="/blog" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i> Blog</a>
       <a href="https://en.wikipedia.org/wiki/English_grammar" target="_blank"
         class="flex items-center gap-1 hover:text-pink-600">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" class="w-5 h-5 fill-current"><text x="7" y="35"
@@ -316,7 +312,7 @@
 
       <!-- Owner Image -->
       <div class="flex-shrink-0 relative">
-        <img src="../images/owner.jpg" alt="Creative Illustration" id="ownerImg"
+        <img src="/static/images/owner.jpg" alt="Creative Illustration" id="ownerImg"
           class="w-64 h-64 object-cover rounded-2xl border-4 border-gray-300 dark:border-white shadow-lg owner-img" />
       </div>
 

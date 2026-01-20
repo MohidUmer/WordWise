@@ -9,8 +9,8 @@
   <title>WordWise — Smart Grammar Helper</title>
 
   <!--Related Links -->
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="icon" type="image/png" href="../images/logo.jpeg">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="icon" type="image/png" href="/static/images/logo.jpg">
   <link href="https://cdn.jsdelivr.net/npm/remixicon/fonts/remixicon.css" rel="stylesheet">
 
   <!-- Related Script -->
@@ -29,7 +29,6 @@
 
   <!-- Pre-Loader -->
   <div id="preloader">
-    <div class="wave"></div>
     <div class="loader">
       <div class="square"></div>
       <div class="square"></div>
@@ -44,8 +43,8 @@
       <div class="flex flex-wrap justify-between items-center py-3">
 
         <!-- Brand -->
-        <a href="main.html" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
-          <img src="../images/logo.jpeg" alt="WordWise Logo"
+        <a href="/home" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
+          <img src="/static/images/logo.jpg" alt="WordWise Logo"
             class="w-[clamp(32px,6vw,48px)] h-[clamp(32px,6vw,48px)] rounded-full logo-animate object-cover border-2 border-gray-300 dark:border-white" />
           <span class="text-[clamp(1.1rem,2vw,1.75rem)] font-extrabold tracking-tight">
             <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-pink-500">Word</span>
@@ -55,13 +54,13 @@
 
         <!-- Desktop Nav Links (wraps on medium screens) -->
         <div class="hidden md:flex flex-wrap justify-center flex-1 gap-4 text-[clamp(0.9rem,1.3vw,1.1rem)]">
-          <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+          <a href="/resource" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
             Resources</a>
-          <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i>
+          <a href="/tools" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i>
             Tools</a>
-          <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i>
+          <a href="/blog" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i>
             Blog</a>
-          <a href="about.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i>
+          <a href="/about" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i>
             About Us</a>
           <a href="https://en.wikipedia.org/wiki/English_grammar" target="_blank"
             class="flex items-center gap-1 hover:text-pink-600">
@@ -83,11 +82,7 @@
             <i class="ri-moon-clear-line"></i> <span class="hidden sm:inline">Toggle</span>
           </button>
 
-          <!-- Login -->
-          <a href="login.html" id="loginBtn"
-            class="px-3 py-1 rounded-lg bg-blue-500 text-white hover:bg-blue-600 flex items-center gap-2">
-            <i class="ri-login-box-line"></i> <span class="hidden sm:inline">Login</span>
-          </a>
+
 
           <!-- Hamburger (mobile only) -->
           <button id="menu-toggle" class="md:hidden text-3xl focus:outline-none">☰</button>
@@ -97,11 +92,11 @@
 
     <!-- Mobile Menu -->
     <div id="mobile-menu" class="hidden md:hidden flex-col gap-4 p-4 bg-white dark:bg-gray-900 shadow-md">
-      <a href="resource.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
+      <a href="/resource" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-book-line"></i>
         Resources</a>
-      <a href="tools.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i> Tools</a>
-      <a href="blog.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i> Blog</a>
-      <a href="about.html" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i> About
+      <a href="/tools" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-tools-line"></i> Tools</a>
+      <a href="/blog" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-file-text-line"></i> Blog</a>
+      <a href="/about" class="flex items-center gap-1 hover:text-pink-600"><i class="ri-information-line"></i> About
         Us</a>
       <a href="https://en.wikipedia.org/wiki/English_grammar" target="_blank"
         class="flex items-center gap-1 hover:text-pink-600">
@@ -133,7 +128,7 @@
   <div class="flex-1 flex items-center justify-center p-6">
     <div class="flex flex-col gap-6 w-3/4">
 
-      <div class="grid grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Input Box -->
         <div class="flex flex-col gap-2">
           <textarea id="inputBox"
@@ -177,7 +172,8 @@
   </div>
 
   <!-- Drawing Pad Section -->
-  <div class="mt-6 relative w-full max-w-[1100px] mx-auto border border-gray-300 rounded-xl shadow-md overflow-hidden"
+  <div id="canvasContainer"
+    class="mt-6 relative w-full max-w-[1100px] mx-auto border border-gray-300 rounded-xl shadow-md overflow-hidden transition-all duration-300"
     style="min-height: 250px; height: clamp(250px, 60vh, 600px);">
 
     <!-- Main Drawing Canvas -->
@@ -187,108 +183,251 @@
     <canvas id="gridCanvas" class="absolute inset-0 w-full h-full pointer-events-none"></canvas>
 
     <!-- Default Background -->
-    <img id="defaultBg" src="../images/canvas.png" alt="Board Background"
+    <img id="defaultBg" src="/static/images/canvas.png" alt="Board Background"
       class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none">
 
-    <!-- Background Selector Button -->
-    <button id="bgBtn" class="absolute top-16 right-3 p-2 bg-gray-200/70 rounded-full shadow 
-            hover:bg-gray-300 dark:bg-gray-700/70 dark:hover:bg-gray-600 z-20 flex items-center justify-center">
-      <!-- Mountain / Photo SVG -->
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-black dark:text-white" fill="none" viewBox="0 0 24 24"
-        stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M3 20h18M21 16l-5-5-4 4-6-6-3 3v8h18z" />
-      </svg>
-
-      <input type="file" id="bgUpload" accept="image/*"
-        class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer">
-    </button>
-
-    <!-- Download Button -->
-    <button id="downloadCanvas" class="absolute top-3 right-3 p-1 bg-green-500/70 dark:bg-green-600/70 rounded-full shadow 
-            hover:bg-green-600/90 dark:hover:bg-green-700/90 transition z-20">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24"
-        stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-          d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M12 12v8m0 0l-4-4m4 4l4-4M12 4v8" />
-      </svg>
-    </button>
-
-    <!-- Tool Buttons (Left Side Vertical Bar) -->
-    <div class="absolute top-3 left-3 flex flex-col gap-2 z-20">
-
-      <!-- Circular Color Picker Button -->
-      <input type="color" id="colorPicker" value="#111111" class="w-8 h-8 p-0 rounded-full border border-gray-300 cursor-pointer
-                    appearance-none overflow-hidden" style="border-radius: 10%; padding: 0; width: 32px; height: 32px;"
-        title="Pick a color" />
-
-      <!-- Shapes -->
-      <div class="relative">
-        <button id="shapesBtn" class="p-1 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
-                hover:bg-gray-300 dark:hover:bg-gray-600 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-black dark:text-white" fill="none"
-            viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M4 20h6v-6H4v6zm14-2l-3-6-3 6h6zm-10-10a3 3 0 116 0 3 3 0 01-6 0z" />
-          </svg>
-        </button>
-
-        <!-- Shape Menu -->
-        <div id="shapeMenu" class="hidden absolute left-12 top-0 flex flex-wrap gap-2 bg-gray-100 dark:bg-gray-800 
-                    p-2 rounded shadow w-40">
-          <!-- Square Filled -->
-          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
-            data-shape="rectangle-filled" title="Filled Square">▮</button>
-          <!-- Square Hollow -->
-          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
-            data-shape="rectangle-hollow" title="Hollow Square">▯</button>
-          <!-- Circle Filled -->
-          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
-            data-shape="circle-filled" title="Filled Circle">●</button>
-          <!-- Circle Hollow -->
-          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
-            data-shape="circle-hollow" title="Hollow Circle">○</button>
-          <!-- Triangle Filled  -->
-          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
-            data-shape="triangle-filled">▲</button>
-          <!-- Triangle Hollow -->
-          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
-            data-shape="triangle-hollow">△</button>
-          <!-- Straight line -->
-          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
-            data-shape="line-straight">│</button>
-          <!-- Left tilt line -->
-          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
-            data-shape="line-tilt-left">╲</button>
-          <!-- Right tilt line -->
-          <button class="shapeOption p-1 bg-white dark:bg-gray-600 rounded shadow hover:bg-gray-200"
-            data-shape="line-tilt-right">╱</button>
-        </div>
-      </div>
-
-      <!-- Grid Toggle -->
-      <button id="gridToggle" class="p-2 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
-              hover:bg-gray-300 dark:hover:bg-gray-600 transition w-8 h-8 flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black dark:text-white" fill="none"
-          viewBox="0 0 24 24" stroke="currentColor">
+    <!-- Top Right Controls -->
+    <div class="absolute top-3 right-3 flex gap-2 z-20">
+      <!-- Undo Button -->
+      <button id="undoBtn" class="p-2 bg-blue-500/70 dark:bg-blue-600/70 rounded-full shadow 
+              hover:bg-blue-600/90 dark:hover:bg-blue-700/90 transition w-8 h-8 flex items-center justify-center"
+        title="Undo (Ctrl+Z)">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M3 3h7v7H3V3zm0 11h7v7H3v-7zm11-11h7v7h-7V3zm0 11h7v7h-7v-7z" />
+            d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+        </svg>
+      </button>
+
+      <!-- Redo Button -->
+      <button id="redoBtn" class="p-2 bg-blue-500/70 dark:bg-blue-600/70 rounded-full shadow 
+              hover:bg-blue-600/90 dark:hover:bg-blue-700/90 transition w-8 h-8 flex items-center justify-center"
+        title="Redo (Ctrl+Y)">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M21 10h-10a8 8 0 00-8 8v2M21 10l-6 6m6-6l-6-6" />
         </svg>
       </button>
 
       <!-- Clear All -->
       <button id="clearBoard" class="p-2 bg-red-500/70 dark:bg-red-600/70 rounded-full shadow 
-              hover:bg-red-600/90 dark:hover:bg-red-700/90 transition w-8 h-8 flex items-center justify-center">
+              hover:bg-red-600/90 dark:hover:bg-red-700/90 transition w-8 h-8 flex items-center justify-center"
+        title="Clear Canvas">
         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
           stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M3 6h18M9 6v12m6-12v12M4 6l1 14a2 2 0 002 2h10a2 2 0 002-2l1-14" />
+            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+      </button>
+
+      <!-- Fullscreen Button -->
+      <button id="fullscreenBtn" class="p-2 bg-purple-500/70 dark:bg-purple-600/70 rounded-full shadow 
+              hover:bg-purple-600/90 dark:hover:bg-purple-700/90 transition w-8 h-8 flex items-center justify-center"
+        title="Toggle Fullscreen">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+        </svg>
+      </button>
+
+      <!-- Download Button -->
+      <button id="downloadCanvas" class="p-2 bg-green-500/70 dark:bg-green-600/70 rounded-full shadow 
+              hover:bg-green-600/90 dark:hover:bg-green-700/90 transition w-8 h-8 flex items-center justify-center"
+        title="Download Canvas">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Tool Buttons (Left Side Vertical Bar) -->
+    <div class="absolute top-3 left-3 flex flex-col gap-2 z-20">
+
+      <!-- Circular Color Picker Button -->
+      <input type="color" id="colorPicker" value="#111111"
+        class="w-8 h-8 cursor-pointer border-2 border-gray-400 dark:border-gray-500"
+        style="-webkit-appearance: none; -moz-appearance: none; appearance: none; width: 32px; height: 32px; border-radius: 50%; padding: 0; background: none; cursor: pointer;"
+        title="Pick a color" />
+      <style>
+        #colorPicker::-webkit-color-swatch-wrapper {
+          padding: 0;
+          border-radius: 50%;
+        }
+
+        #colorPicker::-webkit-color-swatch {
+          border: none;
+          border-radius: 50%;
+        }
+
+        #colorPicker::-moz-color-swatch {
+          border: none;
+          border-radius: 50%;
+        }
+      </style>
+
+      <!-- Pencil Tool -->
+      <button class="toolBtn p-2 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
+              hover:bg-gray-300 dark:hover:bg-gray-600 transition w-8 h-8 flex items-center justify-center"
+        data-tool="pencil" title="Pencil">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black dark:text-white" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+        </svg>
+      </button>
+
+      <!-- Marker Tool -->
+      <button class="toolBtn p-2 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
+              hover:bg-gray-300 dark:hover:bg-gray-600 transition w-8 h-8 flex items-center justify-center"
+        data-tool="marker" title="Marker">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black dark:text-white" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+        </svg>
+      </button>
+
+      <!-- Paint Brush Tool -->
+      <button class="toolBtn p-2 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
+              hover:bg-gray-300 dark:hover:bg-gray-600 transition w-8 h-8 flex items-center justify-center"
+        data-tool="paint" title="Paint Brush">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black dark:text-white" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+        </svg>
+      </button>
+
+      <!-- Eraser Tool -->
+      <button class="toolBtn p-2 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
+              hover:bg-gray-300 dark:hover:bg-gray-600 transition w-8 h-8 flex items-center justify-center"
+        data-tool="eraser" title="Eraser">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black dark:text-white" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+        </svg>
+      </button>
+
+      <!-- Shapes -->
+      <div class="relative">
+        <button id="shapesBtn" class="p-2 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
+                hover:bg-gray-300 dark:hover:bg-gray-600 transition w-8 h-8 flex items-center justify-center"
+          title="Shapes">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black dark:text-white" fill="none"
+            viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+          </svg>
+        </button>
+
+        <!-- Shape Menu - Interactive Scalable Shapes -->
+        <div id="shapeMenu" class="hidden absolute left-12 top-0 flex flex-wrap gap-2 bg-white dark:bg-gray-800 
+                    p-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 w-48">
+          <button
+            class="shapeOption p-2 bg-gray-100 dark:bg-gray-700 rounded shadow hover:bg-pink-100 dark:hover:bg-pink-900 transition"
+            data-shape="rectangle" title="Rectangle (Drag to resize & rotate)">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="4" y="7" width="16" height="10" />
+            </svg>
+          </button>
+          <button
+            class="shapeOption p-2 bg-gray-100 dark:bg-gray-700 rounded shadow hover:bg-pink-100 dark:hover:bg-pink-900 transition"
+            data-shape="square" title="Square (Drag to resize & rotate)">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="6" y="6" width="12" height="12" />
+            </svg>
+          </button>
+          <button
+            class="shapeOption p-2 bg-gray-100 dark:bg-gray-700 rounded shadow hover:bg-pink-100 dark:hover:bg-pink-900 transition"
+            data-shape="circle" title="Circle (Drag to resize)">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="8" />
+            </svg>
+          </button>
+          <button
+            class="shapeOption p-2 bg-gray-100 dark:bg-gray-700 rounded shadow hover:bg-pink-100 dark:hover:bg-pink-900 transition"
+            data-shape="ellipse" title="Ellipse (Drag to resize & rotate)">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <ellipse cx="12" cy="12" rx="10" ry="6" />
+            </svg>
+          </button>
+          <button
+            class="shapeOption p-2 bg-gray-100 dark:bg-gray-700 rounded shadow hover:bg-pink-100 dark:hover:bg-pink-900 transition"
+            data-shape="triangle" title="Triangle (Drag to resize & rotate)">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 4 L20 20 L4 20 Z" />
+            </svg>
+          </button>
+          <button
+            class="shapeOption p-2 bg-gray-100 dark:bg-gray-700 rounded shadow hover:bg-pink-100 dark:hover:bg-pink-900 transition"
+            data-shape="star" title="Star (Drag to resize & rotate)">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2 L14.5 9.5 L22 10 L16.5 15 L18 22 L12 18 L6 22 L7.5 15 L2 10 L9.5 9.5 Z" />
+            </svg>
+          </button>
+          <button
+            class="shapeOption p-2 bg-gray-100 dark:bg-gray-700 rounded shadow hover:bg-pink-100 dark:hover:bg-pink-900 transition"
+            data-shape="hexagon" title="Hexagon (Drag to resize & rotate)">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2 L20 7 L20 17 L12 22 L4 17 L4 7 Z" />
+            </svg>
+          </button>
+          <button
+            class="shapeOption p-2 bg-gray-100 dark:bg-gray-700 rounded shadow hover:bg-pink-100 dark:hover:bg-pink-900 transition"
+            data-shape="pentagon" title="Pentagon (Drag to resize & rotate)">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2 L22 9 L18 21 L6 21 L2 9 Z" />
+            </svg>
+          </button>
+          <button
+            class="shapeOption p-2 bg-gray-100 dark:bg-gray-700 rounded shadow hover:bg-pink-100 dark:hover:bg-pink-900 transition"
+            data-shape="arrow" title="Arrow (Drag to resize & rotate)">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 4 L12 16 M12 16 L7 11 M12 16 L17 11" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button
+            class="shapeOption p-2 bg-gray-100 dark:bg-gray-700 rounded shadow hover:bg-pink-100 dark:hover:bg-pink-900 transition"
+            data-shape="line" title="Line (Drag to resize & rotate)">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="4" y1="20" x2="20" y2="4" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Background Upload -->
+      <button id="bgBtn" class="p-2 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
+              hover:bg-gray-300 dark:hover:bg-gray-600 transition w-8 h-8 flex items-center justify-center relative"
+        title="Upload Background">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black dark:text-white" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <input type="file" id="bgUpload" accept="image/*"
+          class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer">
+      </button>
+
+      <!-- Grid Toggle -->
+      <button id="gridToggle" class="p-2 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
+              hover:bg-gray-300 dark:hover:bg-gray-600 transition w-8 h-8 flex items-center justify-center"
+        title="Toggle Grid">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-black dark:text-white" fill="none"
+          viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z" />
         </svg>
       </button>
 
       <!-- Delete Confirmation Modal -->
       <div id="deleteModal" class="fixed inset-0 flex items-center justify-center bg-black/40 hidden z-50">
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg text-center max-w-sm mx-4">
           <p class="mb-4 text-gray-800 dark:text-gray-200">
             Are you sure you want to clear the canvas?
           </p>
@@ -299,307 +438,15 @@
           </div>
         </div>
       </div>
-
-      <!-- Tools -->
-      <button class="toolBtn p-1 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
-                    hover:bg-gray-300 dark:hover:bg-gray-600 transition" data-tool="eraser">🩹</button>
-      <button class="toolBtn p-1 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
-                    hover:bg-gray-300 dark:hover:bg-gray-600 transition" data-tool="pencil">✏️</button>
-      <button class="toolBtn p-1 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
-                    hover:bg-gray-300 dark:hover:bg-gray-600 transition" data-tool="marker">🖊️</button>
-      <button class="toolBtn p-1 bg-gray-200/70 dark:bg-gray-700/70 rounded-full shadow 
-                    hover:bg-gray-300 dark:hover:bg-gray-600 transition" data-tool="paint">🖌️</button>
     </div>
   </div>
 
   <!-- Drawing Pad Script -->
-  <script>
-    const canvas = document.getElementById("freedomBoard");
-    const ctx = canvas.getContext("2d");
-    const gridCanvas = document.getElementById("gridCanvas");
-    const gridCtx = gridCanvas.getContext("2d");
-    const deleteModal = document.getElementById("deleteModal");
-    const clearBoardBtn = document.getElementById("clearBoard");
-    const confirmDelete = document.getElementById("confirmDelete");
-    const cancelDelete = document.getElementById("cancelDelete");
-    const shapesBtn = document.getElementById("shapesBtn");
-    const shapeMenu = document.getElementById("shapeMenu");
-    const shapeOptionsBtns = document.querySelectorAll(".shapeOption");
+  <script src="/static/js/canvas.js"></script>
 
-    // Core variables
-    let drawing = false;
-    let currentTool = "pencil";
-    let strokeColor = "#111";
-    let strokeWidth = 2;
-    let currentShape = "rectangle-filled";
-    let showGrid = false;
-    const gridSize = 25;
-    let bgImage = null;
 
-    // Undo / Redo
-    let history = [];
-    let historyStep = -1;
 
-    // ---------------- Modal Events ----------------
-    clearBoardBtn.addEventListener("click", () => deleteModal.classList.remove("hidden"));
-    cancelDelete.addEventListener("click", () => deleteModal.classList.add("hidden"));
-    confirmDelete.addEventListener("click", () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      saveState();
-      deleteModal.classList.add("hidden");
-    });
 
-    // ---------------- Save / Restore ----------------
-    function saveState(saveLocal = true) {
-      history = history.slice(0, historyStep + 1);
-      history.push(canvas.toDataURL());
-      historyStep++;
-      if (saveLocal) localStorage.setItem("freedomBoard", canvas.toDataURL());
-    }
-
-    function restoreState(step) {
-      if (step < 0) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawGridLayer();
-        historyStep = -1;
-        return;
-      }
-      const img = new Image();
-      img.src = history[step];
-      img.onload = () => redrawCanvas(img);
-    }
-
-    function redrawCanvas(img = null) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      if (bgImage) ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
-      if (img) ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-      drawGridLayer();
-    }
-
-    // ---------------- Grid ----------------
-    function drawGridLayer() {
-      gridCtx.clearRect(0, 0, gridCanvas.width, gridCanvas.height);
-      if (!showGrid) return;
-      gridCtx.save();
-      gridCtx.strokeStyle = "rgba(0,0,0,0.1)";
-      gridCtx.lineWidth = 1;
-      for (let x = 0; x <= gridCanvas.width; x += gridSize) {
-        gridCtx.beginPath();
-        gridCtx.moveTo(x, 0);
-        gridCtx.lineTo(x, gridCanvas.height);
-        gridCtx.stroke();
-      }
-      for (let y = 0; y <= gridCanvas.height; y += gridSize) {
-        gridCtx.beginPath();
-        gridCtx.moveTo(0, y);
-        gridCtx.lineTo(gridCanvas.width, y);
-        gridCtx.stroke();
-      }
-      gridCtx.restore();
-    }
-
-    // ---------------- Mouse / Touch ----------------
-    function getPosition(e) {
-      const rect = canvas.getBoundingClientRect();
-      if (e.touches) {
-        return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
-      } else return { x: e.clientX - rect.left, y: e.clientY - rect.top };
-    }
-
-    function startDrawing(e) {
-      const pos = getPosition(e);
-      if (currentTool === "shape") {
-        drawShape(pos.x, pos.y);
-        saveState();
-      } else {
-        drawing = true;
-        ctx.beginPath();
-        ctx.moveTo(pos.x, pos.y);
-      }
-      e.preventDefault();
-    }
-
-    function draw(e) {
-      if (!drawing) return;
-      const pos = getPosition(e);
-      ctx.globalCompositeOperation = currentTool === "eraser" ? "destination-out" : "source-over";
-      ctx.strokeStyle = currentTool === "eraser" ? "rgba(0,0,0,1)" : strokeColor;
-      ctx.lineWidth = currentTool === "pencil" ? 2 :
-        currentTool === "marker" ? 6 :
-          currentTool === "paint" ? 12 :
-            currentTool === "eraser" ? 12 : strokeWidth;
-      ctx.lineTo(pos.x, pos.y);
-      ctx.lineCap = "round";
-      ctx.stroke();
-      e.preventDefault();
-    }
-
-    function stopDrawing() {
-      if (!drawing) return;
-      drawing = false;
-      ctx.closePath();
-      if (currentTool !== "shape") saveState();
-    }
-
-    // ---------------- Draw Shapes ----------------
-    function drawShape(x, y) {
-      const size = currentShape.includes("hollow") ? 180 : 60;
-      ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = strokeColor;
-      ctx.strokeStyle = strokeColor;
-      ctx.lineWidth = 2;
-      const filled = currentShape.includes("filled");
-
-      switch (true) {
-        case currentShape.startsWith("rectangle"):
-          filled ? ctx.fillRect(x - size / 2, y - size / 2, size, size) : ctx.strokeRect(x - size / 2, y - size / 2, size, size);
-          break;
-        case currentShape.startsWith("circle"):
-          ctx.beginPath();
-          ctx.arc(x, y, size / 2, 0, Math.PI * 2);
-          filled ? ctx.fill() : ctx.stroke();
-          break;
-        case currentShape.startsWith("triangle"):
-          ctx.beginPath();
-          ctx.moveTo(x, y - size / 2);
-          ctx.lineTo(x - size / 2, y + size / 2);
-          ctx.lineTo(x + size / 2, y + size / 2);
-          ctx.closePath();
-          filled ? ctx.fill() : ctx.stroke();
-          break;
-        case currentShape.startsWith("line"):
-          ctx.beginPath();
-          switch (currentShape) {
-            case "line-tilt-right":
-              ctx.moveTo(x - size, y + size);
-              ctx.lineTo(x + size, y - size);
-              break;
-            case "line-tilt-left":
-              ctx.moveTo(x - size, y - size);
-              ctx.lineTo(x + size, y + size);
-              break;
-            case "line-straight":
-              ctx.moveTo(x, y - size);
-              ctx.lineTo(x, y + size);
-              break;
-          }
-          ctx.stroke();
-          break;
-      }
-    }
-
-    // ---------------- Canvas Events ----------------
-    canvas.addEventListener("mousedown", startDrawing);
-    canvas.addEventListener("mousemove", draw);
-    canvas.addEventListener("mouseup", stopDrawing);
-    canvas.addEventListener("mouseleave", stopDrawing);
-    canvas.addEventListener("touchstart", startDrawing, { passive: false });
-    canvas.addEventListener("touchmove", draw, { passive: false });
-    canvas.addEventListener("touchend", stopDrawing);
-
-    // ---------------- Tool Buttons ----------------
-    document.querySelectorAll(".toolBtn").forEach(btn =>
-      btn.addEventListener("click", () => currentTool = btn.dataset.tool)
-    );
-
-    // ---------------- Color Picker ----------------
-    document.getElementById("colorPicker")?.addEventListener("input", e => strokeColor = e.target.value);
-
-    // ---------------- Undo / Redo ----------------
-    document.addEventListener("keydown", e => {
-      if (e.ctrlKey && e.key === "z") restoreState(--historyStep);
-      if (e.ctrlKey && e.key === "y" && historyStep < history.length - 1) restoreState(++historyStep);
-    });
-
-    // ---------------- Grid Toggle ----------------
-    document.getElementById("gridToggle").addEventListener("click", () => {
-      showGrid = !showGrid;
-      drawGridLayer();
-    });
-
-    // ---------------- Background Upload ----------------
-    document.getElementById("bgUpload").addEventListener("change", e => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function (event) {
-        const img = new Image();
-        img.src = event.target.result;
-        img.onload = () => {
-          bgImage = img;
-          redrawCanvas();
-          saveState();
-        }
-      }
-      reader.readAsDataURL(file);
-    });
-
-    // ---------------- Download Canvas ----------------
-    document.getElementById("downloadCanvas").addEventListener("click", () => {
-      const tempCanvas = document.createElement("canvas");
-      tempCanvas.width = canvas.width;
-      tempCanvas.height = canvas.height;
-      const tempCtx = tempCanvas.getContext("2d");
-
-      if (bgImage) tempCtx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
-      else { tempCtx.fillStyle = "#fff"; tempCtx.fillRect(0, 0, canvas.width, canvas.height); }
-
-      tempCtx.drawImage(canvas, 0, 0);
-      const link = document.createElement("a");
-      link.download = "drawing.png";
-      link.href = tempCanvas.toDataURL();
-      link.click();
-    });
-
-    // ---------------- Shapes Menu ----------------
-    shapesBtn.addEventListener("click", () => shapeMenu.classList.toggle("hidden"));
-    shapeOptionsBtns.forEach(btn => {
-      btn.addEventListener("click", () => {
-        currentShape = btn.dataset.shape;
-        currentTool = "shape";
-        shapeMenu.classList.add("hidden");
-        shapesBtn.title = "Shape: " + currentShape;
-      });
-    });
-
-    // ---------------- Responsive Canvas ----------------
-    function resizeCanvas() {
-      const temp = new Image();
-      temp.src = canvas.toDataURL();
-
-      canvas.width = canvas.parentElement.clientWidth;
-      canvas.height = canvas.parentElement.clientHeight;
-      gridCanvas.width = canvas.width;
-      gridCanvas.height = canvas.height;
-
-      temp.onload = () => {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(temp, 0, 0, canvas.width, canvas.height);
-        drawGridLayer();
-      }
-    }
-
-    window.addEventListener("resize", resizeCanvas);
-
-    // ---------------- Load Saved Canvas ----------------
-    const saved = localStorage.getItem("freedomBoard");
-    if (saved) {
-      const img = new Image();
-      img.src = saved;
-      img.onload = () => {
-        canvas.width = canvas.parentElement.clientWidth;
-        canvas.height = canvas.parentElement.clientHeight;
-        gridCanvas.width = canvas.width;
-        gridCanvas.height = canvas.height;
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        saveState(false);
-        drawGridLayer();
-      }
-    } else resizeCanvas();
-
-  </script>
 
   <!-- Features Section -->
   <section class="max-w-7xl mx-auto px-6 py-12 flex flex-col gap-12">
@@ -607,11 +454,12 @@
     <!-- Feature 1: Image Left, Text Right -->
     <div
       class="flex flex-col md:flex-row items-center gap-8 feature-card cursor-pointer transition-transform duration-300">
-      <img src="../images/feature1.jpg" alt="Feature 1"
+      <img src="/static/images/feature1.jpg" alt="Feature 1"
         class="w-full md:w-1/2 h-64 object-cover rounded-xl shadow-lg feature-img">
       <div class="md:w-1/2">
         <h3 class="text-2xl font-bold mb-4">Smart Grammar Detection</h3>
-        <p class="text-gray-700 dark:text-gray-300">Instantly detect grammar and spelling mistakes as you type, giving
+        <p class="text-gray-700 dark:text-gray-300">Instantly detect grammar and spelling mistakes as you type,
+          giving
           you real-time feedback to improve your writing efficiently.</p>
       </div>
     </div>
@@ -619,11 +467,12 @@
     <!-- Feature 2: Text Left, Image Right -->
     <div
       class="flex flex-col md:flex-row-reverse items-center gap-8 feature-card cursor-pointer transition-transform duration-300">
-      <img src="../images/feature2.jpg" alt="Feature 2"
+      <img src="/static/images/feature2.jpg" alt="Feature 2"
         class="w-full md:w-1/2 h-64 object-cover rounded-xl shadow-lg feature-img">
       <div class="md:w-1/2">
         <h3 class="text-2xl font-bold mb-4">Helpful Suggestions</h3>
-        <p class="text-gray-700 dark:text-gray-300">Receive actionable suggestions for better word choices, sentence
+        <p class="text-gray-700 dark:text-gray-300">Receive actionable suggestions for better word choices,
+          sentence
           structure, and readability, making your text professional and polished.</p>
       </div>
     </div>
@@ -631,11 +480,12 @@
     <!-- Feature 3: Image Left, Text Right -->
     <div
       class="flex flex-col md:flex-row items-center gap-8 feature-card cursor-pointer transition-transform duration-300">
-      <img src="../images/feature3.jpg" alt="Feature 3"
+      <img src="/static/images/feature3.jpg" alt="Feature 3"
         class="w-full md:w-1/2 h-64 object-cover rounded-xl shadow-lg feature-img">
       <div class="md:w-1/2">
         <h3 class="text-2xl font-bold mb-4">Multi-Platform Access</h3>
-        <p class="text-gray-700 dark:text-gray-300">Use WordWise anywhere, whether on desktop or mobile, and continue
+        <p class="text-gray-700 dark:text-gray-300">Use WordWise anywhere, whether on desktop or mobile, and
+          continue
           your work seamlessly without losing progress.</p>
       </div>
     </div>
@@ -643,11 +493,12 @@
     <!-- Feature 4: Text Left, Image Right -->
     <div
       class="flex flex-col md:flex-row-reverse items-center gap-8 feature-card cursor-pointer transition-transform duration-300">
-      <img src="../images/feature4.jpg" alt="Feature 4"
+      <img src="/static/images/feature4.jpg" alt="Feature 4"
         class="w-full md:w-1/2 h-64 object-cover rounded-xl shadow-lg feature-img">
       <div class="md:w-1/2">
         <h3 class="text-2xl font-bold mb-4">Fast & Secure</h3>
-        <p class="text-gray-700 dark:text-gray-300">Experience lightning-fast text analysis while ensuring your data
+        <p class="text-gray-700 dark:text-gray-300">Experience lightning-fast text analysis while ensuring your
+          data
           stays private and secure at all times.</p>
       </div>
     </div>
@@ -662,10 +513,9 @@
       <div>
         <h3 class="text-lg font-semibold mb-4">Contact Us</h3>
         <p>Hack & Chat</p>
-        <p>WhatsApp: +92 336 0941069</p>
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=mohidumer112@gmail.com&su=Hello&body=Hi%20there"
-          target="_blank">
-          mohidumer112@gmail.com
+        <p>WhatsApp: [Your Business Number]</p>
+        <a href="mailto:support@wordwise.com" target="_blank">
+          support@wordwise.com
         </a>
 
       </div>
@@ -674,8 +524,8 @@
       <div>
         <h3 class="text-lg font-semibold mb-4">Information</h3>
         <ul class="space-y-2">
-          <li><a href="faqs.html" class="hover:text-pink-500 transition-colors">FAQs</a></li>
-          <li><a href="reviews.html" class="hover:text-pink-500 transition-colors">Testimonials</a></li>
+          <li><a href="/faqs" class="hover:text-pink-500 transition-colors">FAQs</a></li>
+          <li><a href="/reviews" class="hover:text-pink-500 transition-colors">Testimonials</a></li>
         </ul>
       </div>
 
@@ -683,8 +533,8 @@
       <div>
         <h3 class="text-lg font-semibold mb-4">User Care</h3>
         <ul class="space-y-2">
-          <li><a href="reviews.html" class="hover:text-pink-500 transition-colors">Reviews</a></li>
-          <li><a href="main.html" class="hover:text-pink-500 transition-colors">Site</a></li>
+          <li><a href="/reviews" class="hover:text-pink-500 transition-colors">Reviews</a></li>
+          <li><a href="/home" class="hover:text-pink-500 transition-colors">Site</a></li>
         </ul>
       </div>
 
@@ -692,10 +542,10 @@
       <div>
         <h3 class="text-lg font-semibold mb-4">Extras</h3>
         <ul class="space-y-2">
-          <li><a href="blog.html" class="hover:text-pink-500 transition-colors">Blogs</a></li>
-          <li><a href="resource.html" class="hover:text-pink-500 transition-colors">Resources</a></li>
-          <li><a href="tools.html" class="hover:text-pink-500 transition-colors">Tools</a></li>
-          <li><a href="about.html" class="hover:text-pink-500 transition-colors">About Us</a></li>
+          <li><a href="/blog" class="hover:text-pink-500 transition-colors">Blogs</a></li>
+          <li><a href="/resource" class="hover:text-pink-500 transition-colors">Resources</a></li>
+          <li><a href="/tools" class="hover:text-pink-500 transition-colors">Tools</a></li>
+          <li><a href="/about" class="hover:text-pink-500 transition-colors">About Us</a></li>
         </ul>
       </div>
     </div>
@@ -752,13 +602,30 @@
               class="px-3 py-1 rounded-md bg-emerald-500 text-white hover:bg-emerald-600">Pie</button>
           </div>
 
-          <!-- Smaller chart card (no overflow) -->
+          <!-- Modernized chart card (no overflow) -->
           <div id="graphContainer"
-            class="relative w-full h-80 p-3 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-inner">
+            class="relative w-full h-[400px] p-6 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-700 shadow-inner">
             <canvas id="graphCanvas" class="w-full h-full"></canvas>
             <div id="noDataMsg"
               class="absolute inset-0 hidden items-center justify-center text-gray-500 dark:text-gray-400">
-              No error data yet. Type/paste text to analyze.
+              No data available. Start typing to see analytics.
+            </div>
+          </div>
+
+          <!-- Summary Metrics -->
+          <div class="grid grid-cols-3 gap-4 text-center mt-2">
+            <div class="p-3 rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/30">
+              <p class="text-xs text-red-600 dark:text-red-400 font-medium">Errors</p>
+              <p id="metric-errors" class="text-xl font-bold text-red-700 dark:text-red-300">0</p>
+            </div>
+            <div class="p-3 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30">
+              <p class="text-xs text-blue-600 dark:text-blue-400 font-medium">Words</p>
+              <p id="metric-words" class="text-xl font-bold text-blue-700 dark:text-blue-300">0</p>
+            </div>
+            <div
+              class="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800/30">
+              <p class="text-xs text-emerald-600 dark:text-emerald-400 font-medium">Chars</p>
+              <p id="metric-chars" class="text-xl font-bold text-emerald-700 dark:text-emerald-300">0</p>
             </div>
           </div>
         </div>
@@ -808,7 +675,7 @@
       // ---------- ELEMENTS ----------
       const els = {
         body: document.body,
-        loginBtn: document.getElementById("loginBtn"),
+
         input: document.getElementById("inputBox"),
         output: document.getElementById("outputBox"),
         suggestions: document.getElementById("suggestionsBox"),
@@ -839,11 +706,7 @@
         };
       }
 
-      // ---------- LOGIN ----------
-      if (els.loginBtn) els.loginBtn.onclick = e => {
-        e.preventDefault();
-        location.href = "login.html";
-      };
+
 
       // ---------- PRELOADER ----------
       window.addEventListener("load", () => els.preloader?.classList.add("hidden"));
@@ -975,16 +838,73 @@
       function renderChart(type) {
         currentChartType = type;
         const { errors, words, chars } = getStats();
+
+        // Update summary metrics
+        document.getElementById("metric-errors").textContent = errors;
+        document.getElementById("metric-words").textContent = words;
+        document.getElementById("metric-chars").textContent = chars;
+
         if (chart) chart.destroy();
-        chart = new Chart(els.graphCanvas.getContext("2d"), {
+
+        const ctx = els.graphCanvas.getContext("2d");
+
+        // Setup Gradients
+        const gradRed = ctx.createLinearGradient(0, 0, 0, 400);
+        gradRed.addColorStop(0, 'rgba(239, 68, 68, 0.8)');
+        gradRed.addColorStop(1, 'rgba(239, 68, 68, 0.1)');
+
+        const gradBlue = ctx.createLinearGradient(0, 0, 0, 400);
+        gradBlue.addColorStop(0, 'rgba(59, 130, 246, 0.8)');
+        gradBlue.addColorStop(1, 'rgba(59, 130, 246, 0.1)');
+
+        const gradGreen = ctx.createLinearGradient(0, 0, 0, 400);
+        gradGreen.addColorStop(0, 'rgba(16, 185, 129, 0.8)');
+        gradGreen.addColorStop(1, 'rgba(16, 185, 129, 0.1)');
+
+        const isDark = els.body.classList.contains("dark");
+        const textColor = isDark ? "#94a3b8" : "#64748b";
+        const gridColor = isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.05)";
+
+        chart = new Chart(ctx, {
           type,
           data: {
-            labels: ["Errors", "Words", "Chars"], datasets: [{
+            labels: ["Errors", "Words", "Chars"],
+            datasets: [{
+              label: 'Text Statistics',
               data: [errors, words, chars],
-              backgroundColor: ["#ef4444", "#3b82f6", "#10b981"]
+              backgroundColor: type === 'pie' ? ["#ef4444", "#3b82f6", "#10b981"] : [gradRed, gradBlue, gradGreen],
+              borderColor: ["#ef4444", "#3b82f6", "#10b981"],
+              borderWidth: 2,
+              borderRadius: type === 'bar' ? 8 : 0,
+              tension: 0.4, // For line chart smoothness
+              fill: true   // For line chart area
             }]
           },
-          options: { responsive: true, maintainAspectRatio: false, scales: type === "pie" ? {} : { y: { beginAtZero: true } } }
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: type === 'pie',
+                labels: { color: textColor }
+              }
+            },
+            scales: type === "pie" ? {} : {
+              x: {
+                grid: { display: false },
+                ticks: { color: textColor }
+              },
+              y: {
+                beginAtZero: true,
+                grid: { color: gridColor },
+                ticks: { color: textColor }
+              }
+            },
+            interaction: {
+              intersect: false,
+              mode: 'index',
+            }
+          }
         });
       }
       ["barGraph", "pieGraph", "lineGraph"].forEach(id => {
