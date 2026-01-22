@@ -5,7 +5,7 @@
 ## 1. Project Overview
 
 ### 1.1 Why
-WordWise was created to **improve writing clarity, correctness, and confidence** in real time.  
+Word Wise was created to **improve writing clarity, correctness, and confidence** in real time.  
 It addresses common issues faced by students and professionals such as grammatical errors, poor sentence flow, and lack of writing insights — while maintaining **privacy-first and lightweight design principles**.
 
 ### 1.2 What
