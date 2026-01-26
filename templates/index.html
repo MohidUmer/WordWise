@@ -7,6 +7,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WordWise — Smart Grammar Helper</title>
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
   <!--Related Links -->
   <link rel="stylesheet" href="/static/css/style.css">
@@ -44,7 +47,7 @@
 
         <!-- Brand -->
         <a href="/home" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
-          <img src="/static/images/logo.jpg" alt="WordWise Logo"
+          <img src="/static/images/logo.jpg" alt="WordWise Logo" loading="lazy"
             class="w-[clamp(32px,6vw,48px)] h-[clamp(32px,6vw,48px)] rounded-full logo-animate object-cover border-2 border-gray-300 dark:border-white" />
           <span class="text-[clamp(1.1rem,2vw,1.75rem)] font-extrabold tracking-tight">
             <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-pink-500">Word</span>
@@ -109,6 +112,12 @@
           class="ri-check-double-line"></i> Grammarly</a>
     </div>
   </nav>
+
+  <!-- Production Disclaimer -->
+  <div
+    class="w-full bg-red-600 text-white text-[8px] py-0.5 text-center font-bold uppercase tracking-wider z-[60] select-none">
+    ⚠️ PRODUCTION DEMO: Not a real website. All features for demonstration. Data is temporary. ⚠️
+  </div>
 
   <script>
     document.getElementById("menu-toggle").addEventListener("click", () => {
@@ -451,10 +460,10 @@
   <!-- Features Section -->
   <section class="max-w-7xl mx-auto px-6 py-12 flex flex-col gap-12">
 
-    <!-- Feature 1: Image Left, Text Right -->
+    <!-- Feature images with lazy loading -->
     <div
       class="flex flex-col md:flex-row items-center gap-8 feature-card cursor-pointer transition-transform duration-300">
-      <img src="/static/images/feature1.jpg" alt="Feature 1"
+      <img src="/static/images/feature1.jpg" alt="Feature 1" loading="lazy"
         class="w-full md:w-1/2 h-64 object-cover rounded-xl shadow-lg feature-img">
       <div class="md:w-1/2">
         <h3 class="text-2xl font-bold mb-4">Smart Grammar Detection</h3>
@@ -467,7 +476,7 @@
     <!-- Feature 2: Text Left, Image Right -->
     <div
       class="flex flex-col md:flex-row-reverse items-center gap-8 feature-card cursor-pointer transition-transform duration-300">
-      <img src="/static/images/feature2.jpg" alt="Feature 2"
+      <img src="/static/images/feature2.jpg" alt="Feature 2" loading="lazy"
         class="w-full md:w-1/2 h-64 object-cover rounded-xl shadow-lg feature-img">
       <div class="md:w-1/2">
         <h3 class="text-2xl font-bold mb-4">Helpful Suggestions</h3>
@@ -480,7 +489,7 @@
     <!-- Feature 3: Image Left, Text Right -->
     <div
       class="flex flex-col md:flex-row items-center gap-8 feature-card cursor-pointer transition-transform duration-300">
-      <img src="/static/images/feature3.jpg" alt="Feature 3"
+      <img src="/static/images/feature3.jpg" alt="Feature 3" loading="lazy"
         class="w-full md:w-1/2 h-64 object-cover rounded-xl shadow-lg feature-img">
       <div class="md:w-1/2">
         <h3 class="text-2xl font-bold mb-4">Multi-Platform Access</h3>
@@ -493,7 +502,7 @@
     <!-- Feature 4: Text Left, Image Right -->
     <div
       class="flex flex-col md:flex-row-reverse items-center gap-8 feature-card cursor-pointer transition-transform duration-300">
-      <img src="/static/images/feature4.jpg" alt="Feature 4"
+      <img src="/static/images/feature4.jpg" alt="Feature 4" loading="lazy"
         class="w-full md:w-1/2 h-64 object-cover rounded-xl shadow-lg feature-img">
       <div class="md:w-1/2">
         <h3 class="text-2xl font-bold mb-4">Fast & Secure</h3>

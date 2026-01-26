@@ -27,8 +27,8 @@
     }
 
     .logo-animate:hover {
-      transform: rotate(360deg) scale(1.1);
-      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+      transform: scale(1.05);
+      filter: brightness(1.1);
     }
 
     .star {
@@ -41,6 +41,159 @@
     .star.selected,
     .star.hovered {
       color: #ec4899;
+    }
+
+    /* Modal styling */
+    #gameModal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      /* Darker backdrop */
+      backdrop-filter: blur(12px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 10px;
+    }
+
+    #gameModal.active {
+      display: flex;
+    }
+
+    #modalContent {
+      position: relative;
+      background: white;
+      width: 95vw;
+      max-width: 900px;
+      height: 80vh;
+      max-height: 550px;
+      border-radius: 2rem;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(236, 72, 153, 0.2);
+      border: 4px solid #fdf2f8;
+      /* Very light pink border */
+    }
+
+    body.dark #modalContent {
+      background: #1f2937;
+      border-color: #374151;
+    }
+
+    #closeGame {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #ec4899;
+      background: #fdf2f8;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      z-index: 50;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 8px rgba(236, 72, 153, 0.1);
+    }
+
+    #closeGame:hover {
+      background: #ef4444;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    /* Mobile Controls */
+    .mobile-btns {
+      display: none;
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      padding: 0 20px;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 30;
+    }
+
+    .m-btn {
+      width: 65px;
+      height: 65px;
+      background: rgba(236, 72, 153, 0.1);
+      backdrop-filter: blur(5px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ec4899;
+      font-size: 1.75rem;
+      pointer-events: auto;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      border: 2px solid #fbcfe8;
+      transition: transform 0.1s;
+    }
+
+    .m-btn:active {
+      background: rgba(236, 72, 153, 0.5);
+      transform: scale(0.9);
+    }
+
+    @media (max-width: 640px) {
+      .mobile-btns {
+        display: flex;
+      }
+
+      #modalContent {
+        height: 80vh;
+      }
+
+      #gameModal {
+        backdrop-filter: none;
+        background: rgba(0, 0, 0, 0.95);
+      }
+    }
+
+    #playGameBtn {
+      background: linear-gradient(135deg, #ec4899, #f43f5e);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(236, 72, 153, 0.3);
+      cursor: pointer;
+    }
+
+    #playGameBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(236, 72, 153, 0.4);
+    }
+
+    #serverStatus {
+      display: none;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-top: 1rem;
+    }
+
+    #serverStatus.offline {
+      background: #fee2e2;
+      color: #ef4444;
+      display: inline-block;
+    }
+
+    body.dark #serverStatus.offline {
+      background: #450a0a;
+      color: #f87171;
     }
 
     #reviewPanel {
@@ -85,23 +238,8 @@
     #toggleReviewPanel:hover {
       background: #db2777;
     }
-
-    /* Make overlay not block other buttons */
-    #offlineScreen {
-      pointer-events: none;
-      /* allow clicks through */
-    }
-
-    #dinoGame,
-    #offlineScreen h1,
-    #offlineScreen p {
-      pointer-events: auto;
-      /* only interactable elements */
-    }
   </style>
 </head>
-
-<!-- Body Section -->
 
 <body class="light min-h-screen flex flex-col">
 
@@ -112,7 +250,7 @@
 
         <!-- Brand -->
         <a href="/home" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
-          <img src="/static/images/logo.jpg" alt="WordWise Logo"
+          <img src="/static/images/logo.jpg" alt="WordWise Logo" loading="lazy"
             class="w-[clamp(32px,6vw,48px)] h-[clamp(32px,6vw,48px)] rounded-full logo-animate object-cover border-2 border-gray-300 dark:border-white" />
           <span class="text-[clamp(1.1rem,2vw,1.75rem)] font-extrabold tracking-tight">
             <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-pink-500">Word</span>
@@ -156,6 +294,12 @@
     </div>
   </nav>
 
+  <!-- Production Disclaimer -->
+  <div
+    class="w-full bg-red-600 text-white text-[8px] py-0.5 text-center font-bold uppercase tracking-wider z-[60] select-none">
+    ⚠️ PRODUCTION DEMO: Not a real website. All features for demonstration. Data is temporary. ⚠️
+  </div>
+
   <script>
     document.getElementById("menu-toggle").addEventListener("click", () => {
       document.getElementById("mobile-menu").classList.toggle("hidden");
@@ -163,32 +307,44 @@
   </script>
 
   <!-- Hero Section -->
-  <section class="w-full flex flex-col items-center justify-center text-center py-12">
-    <h1 class="text-4xl md:text-5xl font-extrabold mb-6"><span
-        class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-pink-500">WordWise</span>
-      Reviews
+  <section
+    class="w-full flex flex-col items-center justify-center text-center py-12 px-4 shadow-sm bg-white/50 dark:bg-gray-900/50">
+    <h1 class="text-4xl md:text-5xl font-extrabold mb-4">
+      <span class="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-pink-500">WordWise</span> Reviews
     </h1>
+    <p class="text-gray-600 dark:text-gray-400 mb-6 max-w-xl mx-auto">What our community says about us. Join the
+      conversation!</p>
+
+    <div class="flex flex-col items-center gap-2">
+      <button id="playGameBtn">
+        <i class="ri-gamepad-line"></i> Play Word Catcher
+      </button>
+      <span id="serverStatus"></span>
+    </div>
   </section>
 
-  <!-- Offline Middle Content -->
-  <div id="offlineContainer" class="w-full max-w-3xl mx-auto my-4 px-4 sm:px-6">
-    <div id="offlineScreen"
-      class="flex flex-col items-center justify-center p-4 sm:p-6 bg-gray-100 dark:bg-gray-900 rounded-xl shadow-md hidden overflow-hidden">
-      <h2 class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-200 mb-2 sm:mb-4 text-center">⚠️ Server
-        Offline
-      </h2>
-      <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 text-center">Connection lost... Play the Word
-        Catcher!</p>
+  <!-- Game Modal -->
+  <div id="gameModal">
+    <div id="modalContent">
+      <!-- Minimalist Close Icon -->
+      <span id="closeGame" class="ri-close-line" title="Close Game"></span>
 
-      <div class="relative w-full flex justify-center">
-        <canvas id="dinoGame"
-          class="max-w-full border rounded-lg bg-gradient-to-b from-blue-100 to-white dark:from-gray-800 dark:to-gray-900 shadow-inner block"></canvas>
+      <!-- Game Canvas Area -->
+      <div
+        class="relative w-full h-full bg-gradient-to-b from-pink-50 to-white dark:from-gray-800 dark:to-gray-900 overflow-hidden">
+        <canvas id="dinoGame" class="w-full h-full"></canvas>
+
+        <!-- Game Info Overlay -->
+        <div class="absolute top-4 left-4 pointer-events-none opacity-20">
+          <h2 class="text-xl font-bold text-pink-500">WordWise Catcher</h2>
+        </div>
+
+        <!-- Mobile Controls -->
+        <div class="mobile-btns">
+          <div id="leftBtn" class="m-btn"><i class="ri-arrow-left-s-line"></i></div>
+          <div id="rightBtn" class="m-btn"><i class="ri-arrow-right-s-line"></i></div>
+        </div>
       </div>
-
-      <p class="text-[10px] sm:text-xs text-gray-500 dark:text-gray-400 mt-3 text-center">
-        <span class="hidden sm:inline">Use LEFT / RIGHT Arrows to catch letters!</span>
-        <span class="sm:hidden">Tap Left or Right side of the game area to move!</span>
-      </p>
     </div>
   </div>
 
@@ -267,6 +423,7 @@
     let gameActive = false;
     let score = 0;
     let lives = 3;
+    let popups = []; // To store +10 text popups
 
     // Player (Owl)
     let playerX = 300;
@@ -335,6 +492,7 @@
       lives = 3;
       letters = [];
       particles = [];
+      popups = [];
       playerX = dinoCanvas.width / 2;
       gameActive = true;
       moveLeft = false;
@@ -346,12 +504,14 @@
     }
 
     function createExplosion(x, y, color) {
-      for (let i = 0; i < 8; i++) {
+      const isMobile = window.innerWidth < 640;
+      const count = isMobile ? 4 : 8; // Fewer particles on mobile
+      for (let i = 0; i < count; i++) {
         particles.push({
           x: x,
           y: y,
-          vx: (Math.random() - 0.5) * 6,
-          vy: (Math.random() - 0.5) * 6,
+          vx: (Math.random() - 0.5) * (isMobile ? 4 : 6),
+          vy: (Math.random() - 0.5) * (isMobile ? 4 : 6),
           life: 1.0,
           color: color
         });
@@ -366,23 +526,36 @@
       // Draw centered at playerX
       ctx.drawImage(owlImage, playerX - playerWidth / 2, dinoCanvas.height - playerHeight - 10, playerWidth, playerHeight);
 
-      // Draw Letters
-      ctx.font = "bold 24px Arial";
+      // Draw Popups (+10 text)
+      popups.forEach(p => {
+        ctx.fillStyle = `rgba(255, 255, 0, ${p.life})`; // Yellow fading text
+        ctx.font = "bold 20px Inter, Arial";
+        ctx.fillText("+10", p.x, p.y);
+      });
+
+      // Draw Letters & Bonuses
       ctx.textAlign = "center";
       letters.forEach(l => {
-        ctx.fillStyle = l.color;
-        // Draw bubble background
-        ctx.beginPath();
-        ctx.arc(l.x, l.y - 8, 20, 0, Math.PI * 2);
-        ctx.fillStyle = "white";
-        ctx.fill();
-        ctx.strokeStyle = l.color;
-        ctx.lineWidth = 2;
-        ctx.stroke();
+        if (l.isBonus) {
+          // Draw Bonus (Gold Star look)
+          ctx.font = "30px Arial";
+          ctx.fillText("⭐", l.x, l.y);
+        } else {
+          ctx.font = "bold 24px Arial";
+          ctx.fillStyle = l.color;
+          // Draw bubble background
+          ctx.beginPath();
+          ctx.arc(l.x, l.y - 8, 20, 0, Math.PI * 2);
+          ctx.fillStyle = "white";
+          ctx.fill();
+          ctx.strokeStyle = l.color;
+          ctx.lineWidth = 2;
+          ctx.stroke();
 
-        // Draw Letter
-        ctx.fillStyle = l.color;
-        ctx.fillText(l.char, l.x, l.y);
+          // Draw Letter
+          ctx.fillStyle = l.color;
+          ctx.fillText(l.char, l.x, l.y);
+        }
       });
 
       // Draw Particles
@@ -395,22 +568,40 @@
       });
       ctx.globalAlpha = 1.0;
 
-      // Draw Lives Bars (Top Left)
-      const barWidth = 30;
-      const barHeight = 8;
-      const barPadding = 5;
+      // Draw Vertical Health Gauge (3 Dots Style)
+      const gaugeX = 30;
+      const gaugeY = 60;
+      const dotRadius = 8;
+      const dotPadding = 15;
+
       for (let i = 0; i < 3; i++) {
-        ctx.fillStyle = i < lives ? "#ec4899" : "rgba(128, 128, 128, 0.3)";
+        const isActive = i < lives;
+        // Drawing from bottom to top
+        const dotY = gaugeY + (2 - i) * (dotRadius * 2 + dotPadding);
+
+        // Slot Background (Empty dot)
+        ctx.fillStyle = "rgba(255, 255, 255, 0.1)";
         ctx.beginPath();
-        ctx.roundRect(20 + i * (barWidth + barPadding), 20, barWidth, barHeight, 4);
+        ctx.arc(gaugeX, dotY, dotRadius, 0, Math.PI * 2);
         ctx.fill();
+
+        if (isActive) {
+          // Solid / Dull dot (No glow)
+          ctx.fillStyle = "#ec4899";
+          ctx.beginPath();
+          ctx.arc(gaugeX, dotY, dotRadius - 2, 0, Math.PI * 2);
+          ctx.fill();
+        }
       }
 
-      // Draw Score and "Paused" text if not active
-      ctx.fillStyle = document.body.classList.contains('dark') ? "#fff" : "#333";
-      ctx.font = "bold 20px Arial";
-      ctx.textAlign = "right";
-      ctx.fillText("Score: " + score, dinoCanvas.width - 20, 30);
+      // Draw Score (Middle-Top for better visibility)
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 24px Inter, Arial";
+      ctx.textAlign = "center";
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = "rgba(0,0,0,0.5)";
+      ctx.fillText("Score: " + score, dinoCanvas.width / 2, 35);
+      ctx.shadowBlur = 0;
 
       if (!gameActive) {
         ctx.fillStyle = "rgba(0,0,0,0.6)";
@@ -442,6 +633,7 @@
       // Spawn Letters
       frameCount++;
       if (frameCount % spawnRate === 0) {
+        const isBonus = Math.random() < 0.1; // 10% chance for bonus
         const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         const char = chars[Math.floor(Math.random() * chars.length)];
         const colors = ["#ec4899", "#3b82f6", "#10b981", "#f59e0b", "#8b5cf6"];
@@ -449,12 +641,13 @@
           x: Math.random() * (dinoCanvas.width - 40) + 20,
           y: -20,
           char: char,
-          speed: letterSpeedBase + Math.random() * 2,
-          color: colors[Math.floor(Math.random() * colors.length)]
+          isBonus: isBonus,
+          speed: letterSpeedBase + Math.random() * 2 + (isBonus ? 1 : 0),
+          color: isBonus ? "#fbbf24" : colors[Math.floor(Math.random() * colors.length)]
         });
 
         // Make it harder over time
-        if (score > 10 && score % 5 === 0) spawnRate = Math.max(20, 60 - score);
+        if (score > 10 && score % 5 === 0) spawnRate = Math.max(20, 60 - Math.floor(score / 5));
       }
 
       // Update Letters
@@ -469,7 +662,16 @@
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < 40) { // Caught!
-          score++;
+          if (l.isBonus) {
+            score += 10;
+            popups.push({ x: l.x, y: (dinoCanvas.height - 35), life: 1.0 });
+          } else {
+            score++;
+          }
+          // Refill Life Feature: Restore one life if player has lost any
+          if (lives < 3) {
+            lives++;
+          }
           playSound('catch');
           createExplosion(l.x, l.y, l.color);
           letters.splice(i, 1);
@@ -495,6 +697,14 @@
         p.y += p.vy;
         p.life -= 0.05;
         if (p.life <= 0) particles.splice(i, 1);
+      }
+
+      // Update Popups
+      for (let i = popups.length - 1; i >= 0; i--) {
+        let p = popups[i];
+        p.y -= 2; // Float up
+        p.life -= 0.02; // Fade out
+        if (p.life <= 0) popups.splice(i, 1);
       }
     }
 
@@ -522,11 +732,19 @@
         moveRight = true;
         if (!gameActive) resetGame();
       }
-      if (e.key === " " || e.key === "Spacebar") {
-        e.preventDefault(); // Prevent page scroll
+      if (e.key === "Enter" || e.key === " ") {
         if (!gameActive) resetGame();
       }
     });
+
+    // Touch Support for Mobile Buttons
+    const leftBtn = document.getElementById("leftBtn");
+    const rightBtn = document.getElementById("rightBtn");
+
+    leftBtn.addEventListener("touchstart", (e) => { e.preventDefault(); moveLeft = true; if (!gameActive) resetGame(); });
+    leftBtn.addEventListener("touchend", (e) => { e.preventDefault(); moveLeft = false; });
+    rightBtn.addEventListener("touchstart", (e) => { e.preventDefault(); moveRight = true; if (!gameActive) resetGame(); });
+    rightBtn.addEventListener("touchend", (e) => { e.preventDefault(); moveRight = false; });
 
     window.addEventListener("keyup", e => {
       if (e.key === "ArrowLeft") moveLeft = false;
@@ -542,25 +760,18 @@
 
     // Resize Logic
     function resizeGameCanvas() {
-      const container = document.getElementById("offlineContainer");
-      if (!container) return;
+      const modalContent = document.getElementById("modalContent");
+      if (!modalContent) return;
 
-      // Calculate available width
-      const availableWidth = container.offsetWidth - (window.innerWidth < 640 ? 32 : 48);
-      const width = Math.min(availableWidth, 600);
-
-      // Maintain aspect ratio 2:1 for game logic, but allow scaling
-      const height = width * 0.5;
+      // Fill the entire available space in the modal content
+      const width = modalContent.clientWidth;
+      const height = modalContent.clientHeight;
 
       dinoCanvas.width = width;
       dinoCanvas.height = height;
 
-      // Maintain player position ratio
       if (typeof playerX !== 'undefined') {
-        const ratio = playerX / (dinoCanvas.width || width);
-        playerX = width * ratio;
-        if (playerX > width - playerWidth / 2) playerX = width - playerWidth / 2;
-        if (playerX < playerWidth / 2) playerX = playerWidth / 2;
+        playerX = width / 2;
       }
     }
 
@@ -595,16 +806,46 @@
       resizeGameCanvas();
       if (typeof drawGame === 'function') drawGame();
     });
+
     // Initial resize
     setTimeout(() => {
       resizeGameCanvas();
       if (typeof drawGame === 'function') drawGame();
     }, 100);
 
+    // Modal Controls
+    const gameModal = document.getElementById("gameModal");
+    const playGameBtn = document.getElementById("playGameBtn");
+    const closeGameBtn = document.getElementById("closeGame");
+
+    playGameBtn.addEventListener("click", () => {
+      gameModal.classList.add("active");
+      // Wait for modal to be visible so clientWidth/Height are not 0
+      setTimeout(() => {
+        resizeGameCanvas();
+        resetGame();
+      }, 100);
+    });
+
+    closeGameBtn.addEventListener("click", () => {
+      gameModal.classList.remove("active");
+      gameActive = false;
+      if (gameLoopId) cancelAnimationFrame(gameLoopId);
+    });
+
+    // Close on click outside
+    gameModal.addEventListener("click", (e) => {
+      if (e.target === gameModal) {
+        gameModal.classList.remove("active");
+        gameActive = false;
+        if (gameLoopId) cancelAnimationFrame(gameLoopId);
+      }
+    });
+
     // ===============================
     // REVIEW DATA HANDLING
     // ===============================
-    const API_URL = "/reviews";
+    const API_URL = "/api/reviews";
     const PENDING_KEY = "pendingReviews";
     let selectedRating = 0;
     let lastFetchedReviews = [];
@@ -658,23 +899,23 @@
     }
 
     async function fetchReviews() {
+      const statusEl = document.getElementById("serverStatus");
       try {
         const res = await fetch(API_URL);
         if (!res.ok) throw new Error("Fetch failed");
         const data = await res.json();
         lastFetchedReviews = data;
 
-        if (gameInterval) { clearInterval(gameInterval); gameInterval = null; }
-        gameStarted = false; gameOver = false;
-        offlineScreen.style.display = "none";
+        statusEl.classList.remove("offline");
+        statusEl.textContent = "";
 
-        renderReviews(lastFetchedReviews); // only show server reviews on main grid
-        renderLatestReviews();             // panel shows both fetched + pending
-      } catch {
-        offlineScreen.style.display = "flex";
-        startDinoGame(); // Shows the "Press to Start" screen
+        renderReviews(lastFetchedReviews);
         renderLatestReviews();
-        setTimeout(fetchReviews, 5000); // Increased interval to be less aggressive
+      } catch (err) {
+        console.error("Fetch reviews error:", err);
+        statusEl.classList.add("offline");
+        statusEl.textContent = "⚠️ Server Offline (Showing Cached)";
+        renderLatestReviews();
       }
     }
 
@@ -758,11 +999,6 @@
     // ===============================
     window.addEventListener("online", () => {
       syncPendingReviews();
-      if (gameInterval) { clearInterval(gameInterval); gameInterval = null; }
-      resetGame();
-      gameStarted = false;
-      gameOver = false;
-      offlineScreen.style.display = "none";
       fetchReviews();
     });
 

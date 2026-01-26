@@ -28,8 +28,8 @@
     }
 
     .logo-animate:hover {
-      transform: rotate(360deg) scale(1.1);
-      filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.9));
+      transform: scale(1.05);
+      filter: brightness(1.1);
     }
 
     .faq-item {
@@ -40,58 +40,59 @@
       transform: scale(1.02);
     }
 
-    /* Fixed at bottom-right */
+    /* Floating at bottom-right */
     #questionBox {
       position: fixed;
-      bottom: 0;
+      bottom: 20px;
       right: 20px;
-      width: 280px;
+      width: 300px;
       background-color: white;
-      /* default light mode */
-      padding: 8px;
-      border-radius: 12px 12px 0 0;
-      box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.15);
+      padding: 12px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
       overflow: hidden;
-      height: 40px;
-      transition: all 0.3s ease;
+      height: 50px;
+      transition: all 0.3s ease-out;
       z-index: 50;
+      border: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     /* Dark mode background */
     body.dark #questionBox {
       background-color: #1f2937;
-      /* Tailwind gray-800 */
-      box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     /* Expand smoothly */
     #questionBox:hover {
-      height: 270px;
-      background-color: rgba(255, 255, 255, 0.95);
+      height: 320px;
+      background-color: rgba(255, 255, 255, 1);
     }
 
     body.dark #questionBox:hover {
-      background-color: #374151;
-      /* slightly lighter gray for hover */
+      background-color: #1f2937;
     }
 
     /* Inner content */
     #questionBox h2,
     #questionBox p,
     #questionBox textarea,
-    #questionBox button,
+    #questionBox .flex,
     #questionBox #submitMsg {
       opacity: 0;
       transition: opacity 0.3s ease;
+      pointer-events: none;
     }
 
     /* Reveal content on hover */
     #questionBox:hover h2,
     #questionBox:hover p,
     #questionBox:hover textarea,
-    #questionBox:hover button,
+    #questionBox:hover .flex,
     #questionBox:hover #submitMsg {
       opacity: 1;
+      pointer-events: auto;
     }
 
     /* Textarea styling */
@@ -134,7 +135,7 @@
 
         <!-- Brand -->
         <a href="/home" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
-          <img src="/static/images/logo.jpg" alt="WordWise Logo"
+          <img src="/static/images/logo.jpg" alt="WordWise Logo" loading="lazy"
             class="w-[clamp(32px,6vw,48px)] h-[clamp(32px,6vw,48px)] rounded-full logo-animate object-cover border-2 border-gray-300 dark:border-white" />
           <span class="text-[clamp(1.1rem,2vw,1.75rem)] font-extrabold tracking-tight">
             <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-pink-500">Word</span>
@@ -183,6 +184,12 @@
       document.getElementById("mobile-menu").classList.toggle("hidden");
     });
   </script>
+
+  <!-- Production Disclaimer -->
+  <div
+    class="w-full bg-red-600 text-white text-[8px] py-0.5 text-center font-bold uppercase tracking-wider z-[60] select-none">
+    ⚠️ PRODUCTION DEMO: Not a real website. All features for demonstration. Data is temporary. ⚠️
+  </div>
 
   <!-- FAQ Section -->
   <main class="flex-1 p-6 flex flex-col items-center">

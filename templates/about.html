@@ -234,7 +234,7 @@
 
         <!-- Brand -->
         <a href="/home" class="flex items-center gap-2 group select-none mb-2 md:mb-0">
-          <img src="/static/images/logo.jpg" alt="WordWise Logo"
+          <img src="/static/images/logo.jpg" alt="WordWise Logo" loading="lazy"
             class="w-[clamp(32px,6vw,48px)] h-[clamp(32px,6vw,48px)] rounded-full logo-animate object-cover border-2 border-gray-300 dark:border-white" />
           <span class="text-[clamp(1.1rem,2vw,1.75rem)] font-extrabold tracking-tight">
             <span class="bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-500 to-pink-500">Word</span>
@@ -299,6 +299,12 @@
     </div>
   </nav>
 
+  <!-- Production Disclaimer -->
+  <div
+    class="w-full bg-red-600 text-white text-[8px] py-0.5 text-center font-bold uppercase tracking-wider z-[60] select-none">
+    ⚠️ PRODUCTION DEMO: Not a real website. All features for demonstration. Data is temporary. ⚠️
+  </div>
+
   <script>
     document.getElementById("menu-toggle").addEventListener("click", () => {
       document.getElementById("mobile-menu").classList.toggle("hidden");
@@ -312,7 +318,7 @@
 
       <!-- Owner Image -->
       <div class="flex-shrink-0 relative">
-        <img src="/static/images/owner.jpg" alt="Creative Illustration" id="ownerImg"
+        <img src="/static/images/owner.jpg" alt="Creative Illustration" id="ownerImg" loading="lazy"
           class="w-64 h-64 object-cover rounded-2xl border-4 border-gray-300 dark:border-white shadow-lg owner-img" />
       </div>
 
