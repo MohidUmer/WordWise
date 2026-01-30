@@ -1,4 +1,4 @@
-# Word Wi s e – Smart Grammar & Writing Assistant
+# Word Wis e – Smart Grammar & Writing Assistant
 
 ---
 
