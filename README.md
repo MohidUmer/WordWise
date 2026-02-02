@@ -1,5 +1,6 @@
 # WordWise – Smart Grammar & Writing Assistant
 
+
 ---
 
 ## 1. Project Overview
