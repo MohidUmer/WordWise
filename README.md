@@ -1,7 +1,5 @@
 # Word Wise – Smart Grammar & Writing Assistant
 
-
-
 ---
 
 ## 1. Project Overview
