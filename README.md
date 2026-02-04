@@ -9,7 +9,7 @@ WordWise was created to **improve writing clarity, correctness, and confidence**
 It addresses the common issues faced by students and professionals such as grammatical errors, poor sentence flow, and lack of writing insights — while maintaining **privacy-first and lightweight design principles**.
 
 ### 1.2 What
-A **web-based smart grammar and writing assistant** that provides:
+A **web-based smart grammar & writing assistant** that provides:
 
 - Real-time grammar, spelling, and punctuation correction  
 - Context-aware writing suggestions  
