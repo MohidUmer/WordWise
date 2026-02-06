@@ -1,4 +1,4 @@
-# Wor dWise – Smart Grammar & Writing Assistant
+# WordWise – Smart Grammar & Writing Assistant
 
 ---
 
