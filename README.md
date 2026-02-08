@@ -1,4 +1,4 @@
- WrdWise – Smart Grammar & Writing Assistant
+# WrdWise – Smart Grammar & Writing Assistant
 
 ---
 
