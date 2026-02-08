@@ -2,7 +2,7 @@
 
 ---
 
-## 1. Project Overvie
+## 1. Project Overvi
 
 ### 1.1 Why
 WordWise was created to **improve writing clarity, correctness, and confidence** in real time.  
