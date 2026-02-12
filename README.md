@@ -1,4 +1,4 @@
-# W ordWise – Smart Grammar & Writing Assistant
+# W or dWise – Smart Grammar & Writing Assistant
 
 ---
 
