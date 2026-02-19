@@ -1,4 +1,4 @@
-# Word W is e – Smart Grammar & Writing Assistant
+# Word W ise – Smart Grammar & Writing Assistant
 
 ---
 
